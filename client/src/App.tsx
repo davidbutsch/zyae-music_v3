@@ -1,5 +1,12 @@
+import { AppProvider } from "./providers";
+import { AppRoutes } from "./routes";
+
 const App = (): JSX.Element => {
-  return <>Zyae Music</>;
+  return (
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
+  );
 };
 
 export default App;
