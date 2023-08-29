@@ -1,6 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import { Provider as ReduxProvider } from "react-redux";
+import { ThemeProvider } from "./ThemeProvider";
 import { store } from "@/stores";
 
 type AppProviderProps = {
@@ -10,7 +11,9 @@ type AppProviderProps = {
 export const AppProvider = ({ children }: AppProviderProps): JSX.Element => {
   return (
     <BrowserRouter basename="/music">
-      <ReduxProvider store={store}>{children}</ReduxProvider>
+      <ReduxProvider store={store}>
+        <ThemeProvider>{children}</ThemeProvider>
+      </ReduxProvider>
     </BrowserRouter>
   );
 };
