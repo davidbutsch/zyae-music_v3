@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import fs from "fs";
+import path from "path";
 import react from "@vitejs/plugin-react";
 
 const httpsConfig = {
@@ -17,5 +18,10 @@ export default defineConfig({
       cert: fs.readFileSync(httpsConfig.cert),
     },
     open: true,
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src/"),
+    },
   },
 });
