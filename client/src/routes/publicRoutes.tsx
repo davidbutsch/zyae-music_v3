@@ -1,9 +1,15 @@
 import { Navigate, Outlet, RouteObject } from "react-router-dom";
 
+import { AppLayout } from "@/components";
+
 export const publicRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <Outlet />,
+    element: (
+      <AppLayout>
+        <Outlet />
+      </AppLayout>
+    ),
     children: [
       {
         path: "/",
