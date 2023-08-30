@@ -21,6 +21,24 @@ import { NavPlaylists } from "@/features/playlists";
 import { colors } from "@/styles";
 import { useNavigate } from "react-router-dom";
 
+const navRoutes = [
+  {
+    title: "Home",
+    icon: "music-alt",
+    to: "/",
+  },
+  {
+    title: "Explore",
+    icon: "world",
+    to: "/explore",
+  },
+  {
+    title: "Saved",
+    icon: "bookmark",
+    to: "/saved",
+  },
+];
+
 const StyledLinkButton = styled(LinkButton)(({ theme }) =>
   theme.unstable_sx({
     justifyContent: "left",
