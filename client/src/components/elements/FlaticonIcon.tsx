@@ -15,6 +15,10 @@ export const FlaticonIcon = (props: FlaticonIconProps) => {
   const { icon, size, ...other } = props;
 
   return (
-    <Icon {...other} className={props.icon} sx={{ fontSize: size || 16 }} />
+    <Icon
+      {...other}
+      className={props.icon}
+      sx={{ fontSize: size || 16, ...other.sx }}
+    />
   );
 };
