@@ -92,5 +92,12 @@ export const theme = createTheme({
       },
     },
     MuiMenuItem,
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: lighten(colors.bg, 0.1),
+        },
+      },
+    },
   },
 });
