@@ -41,9 +41,10 @@ const navRoutes = [
 
 const StyledLinkButton = styled(LinkButton)(({ theme }) =>
   theme.unstable_sx({
+    px: 2.5,
+
     justifyContent: "left",
     gap: 2.5,
-    px: 2.5,
   })
 );
 
@@ -51,7 +52,13 @@ const Navbar = (): JSX.Element => {
   const navigate = useNavigate();
 
   return (
-    <Stack width="240px" height="100vh" px={1.5}>
+    <Stack
+      width="20vw"
+      minWidth="190px"
+      maxWidth="260px"
+      height="100vh"
+      px={1.5}
+    >
       <Stack
         height={64}
         direction="row"
