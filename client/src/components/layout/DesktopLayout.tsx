@@ -101,12 +101,12 @@ const Navbar = (): JSX.Element => {
             variant: "translucent",
             children: (
               <>
-                <FlaticonIcon icon="fi fi-sr-search" /> Browse
+                <FlaticonIcon icon="fi fi-sr-world" /> Explore
               </>
             ),
           }}
         >
-          <FlaticonIcon icon="fi fi-rr-search" /> Browse
+          <FlaticonIcon icon="fi fi-rr-world" /> Explore
         </StyledLinkButton>
         <StyledLinkButton
           to="/favorites"
@@ -114,12 +114,12 @@ const Navbar = (): JSX.Element => {
             variant: "translucent",
             children: (
               <>
-                <FlaticonIcon icon="fi fi-sr-bookmark" /> Saves
+                <FlaticonIcon icon="fi fi-sr-bookmark" /> Saved
               </>
             ),
           }}
         >
-          <FlaticonIcon icon="fi fi-rr-bookmark" /> Saves
+          <FlaticonIcon icon="fi fi-rr-bookmark" /> Saved
         </StyledLinkButton>
       </Stack>
       <Divider
