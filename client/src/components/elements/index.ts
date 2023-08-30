@@ -1,3 +1,5 @@
 export * from "./ImageIcon";
-export * from "./LinkButton";
 export * from "./FlaticonIcon";
+
+export * from "./LinkButton";
+export * from "./IconButton";
