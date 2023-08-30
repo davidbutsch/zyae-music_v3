@@ -15,7 +15,9 @@ export const LinkButton = (props: LinkButtonProps) => {
   return (
     <Button
       {...other}
-      onClick={() => navigate(to)}
+      onClick={() =>
+        to.startsWith("http") ? (document.location.href = to) : navigate(to)
+      }
       {...(pathMatch ? activeProps : {})}
     />
   );
