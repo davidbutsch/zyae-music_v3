@@ -10,6 +10,7 @@ const httpsConfig = {
 
 export default defineConfig({
   plugins: [react()],
+  base: "/music",
   server: {
     host: "zyae.net",
     port: 3000,
