@@ -54,8 +54,8 @@ const Navbar = (): JSX.Element => {
   return (
     <Stack
       width="20vw"
-      minWidth="190px"
-      maxWidth="260px"
+      minWidth="210px"
+      maxWidth="300px"
       height="100vh"
       px={1.5}
     >
@@ -82,45 +82,26 @@ const Navbar = (): JSX.Element => {
         </Typography>
       </Stack>
       <Stack spacing={0.5}>
-        <StyledLinkButton
-          to="/"
-          activeProps={{
-            variant: "translucent",
-            children: (
-              <>
-                <FlaticonIcon icon="fi fi-sr-music-alt" /> Home
-              </>
-            ),
-          }}
-        >
-          <FlaticonIcon icon="fi fi-rr-music-alt" /> Home
-        </StyledLinkButton>
-        <StyledLinkButton
-          to="/browse"
-          activeProps={{
-            variant: "translucent",
-            children: (
-              <>
-                <FlaticonIcon icon="fi fi-sr-world" /> Explore
-              </>
-            ),
-          }}
-        >
-          <FlaticonIcon icon="fi fi-rr-world" /> Explore
-        </StyledLinkButton>
-        <StyledLinkButton
-          to="/favorites"
-          activeProps={{
-            variant: "translucent",
-            children: (
-              <>
-                <FlaticonIcon icon="fi fi-sr-bookmark" /> Saved
-              </>
-            ),
-          }}
-        >
-          <FlaticonIcon icon="fi fi-rr-bookmark" /> Saved
-        </StyledLinkButton>
+        {navRoutes.map((route) => {
+          return (
+            <StyledLinkButton
+              key={route.title}
+              to={route.to}
+              activeProps={{
+                variant: "translucent",
+                children: (
+                  <>
+                    <FlaticonIcon icon={`fi fi-sr-${route.icon}`} />
+                    {route.title}
+                  </>
+                ),
+              }}
+            >
+              <FlaticonIcon icon={`fi fi-rr-${route.icon}`} />
+              {route.title}
+            </StyledLinkButton>
+          );
+        })}
       </Stack>
       <Divider
         sx={{ my: 2, mx: -1.5, borderColor: lighten(colors.bg, 0.075) }}
@@ -193,19 +174,100 @@ const Header = (): JSX.Element => {
   );
 };
 
+const PlayerBar = (): JSX.Element => {
+  if (1 == (2 as number)) return <></>;
+  else
+    return (
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          py: 1.5,
+          px: 2.5,
+          width: "100vw",
+        }}
+      >
+        <FlaticonIcon
+          sx={{
+            p: 2,
+            bgcolor: lighten(colors.bg, 0.1),
+            color: "text.secondary",
+            borderRadius: 0.5,
+          }}
+          icon="fi fi-sr-music-alt"
+          size={20}
+        />
+        <Stack
+          spacing={1.25}
+          justifyContent="center"
+          width="100%"
+          maxWidth={200}
+        >
+          <Box
+            component="span"
+            sx={{
+              display: "flex",
+
+              height: 14,
+              bgcolor: lighten(colors.bg, 0.1),
+              borderRadius: 7,
+            }}
+          />
+          <Box
+            component="span"
+            sx={{
+              display: "flex",
+
+              width: "75%",
+
+              height: 14,
+              bgcolor: lighten(colors.bg, 0.1),
+              borderRadius: 7,
+            }}
+          />
+        </Stack>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="right"
+          width="100%"
+        >
+          <IconButton size="large">
+            <FlaticonIcon icon="fi fi-sr-rewind" size={1} />
+          </IconButton>
+          <IconButton size="large">
+            <FlaticonIcon
+              icon="fi fi-sr-play"
+              sx={{ fontSize: "26px !important" }}
+            />
+          </IconButton>
+          <IconButton size="large">
+            <FlaticonIcon icon="fi fi-sr-forward" size={1} />
+          </IconButton>
+        </Stack>
+      </Stack>
+    );
+};
+
 const Main = styled("main")(({ theme }) =>
   theme.unstable_sx({
     px: 5,
     py: 4,
 
-    height: "calc(100vh - 64px)",
+    height: "calc(100vh - 64px - 76px)",
 
     bgcolor: "background.default",
 
     border: `solid 1px ${lighten(colors.bg, 0.075)}`,
     borderRight: "none",
-    borderBottom: "none",
+    // borderBottom: "none",
     borderTopLeftRadius: 16,
+    borderBottomLeftRadius: 16,
+
+    overflow: "hidden",
   })
 );
 
@@ -223,6 +285,7 @@ export const DesktopLayout = ({
       <Grid item xs>
         <Header />
         <Main>{children}</Main>
+        <PlayerBar />
       </Grid>
     </Grid>
   );
