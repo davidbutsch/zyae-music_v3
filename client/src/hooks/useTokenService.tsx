@@ -44,19 +44,20 @@ export const useTokenService = () => {
       try {
         const user = await getMe();
         dispatch(setUser(user)), setStatus("auth");
+        registerClient();
       } catch (err) {
         dispatch(clearUser()), setStatus("noauth");
       }
-
-      registerClient();
     })();
 
-    const refreshInterval = setInterval(
-      async () => await getNewTokens(),
-      1000 * 60 * 5
-    );
+    if (status == "auth") {
+      const refreshInterval = setInterval(
+        async () => await getNewTokens(),
+        1000 * 60 * 5
+      );
 
-    return () => clearInterval(refreshInterval);
+      return () => clearInterval(refreshInterval);
+    }
   }, []);
 
   return { status };
