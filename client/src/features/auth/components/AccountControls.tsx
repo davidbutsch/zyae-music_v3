@@ -39,7 +39,6 @@ export const AccountControls = (): JSX.Element => {
               profilePopover.isOpen ? "up" : "down"
             }`}
             size={16}
-            sx={{ paddingTop: profilePopover.isOpen ? 0 : 1 }}
           />
         </Button>
         <profilePopover.Element {...profilePopover.elementProps}>
