@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Hidden,
   IconButton,
   Stack,
   Typography,
@@ -41,6 +40,8 @@ export const NavPlaylists = (): JSX.Element => {
             sx={{
               p: 1,
               borderRadius: 0.5,
+
+              cursor: "pointer",
               ":hover": {
                 bgcolor: lighten(colors.bg, 0.05),
               },
@@ -56,7 +57,6 @@ export const NavPlaylists = (): JSX.Element => {
               component="span"
               sx={{
                 overflow: "hidden",
-                cursor: "pointer",
                 "*": {
                   overflow: "hidden",
                   whiteSpace: "nowrap",
@@ -66,7 +66,7 @@ export const NavPlaylists = (): JSX.Element => {
             >
               <Typography>Liked Music</Typography>
               <Typography variant="subtitle2" color="text.secondary">
-                0 tracks • Auto Generated
+                0 tracks • David
               </Typography>
             </Box>
           </Stack>
@@ -76,8 +76,8 @@ export const NavPlaylists = (): JSX.Element => {
           sx={{
             background: `linear-gradient(45deg, ${alpha(
               colors.primary,
-              0.15
-            )}, ${alpha(colors.secondary, 0.3)})`,
+              0.2
+            )}, ${alpha(colors.secondary, 0.4)})`,
           }}
           p={2}
           mt={2}
@@ -85,14 +85,21 @@ export const NavPlaylists = (): JSX.Element => {
         >
           <Button
             variant="translucent"
+            fullWidth
+            sx={{ bgcolor: alpha(colors.accent, 0.16) }}
             onClick={() =>
-              (document.location.href = `https://zyae.net/login/?rd=${document.location.href}`)
+              (document.location.href = `https://zyae.net/signup/?rd=${document.location.href}`)
             }
           >
-            Log in
+            Create account
           </Button>
-          <Typography variant="subtitle2" mt={1} fontSize={12}>
-            Log in to save and share playlists
+          <Typography
+            variant="subtitle2"
+            mt={1}
+            fontSize={13}
+            color="text.secondary"
+          >
+            Save your favorite tracks by creating a free account
           </Typography>
         </Box>
       )}
