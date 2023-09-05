@@ -1,6 +1,7 @@
 import {
   MuiButton,
   MuiButtonBase,
+  MuiCssBaseline,
   MuiIconButton,
   MuiMenuItem,
 } from "./components";
@@ -42,6 +43,7 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline,
     MuiButtonBase,
     MuiButton,
     MuiIconButton,
