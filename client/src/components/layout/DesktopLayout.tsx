@@ -266,7 +266,7 @@ const Main = styled("main")(({ theme }) =>
     borderTopLeftRadius: 16,
     borderBottomLeftRadius: 16,
 
-    overflow: "hidden",
+    overflowY: "scroll",
   })
 );
 
