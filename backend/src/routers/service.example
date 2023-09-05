@@ -1,0 +1,15 @@
+import { AppError } from "@/types";
+import { newInternalError } from "@/utils";
+
+export const process = async (process: string) => {
+  try {
+    process += ".ProcessName";
+
+    const data = {};
+
+    return data;
+  } catch (err) {
+    if (err instanceof AppError) throw err;
+    else throw newInternalError(process, err);
+  }
+};
