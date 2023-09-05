@@ -254,8 +254,7 @@ const PlayerBar = (): JSX.Element => {
 
 const Main = styled("main")(({ theme }) =>
   theme.unstable_sx({
-    px: 5,
-    py: 4,
+    position: "relative",
 
     height: "calc(100vh - 64px - 76px)",
 
@@ -279,7 +278,7 @@ export const DesktopLayout = ({
   children,
 }: DesktopLayoutProps): JSX.Element => {
   return (
-    <Grid container bgcolor={lighten(colors.bg, 0.015)}>
+    <Grid container flexWrap="nowrap" bgcolor={lighten(colors.bg, 0.015)}>
       <CssBaseline />
       <Navbar />
       <Grid item xs>
