@@ -6,10 +6,10 @@ import { StyledOptions } from "@emotion/styled";
 
 const translucentStyle = (color = colors.accent) =>
   theme.unstable_sx({
-    bgcolor: alpha(color, 0.15),
+    bgcolor: alpha(color, 0.08),
     color: color,
     "&:hover": {
-      backgroundColor: alpha(color, 0.2),
+      backgroundColor: alpha(color, 0.16),
     },
   });
 

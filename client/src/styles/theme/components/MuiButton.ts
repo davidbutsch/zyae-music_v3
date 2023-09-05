@@ -6,10 +6,10 @@ import { theme } from "..";
 
 const translucentStyle = (color = colors.accent) =>
   theme.unstable_sx({
-    bgcolor: alpha(color, 0.15),
+    bgcolor: alpha(color, 0.08),
     color: color,
     "&:hover": {
-      backgroundColor: alpha(color, 0.2),
+      backgroundColor: alpha(color, 0.16),
     },
   });
 
@@ -22,7 +22,7 @@ export const MuiButton: Components<Theme>["MuiButton"] = {
 
       const styles = [
         theme.unstable_sx({
-          padding: { small: 1, medium: 1.5, large: 2 }[size],
+          px: { small: 1, medium: 1.5, large: 2 }[size],
           height: sizes[size],
 
           display: "flex",
