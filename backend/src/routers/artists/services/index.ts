@@ -1,1 +1,1 @@
-export * from "./fetchArtist";
+export * from "./fetchArtistData";

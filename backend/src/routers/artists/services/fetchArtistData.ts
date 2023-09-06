@@ -2,9 +2,9 @@ import { AppError } from "@/types";
 import { newInternalError } from "@/utils";
 import { ytMusic } from "@/loaders";
 
-export const fetchArtist = async (process: string, artistId: string) => {
+export const fetchArtistData = async (process: string, artistId: string) => {
   try {
-    process += ".FetchArtist";
+    process += ".FetchArtistData";
 
     const ytArtist = await ytMusic.getArtist(artistId);
 
