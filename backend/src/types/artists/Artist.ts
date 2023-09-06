@@ -1,6 +1,7 @@
 import { Track } from "@/types";
 
 export type Artist = {
+  id: string;
   description: string;
   views: string;
   name: string;
