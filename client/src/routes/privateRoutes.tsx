@@ -1,7 +1,7 @@
 import { Navigate, Outlet, RouteObject } from "react-router-dom";
 
 import { AppLayout } from "@/components";
-import { Artist } from "@/features/artists";
+import { ArtistPage } from "@/features/artists";
 import { Typography } from "@mui/material";
 
 export const privateRoutes: RouteObject[] = [
@@ -35,7 +35,7 @@ export const privateRoutes: RouteObject[] = [
       },
       {
         path: "/artist/:artistId",
-        element: <Artist />,
+        element: <ArtistPage />,
       },
       {
         path: "*",

@@ -1,7 +1,7 @@
 import { Navigate, Outlet, RouteObject } from "react-router-dom";
 
 import { AppLayout } from "@/components";
-import { Artist } from "@/features/artists";
+import { ArtistPage } from "@/features/artists";
 import { AuthPromptPage } from "@/features/misc";
 import { Explore } from "@/features/explore";
 import { PNG_LOGO_URL } from "@/config";
@@ -52,7 +52,7 @@ export const publicRoutes: RouteObject[] = [
       },
       {
         path: "/artist/:artistId",
-        element: <Artist />,
+        element: <ArtistPage />,
       },
       {
         path: "*",
