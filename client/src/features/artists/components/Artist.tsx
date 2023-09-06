@@ -145,14 +145,18 @@ export const Artist = () => {
       />
       <Content>
         <Stack
-          mt={{ xs: -15, sm: -25, md: -27.5 }}
           alignItems={isExtraSmallScreen ? "center" : "baseline"}
-          spacing={isExtraSmallScreen ? 2 : 1.5}
+          spacing={2.5}
+          sx={{
+            position: "relative",
+            mt: { xs: -15, sm: -25, md: -25 },
+            zIndex: 2,
+          }}
         >
           <Typography
             variant="h3"
             textAlign={isExtraSmallScreen ? "center" : "left"}
-            fontSize={{ xs: 56, sm: 56, md: 72 }}
+            fontSize={{ xs: 56, sm: 56, md: 64 }}
           >
             {artist.name}
           </Typography>
