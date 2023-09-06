@@ -1,3 +1,4 @@
+import { Artist } from "@/types";
 import { Logger } from "./logger";
 import { PythonShell } from "python-shell";
 
@@ -15,7 +16,7 @@ class YTMusic {
     });
   }
 
-  sendRequest(request: any): Promise<object> {
+  sendRequest(request: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const uniqueId = Math.random().toString(36).substring(2);
 
@@ -32,7 +33,7 @@ class YTMusic {
     });
   }
 
-  async search(query: string, filter?: string): Promise<object> {
+  async search(query: string, filter?: string): Promise<any> {
     const request = {
       action: "search",
       payload: { query, filter },
@@ -41,7 +42,7 @@ class YTMusic {
     return this.sendRequest(request);
   }
 
-  async getSong(songId: string): Promise<object> {
+  async getSong(songId: string): Promise<any> {
     const request = {
       action: "getSong",
       payload: { id: songId },
@@ -50,7 +51,7 @@ class YTMusic {
     return this.sendRequest(request);
   }
 
-  async getLyrics(songId: string): Promise<object> {
+  async getLyrics(songId: string): Promise<any> {
     const request = {
       action: "getLyrics",
       payload: { id: songId },
@@ -59,7 +60,7 @@ class YTMusic {
     return this.sendRequest(request);
   }
 
-  async getArtist(artistId: string): Promise<object> {
+  async getArtist(artistId: string): Promise<any> {
     const request = {
       action: "getArtist",
       payload: { id: artistId },
@@ -68,7 +69,7 @@ class YTMusic {
     return this.sendRequest(request);
   }
 
-  async getAlbum(albumId: string): Promise<object> {
+  async getAlbum(albumId: string): Promise<any> {
     const request = {
       action: "getAlbum",
       payload: { id: albumId },
@@ -86,7 +87,7 @@ class YTMusic {
     return this.sendRequest(request);
   }
 
-  async getWatchlist(songId: string): Promise<object> {
+  async getWatchlist(songId: string): Promise<any> {
     const request = {
       action: "getWatchlist",
       payload: { id: songId },
