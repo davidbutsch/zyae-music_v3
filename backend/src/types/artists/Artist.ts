@@ -6,6 +6,7 @@ export type Artist = {
   views: string;
   name: string;
   saved: boolean;
+  palette: any[];
   thumbnails: {
     banner: {
       mobile: string;

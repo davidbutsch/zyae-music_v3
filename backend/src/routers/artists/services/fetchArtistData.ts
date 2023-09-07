@@ -1,5 +1,6 @@
 import { AppError, Artist } from "@/types";
 
+import { getColors } from "@/shared/";
 import { newInternalError } from "@/utils";
 import { setGoogleContentSize } from "@/utils";
 import { ytMusic } from "@/loaders";
@@ -9,6 +10,8 @@ export const fetchArtistData = async (process: string, artistId: string) => {
     process += ".FetchArtistData";
 
     const ytArtist = await ytMusic.getArtist(artistId);
+
+    const palette = await getColors(process, ytArtist.thumbnails[0].url);
 
     const tracks = ytArtist.songs.results.map((track) => {
       return {
@@ -29,6 +32,7 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       views: ytArtist.views,
       name: ytArtist.name,
       saved: false,
+      palette: palette,
       thumbnails: {
         banner: {
           mobile: setGoogleContentSize(ytArtist.thumbnails[0].url, 1440, 1440),
