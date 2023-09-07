@@ -6,6 +6,17 @@ export type Artist = {
   views: string;
   name: string;
   saved: boolean;
+  palette: {
+    hex: string;
+    red: number;
+    green: number;
+    blue: number;
+    area: number;
+    hue: number;
+    saturation: number;
+    lightness: number;
+    intensity: number;
+  }[];
   thumbnails: {
     banner: {
       mobile: string;
