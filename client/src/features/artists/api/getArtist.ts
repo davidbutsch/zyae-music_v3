@@ -1,3 +1,4 @@
+import { Artist } from "@/features/artists";
 import { axios } from "@/libs/";
 import { useQuery } from "@tanstack/react-query";
 
@@ -5,8 +6,8 @@ type getArtistOptions = {
   enabled?: boolean;
 };
 
-export const getArtist = (artistId: string): Promise<any> =>
-  axios.get(`/artist/${artistId}`).then((res) => res.data.data.artist);
+export const getArtist = (artistId: string): Promise<Artist> =>
+  axios.get(`/artists/${artistId}`).then((res) => res.data.data.artist);
 
 export const useArtist = (
   artistId: string,
@@ -14,7 +15,7 @@ export const useArtist = (
 ) => {
   return useQuery({
     enabled,
-    queryKey: ["folders", artistId],
+    queryKey: ["artist", artistId],
     queryFn: async () => {
       return getArtist(artistId);
     },
