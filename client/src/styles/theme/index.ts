@@ -32,8 +32,8 @@ export const theme = createTheme({
       color: { main: colors.accent },
     }),
     text: {
-      primary: colors.accent,
-      secondary: darken(colors.accent, 0.24),
+      primary: colors.text,
+      secondary: colors.textSecondary,
     },
     error: {
       main: "#ff6161",
