@@ -1,7 +1,8 @@
 export type Track = {
   id: string;
   title: string;
-  thumbnail: string;
+  thumbnail: { small: string; large: string };
+  duration: string;
   artists: {
     name: string;
     id: string;

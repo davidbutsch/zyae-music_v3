@@ -1,4 +1,4 @@
-import { AppError, Artist } from "@/types";
+import { AppError, Artist, Track } from "@/types";
 
 import { getColors } from "@/shared/";
 import { newInternalError } from "@/utils";
@@ -8,24 +8,27 @@ import { ytMusic } from "@/loaders";
 export const fetchArtistData = async (process: string, artistId: string) => {
   try {
     process += ".FetchArtistData";
-
     const ytArtist = await ytMusic.getArtist(artistId);
-
     const palette = await getColors(process, ytArtist.thumbnails[0].url);
-
-    const tracks = ytArtist.songs.results.map((track) => {
-      return {
+    const tracks: Track[] = ytArtist.songs.results.map(
+      (track): Track => ({
         id: track.videoId,
         title: track.title,
-        thumbnail: setGoogleContentSize(track.thumbnails[0].url, 120, 120),
+        thumbnail: {
+          small: setGoogleContentSize(track.thumbnails[0].url, 120, 120),
+          large: setGoogleContentSize(track.thumbnails[0].url, 512, 512),
+        },
+        duration: track.duration,
         artists: track.artists,
-        album: track.album,
+        album: {
+          id: track.album.id,
+          title: track.album.name,
+        },
         saved: false,
         isAvailable: track.isAvailable,
         isExplicit: track.isExplicit,
-      };
-    });
-
+      })
+    );
     const artist: Artist = {
       id: ytArtist.channelId,
       description: ytArtist.description,
@@ -36,7 +39,7 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       thumbnails: {
         banner: {
           mobile: setGoogleContentSize(ytArtist.thumbnails[0].url, 1440, 1440),
-          desktop: setGoogleContentSize(ytArtist.thumbnails[0].url, 1440, 800),
+          desktop: setGoogleContentSize(ytArtist.thumbnails[0].url, 2880, 1800),
         },
       },
       tracks: {
@@ -44,7 +47,6 @@ export const fetchArtistData = async (process: string, artistId: string) => {
         results: tracks,
       },
     };
-
     return artist;
   } catch (err) {
     if (err instanceof AppError) throw err;
