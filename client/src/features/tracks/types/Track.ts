@@ -1,7 +1,8 @@
-export type Track = {
+export interface Track {
   id: string;
   title: string;
-  thumbnail: string;
+  thumbnail: { small: string; large: string };
+  duration: string;
   artists: {
     name: string;
     id: string;
@@ -13,4 +14,4 @@ export type Track = {
   saved: boolean;
   isAvailable: boolean;
   isExplicit: boolean;
-};
+}
