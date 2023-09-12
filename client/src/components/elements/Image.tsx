@@ -1,21 +1,14 @@
-import { Icon, styled } from "@mui/material";
-
 import { JSX } from "react";
+import { styled } from "@mui/material";
 
-type StyledIconProps = {
-  size?: number;
-};
-
-const StyledImage = styled("img")(({ size }: StyledIconProps) => {
-  return {
-    width: "100%",
-  };
+const StyledImage = styled("img")(() => {
+  return {};
 });
 
 interface ImageProps extends React.ComponentProps<typeof StyledImage> {
-  url: string;
+  src: string;
 }
 
 export const Image = (props: ImageProps): JSX.Element => {
-  return <StyledImage src={props.url} {...props} size={props.size || 16} />;
+  return <StyledImage {...props} src={props.src} />;
 };
