@@ -7,7 +7,12 @@ type ContentProps = {
 
 export const Content = ({ children }: ContentProps) => {
   return (
-    <Box py={{ xs: 2, sm: 4, md: 4 }} px={{ xs: 2, sm: 5, md: 5 }}>
+    <Box
+      position="absolute"
+      width="100%"
+      py={{ xs: 2, sm: 4, md: 4 }}
+      px={{ xs: 2, sm: 4, md: 4, lg: 8 }}
+    >
       {children}
     </Box>
   );
