@@ -29,15 +29,13 @@ export const fetchArtistData = async (process: string, artistId: string) => {
         isExplicit: track.isExplicit,
       };
     });
-    const albums: Artist["albums"]["results"] = ytArtist.albums.results.map(
-      (album: any) => ({
-        id: album.browseId,
-        title: album.title,
-        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 256, 256),
-        year: album.year,
-        isExplicit: album.isExplicit,
-      })
-    );
+    const albums: AlbumSlide[] = ytArtist.albums.results.map((album: any) => ({
+      id: album.browseId,
+      title: album.title,
+      thumbnail: setGoogleContentSize(album.thumbnails[0].url, 256, 256),
+      year: album.year,
+      isExplicit: album.isExplicit,
+    }));
     const artist: Artist = {
       id: ytArtist.channelId,
       description: ytArtist.description,
