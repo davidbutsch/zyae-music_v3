@@ -1,6 +1,6 @@
 import { Track } from "@/types";
 
-export type Artist = {
+export interface Artist {
   id: string;
   description: string;
   views: string;
@@ -33,4 +33,14 @@ export type Artist = {
     id: string;
     results: Track[];
   };
-};
+  albums: {
+    id: null;
+    results: {
+      id: string;
+      title: string;
+      thumbnail: string;
+      year: string;
+      isExplicit: boolean;
+    }[];
+  };
+}

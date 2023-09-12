@@ -27,6 +27,15 @@ export const fetchArtistData = async (process: string, artistId: string) => {
         saved: false,
         isAvailable: track.isAvailable,
         isExplicit: track.isExplicit,
+      };
+    });
+    const albums: Artist["albums"]["results"] = ytArtist.albums.results.map(
+      (album: any) => ({
+        id: album.browseId,
+        title: album.title,
+        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 256, 256),
+        year: album.year,
+        isExplicit: album.isExplicit,
       })
     );
     const artist: Artist = {
@@ -45,6 +54,10 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       tracks: {
         id: ytArtist.songs.browseId,
         results: tracks,
+      },
+      albums: {
+        id: null,
+        results: albums,
       },
     };
     return artist;

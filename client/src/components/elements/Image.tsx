@@ -10,5 +10,11 @@ interface ImageProps extends React.ComponentProps<typeof StyledImage> {
 }
 
 export const Image = (props: ImageProps): JSX.Element => {
-  return <StyledImage {...props} src={props.src} />;
+  return (
+    <StyledImage
+      {...props}
+      sx={{ minWidth: props.width, minHeight: props.height, ...props.sx }}
+      src={props.src}
+    />
+  );
 };

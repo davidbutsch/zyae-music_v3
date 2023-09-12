@@ -5,7 +5,7 @@ import {
   MuiIconButton,
   MuiMenuItem,
 } from "./components";
-import { createTheme, darken, lighten } from "@mui/material";
+import { createTheme, lighten } from "@mui/material";
 
 import { colors } from "./colors";
 import { sizes } from "./sizes";

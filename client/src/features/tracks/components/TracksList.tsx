@@ -168,7 +168,7 @@ const Cell = styled(Stack)(({ theme }) =>
     flexDirection: "row",
     alignItems: "center",
 
-    "> p, span": {
+    "*": {
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
@@ -177,34 +177,56 @@ const Cell = styled(Stack)(({ theme }) =>
 );
 
 const lists = {
-  artist: (tracks: Track[], {}: { xs: boolean; md: boolean }) => (
+  artist: (tracks: Track[], { sm }: { sm: boolean }) => (
     <Container>
       {tracks.map((track) => (
         <Row key={track.id}>
-          <Cell width="40%" gap={1}>
+          <Cell width={sm ? "100%" : "40%"}>
             <Image
               src={track.thumbnail.small}
               height={32}
               width={32}
-              sx={{ borderRadius: 1 / 8 }}
+              sx={{ mr: 2, borderRadius: 1 / 8 }}
             />
-            <Typography fontWeight={500} pl={1}>
-              {track.title}
-            </Typography>
-            {track.isExplicit && (
-              <FlaticonIcon size={12} icon="fi fi-rr-square-e" />
+            <Box component="span">
+              <Typography fontWeight={500}>{track.title}</Typography>
+              {sm && (
+                <Typography fontWeight={500} variant="subtitle2">
+                  <ArtistLink artists={track.artists} />
+                </Typography>
+              )}
+            </Box>
+          </Cell>
+          {!sm && (
+            <>
+              <Cell width="25%">
+                {track.isExplicit && (
+                  <FlaticonIcon
+                    sx={{ pr: 2, display: "inline-block" }}
+                    size={12}
+                    icon="fi fi-rr-square-e"
+                  />
+                )}
+                <ArtistLink artists={track.artists} />
+              </Cell>
+              <Cell width="25%">
+                <Typography color="text.secondary">
+                  {track.album.title}
+                </Typography>
+              </Cell>
+            </>
+          )}
+          <Cell
+            width="fit-content"
+            ml="auto"
+            justifyContent="end"
+            sx={{ ...(sm && { opacity: "1 !important" }) }}
+          >
+            {!sm && (
+              <IconButton>
+                <FlaticonIcon icon="fi fi-rr-bookmark" />
+              </IconButton>
             )}
-          </Cell>
-          <Cell width="20%">
-            <ArtistLink artists={track.artists} />
-          </Cell>
-          <Cell width="30%">
-            <Typography color="text.secondary">{track.album.title}</Typography>
-          </Cell>
-          <Cell width="fit-content" ml="auto" justifyContent="end">
-            <IconButton>
-              <FlaticonIcon icon="fi fi-rr-bookmark" />
-            </IconButton>
             <IconButton>
               <FlaticonIcon icon="fi fi-rr-menu-dots-vertical" />
             </IconButton>
@@ -228,13 +250,12 @@ export const TracksList = ({
   tracks,
   sx,
 }: TracksListProps): JSX.Element => {
-  const xs = useMediaQuery(theme.breakpoints.only("xs"));
-  const md = useMediaQuery(theme.breakpoints.only("md"));
+  const sm = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Box sx={sx}>
       {displayHead && heads[variant]}
-      {lists[variant](tracks, { xs, md })}
+      {lists[variant](tracks, { sm })}
     </Box>
   );
 };

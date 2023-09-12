@@ -173,8 +173,8 @@ const BottomBar = (): JSX.Element => {
 export const MobileLayout = ({ children }: MobileLayoutProps): JSX.Element => {
   return (
     <>
+      <Box mb={"550px"}>{children}</Box>
       <BottomBar />
-      {children}
     </>
   );
 };
