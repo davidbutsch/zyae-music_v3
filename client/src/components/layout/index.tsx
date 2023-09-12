@@ -8,6 +8,8 @@ type AppLayoutProps = {
   children: React.ReactNode;
 };
 
+export * from "./Content";
+
 export const AppLayout = ({ children }: AppLayoutProps): JSX.Element => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
