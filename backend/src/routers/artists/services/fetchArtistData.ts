@@ -1,5 +1,6 @@
 import { AppError, Artist, Track } from "@/types";
 
+import { AlbumSlide } from "@/types/albums";
 import { getColors } from "@/shared/";
 import { newInternalError } from "@/utils";
 import { setGoogleContentSize } from "@/utils";
@@ -32,7 +33,7 @@ export const fetchArtistData = async (process: string, artistId: string) => {
     const albums: AlbumSlide[] = ytArtist.albums.results.map((album: any) => ({
       id: album.browseId,
       title: album.title,
-      thumbnail: setGoogleContentSize(album.thumbnails[0].url, 256, 256),
+      thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
       year: album.year,
       isExplicit: album.isExplicit,
     }));
