@@ -1,6 +1,5 @@
-import { AppError, Artist, Track } from "@/types";
+import { AlbumCard, AppError, Artist, ArtistCard, Track } from "@/types";
 
-import { AlbumCard } from "@/types/albums";
 import { getColors } from "@/shared/";
 import { newInternalError } from "@/utils";
 import { setGoogleContentSize } from "@/utils";
@@ -45,7 +44,13 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       year: album.year,
       isExplicit: album.isExplicit,
     }));
-    // const similar: ArtistCard[] = ytArtist
+    const similar: ArtistCard[] = ytArtist.related.results.map(
+      (artist: any) => ({
+        id: artist.browseId,
+        name: artist.title,
+        thumbnail: setGoogleContentSize(artist.thumbnails[0].url, 512, 512),
+      })
+    );
     const artist: Artist = {
       id: ytArtist.channelId,
       description: ytArtist.description,
@@ -70,6 +75,10 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       singles: {
         id: null,
         results: singles,
+      },
+      similar: {
+        id: null,
+        results: similar,
       },
     };
     return artist;

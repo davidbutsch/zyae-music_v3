@@ -1,5 +1,4 @@
-import { AlbumCard } from "../albums";
-import { Track } from "@/types";
+import { AlbumCard, ArtistCard, Track } from "@/types";
 
 export interface Artist {
   id: string;
@@ -41,5 +40,9 @@ export interface Artist {
   singles: {
     id: null;
     results: AlbumCard[];
+  };
+  similar: {
+    id: null;
+    results: ArtistCard[];
   };
 }
