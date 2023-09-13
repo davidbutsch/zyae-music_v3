@@ -11,8 +11,9 @@ export const fetchArtistData = async (process: string, artistId: string) => {
     process += ".FetchArtistData";
     const ytArtist = await ytMusic.getArtist(artistId);
     const palette = await getColors(process, ytArtist.thumbnails[0].url);
-    const tracks: Track[] = ytArtist.songs.results.map(
-      (track): Track => ({
+    const tracks: Track[] = ytArtist.songs.results.map((track: any): Track => {
+      console.log(track.album);
+      return {
         id: track.videoId,
         title: track.title,
         thumbnail: {
@@ -37,6 +38,15 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       year: album.year,
       isExplicit: album.isExplicit,
     }));
+    const singles: AlbumSlide[] = ytArtist.singles.results.map(
+      (album: any) => ({
+        id: album.browseId,
+        title: album.title,
+        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
+        year: album.year,
+        isExplicit: album.isExplicit,
+      })
+    );
     const artist: Artist = {
       id: ytArtist.channelId,
       description: ytArtist.description,
@@ -57,6 +67,10 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       albums: {
         id: null,
         results: albums,
+      },
+      singles: {
+        id: null,
+        results: singles,
       },
     };
     return artist;

@@ -1,3 +1,4 @@
+import { AlbumSlide } from "../albums";
 import { Track } from "@/types";
 
 export interface Artist {
@@ -35,12 +36,10 @@ export interface Artist {
   };
   albums: {
     id: null;
-    results: {
-      id: string;
-      title: string;
-      thumbnail: string;
-      year: string;
-      isExplicit: boolean;
-    }[];
+    results: AlbumSlide[];
+  };
+  singles: {
+    id: null;
+    results: AlbumSlide[];
   };
 }
