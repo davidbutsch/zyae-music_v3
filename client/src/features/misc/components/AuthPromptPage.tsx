@@ -35,7 +35,7 @@ export const AuthPromptPage = ({
   return (
     <StyledBox sx={{ ...sx }}>
       {icon && <FlaticonIcon icon={icon} size={128} />}
-      {image && <ImageIcon url={image} size={128} />}
+      {image && <ImageIcon src={image} size={128} />}
       <Typography variant="h5" mt={3} mb={1}>
         {title}
       </Typography>

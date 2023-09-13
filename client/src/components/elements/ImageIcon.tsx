@@ -20,13 +20,13 @@ const StyledIcon = styled(Icon)(({ size }: StyledIconProps) => {
 });
 
 interface ImageIconProps extends React.ComponentProps<typeof StyledIcon> {
-  url: string;
+  src: string;
 }
 
 export const ImageIcon = (props: ImageIconProps): JSX.Element => {
   return (
     <StyledIcon {...props} size={props.size || 16}>
-      <img src={props.url} />
+      <img src={props.src} />
     </StyledIcon>
   );
 };

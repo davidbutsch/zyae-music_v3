@@ -48,7 +48,7 @@ export const NavPlaylists = (): JSX.Element => {
             }}
           >
             <ImageIcon
-              url="https://www.gstatic.com/youtube/media/ytm/images/pbg/liked-music-@576.png"
+              src="https://www.gstatic.com/youtube/media/ytm/images/pbg/liked-music-@576.png"
               size={46}
               sx={{ "> img": { borderRadius: "6px" } }}
             />

@@ -74,7 +74,7 @@ const Navbar = (): JSX.Element => {
         }}
       >
         <ImageIcon
-          url="https://zyae.net/assets/images/brand/zyae/zm_logo.png"
+          src="https://zyae.net/assets/images/brand/zyae/zm_logo.png"
           size={32}
         />
         <Typography variant="h5" fontSize={28}>
