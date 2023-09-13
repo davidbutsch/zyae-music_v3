@@ -13,8 +13,20 @@ const translucentStyle = (color = colors.accent) =>
     },
   });
 
+const outlinedStyle = (color = colors.accent) =>
+  theme.unstable_sx({
+    color: color,
+    border: `1px solid ${alpha(color, 0.25)}`,
+    transition:
+      "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+    "&:hover": {
+      bgcolor: alpha(color, 0.16),
+      border: `1px solid ${alpha(color, 0)}`,
+    },
+  });
+
 type IconButtonProps = {
-  variant?: "default" | "translucent";
+  variant?: "default" | "translucent" | "outlined";
 };
 
 const options: StyledOptions = {
@@ -31,5 +43,7 @@ export const IconButton = styled(
   const styles: CSSObject[] = [];
 
   if (variant === "translucent") styles.push(translucentStyle(colors[color]));
+  if (variant === "outlined") styles.push(outlinedStyle(colors[color]));
+
   return styles;
 });
