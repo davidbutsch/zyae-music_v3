@@ -1,4 +1,4 @@
-import { AlbumSlide } from "../albums";
+import { AlbumCard } from "../albums";
 import { Track } from "@/types";
 
 export interface Artist {
@@ -36,10 +36,10 @@ export interface Artist {
   };
   albums: {
     id: null;
-    results: AlbumSlide[];
+    results: AlbumCard[];
   };
   singles: {
     id: null;
-    results: AlbumSlide[];
+    results: AlbumCard[];
   };
 }

@@ -1,1 +1,1 @@
-export * from "./AlbumSlide";
+export * from "./AlbumCard";

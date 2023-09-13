@@ -1,6 +1,6 @@
 import { AppError, Artist, Track } from "@/types";
 
-import { AlbumSlide } from "@/types/albums";
+import { AlbumCard } from "@/types/albums";
 import { getColors } from "@/shared/";
 import { newInternalError } from "@/utils";
 import { setGoogleContentSize } from "@/utils";
@@ -31,22 +31,21 @@ export const fetchArtistData = async (process: string, artistId: string) => {
         isExplicit: track.isExplicit,
       };
     });
-    const albums: AlbumSlide[] = ytArtist.albums.results.map((album: any) => ({
+    const albums: AlbumCard[] = ytArtist.albums.results.map((album: any) => ({
       id: album.browseId,
       title: album.title,
       thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
       year: album.year,
       isExplicit: album.isExplicit,
     }));
-    const singles: AlbumSlide[] = ytArtist.singles.results.map(
-      (album: any) => ({
-        id: album.browseId,
-        title: album.title,
-        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
-        year: album.year,
-        isExplicit: album.isExplicit,
-      })
-    );
+    const singles: AlbumCard[] = ytArtist.singles.results.map((album: any) => ({
+      id: album.browseId,
+      title: album.title,
+      thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
+      year: album.year,
+      isExplicit: album.isExplicit,
+    }));
+    // const similar: ArtistCard[] = ytArtist
     const artist: Artist = {
       id: ytArtist.channelId,
       description: ytArtist.description,
