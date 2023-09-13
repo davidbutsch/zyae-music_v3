@@ -1,3 +1,4 @@
+import { AlbumCard } from "@/features/albums";
 import { Track } from "@/features/tracks";
 
 export type Artist = {
@@ -32,5 +33,13 @@ export type Artist = {
   tracks: {
     id: string;
     results: Track[];
+  };
+  albums: {
+    id: null;
+    results: AlbumCard[];
+  };
+  singles: {
+    id: null;
+    results: AlbumCard[];
   };
 };
