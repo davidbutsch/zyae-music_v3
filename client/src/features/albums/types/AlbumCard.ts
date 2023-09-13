@@ -1,4 +1,4 @@
-export type AlbumSlide = {
+export type AlbumCard = {
   id: string;
   title: string;
   thumbnail: string;
