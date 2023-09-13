@@ -17,7 +17,6 @@ export const ArtistLink = ({ artists }: { artists: Track["artists"] }) => {
       }}
     >
       {artists.map((artist, i, { length }) => {
-        console.log(i + 1, length);
         return (
           <React.Fragment key={artist.id}>
             <Link component={RouterLink} to={`/artist/${artist.id}`}>
