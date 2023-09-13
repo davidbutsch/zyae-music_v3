@@ -1,16 +1,19 @@
-import { Box } from "@mui/material";
+import { Box, SxProps } from "@mui/material";
+
 import React from "react";
 
 type ContentProps = {
   children: React.ReactNode;
+  sx: SxProps;
 };
 
-export const Content = ({ children }: ContentProps) => {
+export const Content = ({ children, sx }: ContentProps) => {
   return (
     <Box
-      position="absolute"
+      position={{ xs: "relative", sm: "absolute" }}
       width="100%"
-      py={{ xs: 2, sm: 4, md: 4 }}
+      sx={{ overflow: "visible", ...sx }}
+      py={{ xs: 4, lg: 8 }}
       px={{ xs: 2, sm: 4, md: 4, lg: 8 }}
     >
       {children}
