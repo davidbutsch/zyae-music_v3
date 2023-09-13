@@ -13,6 +13,16 @@ const translucentStyle = (color = colors.accent) =>
     },
   });
 
+const outlinedStyle = (color = colors.accent) =>
+  theme.unstable_sx({
+    color: color,
+    border: `1px solid ${alpha(color, 0.25)}`,
+    "&:hover": {
+      bgcolor: alpha(color, 0.16),
+      border: `1px solid ${alpha(color, 0)}`,
+    },
+  });
+
 export const MuiButton: Components<Theme>["MuiButton"] = {
   styleOverrides: {
     root: ({ ownerState, theme }) => {
@@ -39,6 +49,7 @@ export const MuiButton: Components<Theme>["MuiButton"] = {
 
       if (variant === "translucent")
         styles.push(translucentStyle(colors[color]));
+      if (variant === "outlined") styles.push(outlinedStyle(colors[color]));
 
       return styles;
     },
