@@ -30,22 +30,26 @@ export const fetchArtistData = async (process: string, artistId: string) => {
         isExplicit: track.isExplicit,
       };
     });
-    const albums: AlbumCard[] = ytArtist.albums.results.map((album: any) => ({
-      id: album.browseId,
-      title: album.title,
-      thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
-      year: album.year,
-      isExplicit: album.isExplicit,
-    }));
-    const singles: AlbumCard[] = ytArtist.singles.results.map((album: any) => ({
-      id: album.browseId,
-      title: album.title,
-      thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
-      year: album.year,
-      isExplicit: album.isExplicit,
-    }));
+    const albums: AlbumCard[] = ytArtist.albums.results.map(
+      (album: any): AlbumCard => ({
+        id: album.browseId,
+        title: album.title,
+        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
+        year: album.year,
+        isExplicit: album.isExplicit,
+      })
+    );
+    const singles: AlbumCard[] = ytArtist.singles.results.map(
+      (album: any): AlbumCard => ({
+        id: album.browseId,
+        title: album.title,
+        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
+        year: album.year,
+        isExplicit: album.isExplicit,
+      })
+    );
     const similar: ArtistCard[] = ytArtist.related.results.map(
-      (artist: any) => ({
+      (artist: any): ArtistCard => ({
         id: artist.browseId,
         name: artist.title,
         thumbnail: setGoogleContentSize(artist.thumbnails[0].url, 512, 512),
