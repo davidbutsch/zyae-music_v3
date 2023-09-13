@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Grid,
   IconButton,
   Stack,
@@ -13,6 +14,7 @@ import { FlaticonIcon, Image } from "@/components";
 import { ArtistLink } from "@/features/artists";
 import { Track } from "@/features/tracks";
 import { theme } from "@/styles";
+import { useNavigate } from "react-router-dom";
 
 const heads = {
   artist: (
@@ -203,7 +205,7 @@ const lists = {
                 {track.isExplicit && (
                   <FlaticonIcon
                     sx={{ pr: 2, display: "inline-block" }}
-                    size={12}
+                    size={14}
                     icon="fi fi-rr-square-e"
                   />
                 )}
@@ -238,6 +240,8 @@ const lists = {
 };
 
 type TracksListProps = {
+  title?: string;
+  moreUrl?: string;
   variant: "artist";
   displayHead?: boolean;
   tracks: Track[];
@@ -245,15 +249,37 @@ type TracksListProps = {
 };
 
 export const TracksList = ({
+  title,
+  moreUrl,
   variant,
   displayHead = false,
   tracks,
   sx,
 }: TracksListProps): JSX.Element => {
+  const navigate = useNavigate();
+
+  const xs = useMediaQuery(theme.breakpoints.only("xs"));
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Box sx={sx}>
+      <Stack direction="row" alignItems="center" mb={2.5}>
+        {title && (
+          <Typography variant="h5" fontWeight={500}>
+            {title}
+          </Typography>
+        )}
+        {moreUrl && (
+          <Button
+            size={xs ? "small" : "medium"}
+            variant="outlined"
+            onClick={() => navigate(moreUrl)}
+            sx={{ ml: "auto" }}
+          >
+            More
+          </Button>
+        )}
+      </Stack>
       {displayHead && heads[variant]}
       {lists[variant](tracks, { sm })}
     </Box>
