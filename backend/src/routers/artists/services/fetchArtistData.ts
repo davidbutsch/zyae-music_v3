@@ -11,7 +11,6 @@ export const fetchArtistData = async (process: string, artistId: string) => {
     const ytArtist = await ytMusic.getArtist(artistId);
     const palette = await getColors(process, ytArtist.thumbnails[0].url);
     const tracks: Track[] = ytArtist.songs.results.map((track: any): Track => {
-      console.log(track.album);
       return {
         id: track.videoId,
         title: track.title,

@@ -4,6 +4,7 @@ import { AppError } from "@/types";
 import { getAudioStream } from "../services";
 import { newInternalError } from "@/utils";
 import { stream } from "winston";
+import { ytMusic } from "@/loaders";
 
 export const getTrackAudio = async (
   req: Request,
@@ -14,7 +15,6 @@ export const getTrackAudio = async (
     const trackId = req.params.trackId;
     const stream = getAudioStream("GetTrackAudio", trackId);
 
-    // res.json(await stream);
     res.setHeader("Content-Type", "audio/mp3");
 
     (await stream).pipe(res);
