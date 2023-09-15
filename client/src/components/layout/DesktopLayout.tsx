@@ -48,17 +48,11 @@ const StyledLinkButton = styled(LinkButton)(({ theme }) =>
   })
 );
 
-const Navbar = (): JSX.Element => {
+const NavBar = (): JSX.Element => {
   const navigate = useNavigate();
 
   return (
-    <Stack
-      width="20vw"
-      minWidth="210px"
-      maxWidth="300px"
-      height="100vh"
-      px={1.5}
-    >
+    <Stack minWidth="220px" width="250px" px={1.5}>
       <Stack
         height={64}
         direction="row"
@@ -175,81 +169,80 @@ const Header = (): JSX.Element => {
 };
 
 const PlayerBar = (): JSX.Element => {
-  if (1 == (2 as number)) return <></>;
-  else
-    return (
+  return (
+    <Stack
+      direction="row"
+      spacing={2}
+      sx={{
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        py: 1.5,
+        px: 2.5,
+        width: "100vw",
+      }}
+    >
+      <FlaticonIcon
+        sx={{
+          p: 2,
+          bgcolor: lighten(colors.bg, 0.1),
+          color: "text.secondary",
+          borderRadius: 0.5,
+        }}
+        icon="fi fi-sr-music-alt"
+        size={20}
+      />
+      <Stack spacing={1.25} justifyContent="center" width="100%" maxWidth={200}>
+        <Box
+          component="span"
+          sx={{
+            display: "flex",
+
+            height: 14,
+            bgcolor: lighten(colors.bg, 0.1),
+            borderRadius: 7,
+          }}
+        />
+        <Box
+          component="span"
+          sx={{
+            display: "flex",
+
+            width: "75%",
+
+            height: 14,
+            bgcolor: lighten(colors.bg, 0.1),
+            borderRadius: 7,
+          }}
+        />
+      </Stack>
       <Stack
         direction="row"
-        spacing={2}
-        sx={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          py: 1.5,
-          px: 2.5,
-          width: "100vw",
-        }}
+        alignItems="center"
+        justifyContent="right"
+        width="100%"
       >
-        <FlaticonIcon
-          sx={{
-            p: 2,
-            bgcolor: lighten(colors.bg, 0.1),
-            color: "text.secondary",
-            borderRadius: 0.5,
-          }}
-          icon="fi fi-sr-music-alt"
-          size={20}
-        />
-        <Stack
-          spacing={1.25}
-          justifyContent="center"
-          width="100%"
-          maxWidth={200}
-        >
-          <Box
-            component="span"
-            sx={{
-              display: "flex",
-
-              height: 14,
-              bgcolor: lighten(colors.bg, 0.1),
-              borderRadius: 7,
-            }}
+        <IconButton size="large">
+          <ImageIcon
+            size={24}
+            src="https://zyae.net/assets/images/icons/backward.svg"
           />
-          <Box
-            component="span"
-            sx={{
-              display: "flex",
-
-              width: "75%",
-
-              height: 14,
-              bgcolor: lighten(colors.bg, 0.1),
-              borderRadius: 7,
-            }}
+        </IconButton>
+        <IconButton size="large">
+          <ImageIcon
+            size={24}
+            src="https://zyae.net/assets/images/icons/play.svg"
           />
-        </Stack>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="right"
-          width="100%"
-        >
-          <IconButton size="large">
-            <FlaticonIcon icon="fi fi-sr-rewind" size={1} />
-          </IconButton>
-          <IconButton size="large">
-            <FlaticonIcon
-              icon="fi fi-sr-play"
-              sx={{ fontSize: "26px !important" }}
-            />
-          </IconButton>
-          <IconButton size="large">
-            <FlaticonIcon icon="fi fi-sr-forward" size={1} />
-          </IconButton>
-        </Stack>
+        </IconButton>
+        <IconButton size="large">
+          <ImageIcon
+            size={24}
+            src="https://zyae.net/assets/images/icons/forward.svg"
+          />
+        </IconButton>
       </Stack>
-    );
+    </Stack>
+  );
 };
 
 const Main = styled("main")(({ theme }) =>
@@ -262,13 +255,22 @@ const Main = styled("main")(({ theme }) =>
 
     border: `solid 1px ${lighten(colors.bg, 0.075)}`,
     borderRight: "none",
-    // borderBottom: "none",
     borderTopLeftRadius: 16,
     borderBottomLeftRadius: 16,
 
     overflowY: "scroll",
   })
 );
+
+const Wrapper = styled(Grid)(({ theme }) =>
+  theme.unstable_sx({
+    flexWrap: "nowrap",
+    bgcolor: lighten(colors.bg, 0.015),
+  })
+);
+Wrapper.defaultProps = {
+  container: true,
+};
 
 type DesktopLayoutProps = {
   children: React.ReactNode;
@@ -278,14 +280,21 @@ export const DesktopLayout = ({
   children,
 }: DesktopLayoutProps): JSX.Element => {
   return (
-    <Grid container flexWrap="nowrap" bgcolor={lighten(colors.bg, 0.015)}>
+    <Box
+      sx={{
+        display: "flex",
+        bgcolor: lighten(colors.bg, 0.015),
+      }}
+    >
       <CssBaseline />
-      <Navbar />
-      <Grid item xs>
+      {/* NavBar */}
+      <NavBar />
+      {/* Main */}
+      <Box width="calc(100% - 220px)">
         <Header />
         <Main>{children}</Main>
-        <PlayerBar />
-      </Grid>
-    </Grid>
+      </Box>
+      <PlayerBar />
+    </Box>
   );
 };
