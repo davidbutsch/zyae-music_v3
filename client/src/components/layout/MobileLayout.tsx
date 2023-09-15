@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Typography, lighten, styled } from "@mui/material";
-import { FlaticonIcon, IconButton, LinkButton } from "..";
+import { FlaticonIcon, IconButton, ImageIcon, LinkButton } from "..";
 
 import { colors } from "@/styles";
 
@@ -96,13 +96,16 @@ const Player = (): JSX.Element => {
           width="100%"
         >
           <IconButton size="large">
-            <FlaticonIcon
-              icon="fi fi-sr-play"
-              sx={{ fontSize: "26px !important" }}
+            <ImageIcon
+              size={24}
+              src="https://zyae.net/assets/images/icons/play.svg"
             />
           </IconButton>
           <IconButton size="large">
-            <FlaticonIcon icon="fi fi-sr-forward" size={1} />
+            <ImageIcon
+              size={24}
+              src="https://zyae.net/assets/images/icons/forward.svg"
+            />
           </IconButton>
         </Stack>
       </Stack>
