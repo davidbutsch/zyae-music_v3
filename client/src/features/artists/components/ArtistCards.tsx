@@ -1,12 +1,13 @@
 import { CardSlider, FlaticonIcon, Image } from "@/components";
 import { Stack, Typography, styled, useMediaQuery } from "@mui/material";
 
-import { AlbumCard } from "@/features/albums";
+import { ArtistCard } from "@/features/artists";
 import { theme } from "@/styles";
+import { useNavigate } from "react-router-dom";
 
-type AlbumCardsProps = {
+type ArtistCardsProps = {
   title?: string;
-  albums: AlbumCard[];
+  artists: ArtistCard[];
 };
 
 const Card = styled(Stack)(({ theme }) =>
@@ -18,6 +19,7 @@ const Card = styled(Stack)(({ theme }) =>
       lg: "calc(calc(100% - 64px) / 5)",
       xl: "calc(calc(100% - 80px) / 6)",
     },
+    cursor: "pointer",
   })
 );
 
@@ -27,14 +29,22 @@ const StyledTypography = styled(Typography)(({ theme }) =>
   })
 );
 
-export const AlbumCards = ({ title = "Albums", albums }: AlbumCardsProps) => {
-  const xs = useMediaQuery(theme.breakpoints.only("xs"));
+export const ArtistCards = ({
+  title = "Artists",
+  artists,
+}: ArtistCardsProps) => {
+  const navigate = useNavigate();
 
   return (
     <CardSlider title={title}>
-      {albums.map((album) => (
-        <Card key={album.id}>
-          <Image src={album.thumbnail} sx={{ borderRadius: 1 / 4 }} />
+      {artists.map((artist) => (
+        <Card key={artist.id} onClick={() => navigate(`/artist/${artist.id}`)}>
+          <Image
+            src={artist.thumbnail}
+            sx={{
+              borderRadius: "100%",
+            }}
+          />
           <StyledTypography
             sx={{
               mt: 1,
@@ -42,6 +52,8 @@ export const AlbumCards = ({ title = "Albums", albums }: AlbumCardsProps) => {
               whiteSpace: "nowrap",
               textOverflow: "ellipsis",
               overflow: "hidden",
+
+              textAlign: "center",
 
               "@supports(-webkit-line-clamp: 2)": {
                 whiteSpace: "initial",
@@ -51,16 +63,8 @@ export const AlbumCards = ({ title = "Albums", albums }: AlbumCardsProps) => {
               },
             }}
           >
-            {album.title}
+            {artist.name}
           </StyledTypography>
-          <Stack direction="row" spacing={1} alignItems="center">
-            {album.isExplicit && (
-              <FlaticonIcon icon="fi fi-rr-square-e" size={xs ? 12 : 14} />
-            )}
-            <StyledTypography color="text.secondary">
-              {album.year}
-            </StyledTypography>
-          </Stack>
         </Card>
       ))}
     </CardSlider>

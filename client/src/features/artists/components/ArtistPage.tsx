@@ -1,5 +1,6 @@
 // import { Image } from "@/components";
 
+import { ArtistCards, useArtist } from "@/features/artists";
 import {
   Box,
   Button,
@@ -7,15 +8,16 @@ import {
   Typography,
   alpha,
   darken,
+  lighten,
   styled,
   useMediaQuery,
 } from "@mui/material";
-import { Content, IconButton } from "@/components";
 
+import { AlbumCards } from "@/features/albums/components/AlbumCards";
+import { Content } from "@/components";
 import { FlaticonIcon } from "@/components";
 import { TracksList } from "@/features/tracks";
 import { theme } from "@/styles";
-import { useArtist } from "@/features/artists";
 import { useParams } from "react-router-dom";
 
 type BannerImageProps = {
@@ -98,8 +100,8 @@ const BannerButton = styled(Button, {
 });
 
 export const ArtistPage = () => {
-  const isMobile = useMediaQuery(theme.breakpoints.only("xs"));
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const xs = useMediaQuery(theme.breakpoints.only("xs"));
+  const sm = useMediaQuery(theme.breakpoints.down("sm"));
 
   var { artistId } = useParams();
 
@@ -110,9 +112,15 @@ export const ArtistPage = () => {
   if (status !== "success") return <>{status}</>;
 
   return (
-    <>
-      <BannerImage
-        src={artist.thumbnails.banner[isSmallScreen ? "mobile" : "desktop"]}
+    <Box>
+      <BannerImage src={artist.thumbnails.banner[sm ? "mobile" : "desktop"]} />
+      <Content
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 5,
+          mt: { xs: -10, sm: -20 },
+        }}
       >
         <Stack
           spacing={3}
@@ -126,18 +134,14 @@ export const ArtistPage = () => {
             color={artist.palette.byLightness[0].hex}
             fontSize={{ xs: 56, sm: 56, md: 64 }}
             fontWeight={500}
-            align={isMobile ? "center" : "left"}
+            align={xs ? "center" : "left"}
           >
             {artist.name}
           </Typography>
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={isMobile ? 2 : 1.5}
-          >
+          <Stack direction="row" alignItems="center" spacing={xs ? 2 : 1.5}>
             <BannerButton
               variant="contained"
-              fullWidth={isMobile}
+              fullWidth={xs}
               artistColor={artist.palette.byLightness[0].hex}
             >
               <FlaticonIcon icon="fi fi-rr-shuffle" />
@@ -145,43 +149,26 @@ export const ArtistPage = () => {
             </BannerButton>
             <BannerButton
               variant="outlined"
-              fullWidth={isMobile}
+              fullWidth={xs}
               artistColor={artist.palette.byLightness[0].hex}
             >
               <FlaticonIcon icon="fi fi-rr-bookmark" />
               Save
             </BannerButton>
-            {!isMobile && (
-              <IconButton
-                sx={{
-                  color: artist.palette.byLightness[0].hex,
-                  "&:hover": {
-                    bgcolor: alpha(artist.palette.byLightness[0].hex, 0.16),
-                  },
-                }}
-              >
-                <FlaticonIcon icon="fi fi-rr-menu-dots-vertical" />
-              </IconButton>
-            )}
           </Stack>
         </Stack>
-      </BannerImage>
-      <Content>
-        <Stack my={1.5} direction="row" justifyContent="space-between">
-          <Typography variant="h5" fontWeight={500}>
-            Top Songs
-          </Typography>
-          <BannerButton
-            size="small"
-            variant="outlined"
-            artistColor={artist.palette.byLightness[0].hex}
-            sx={{ px: 1.5 }}
-          >
-            More
-          </BannerButton>
-        </Stack>
-        <TracksList variant="artist" tracks={artist.tracks.results} />
+        <TracksList
+          title="Top Songs"
+          // TODO add more link
+          moreUrl="temp"
+          variant="artist"
+          tracks={artist.tracks.results}
+          sx={{ flexGrow: 2 }}
+        />
+        <AlbumCards albums={artist.albums.results} />
+        <AlbumCards title="Singles" albums={artist.singles.results} />
+        <ArtistCards title="Similar Artists" artists={artist.similar.results} />
       </Content>
-    </>
+    </Box>
   );
 };

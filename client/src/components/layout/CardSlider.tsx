@@ -41,7 +41,7 @@ const Slider = styled(Stack)(({ theme }) =>
     scrollBehavior: "smooth",
 
     "> div": {
-      scrollSnapAlign: { xs: "none", sm: "start" },
+      scrollSnapAlign: { xs: "none", sm: "end" },
     },
 
     "&::-webkit-scrollbar": {
@@ -84,7 +84,7 @@ export const CardSlider = ({
         left: scrollLeft > 0,
       });
     }
-  }, []);
+  }, [children]);
 
   const scroll = (val: number) => {
     if (sliderRef.current) {
@@ -104,35 +104,33 @@ export const CardSlider = ({
         >
           {title}
         </Typography>
-        {(canScroll.left || canScroll.right) && (
-          <Stack direction="row" spacing={1} ml="auto">
-            {moreUrl && (
-              <Button
-                variant="outlined"
-                size={xs ? "small" : "medium"}
-                onClick={() => navigate(moreUrl)}
-              >
-                More
-              </Button>
-            )}
-            <IconButton
-              disabled={!canScroll.left}
+        <Stack direction="row" spacing={1} ml="auto">
+          {moreUrl && (
+            <Button
               variant="outlined"
               size={xs ? "small" : "medium"}
-              onClick={() => scroll(-(screen.width / 3))}
+              onClick={() => navigate(moreUrl)}
             >
-              <FlaticonIcon icon="fi fi-rr-angle-small-left" />
-            </IconButton>
-            <IconButton
-              disabled={!canScroll.right}
-              variant="outlined"
-              size={xs ? "small" : "medium"}
-              onClick={() => scroll(screen.width / 3)}
-            >
-              <FlaticonIcon icon="fi fi-rr-angle-small-right" />
-            </IconButton>
-          </Stack>
-        )}
+              More
+            </Button>
+          )}
+          <IconButton
+            disabled={!canScroll.left}
+            variant="outlined"
+            size={xs ? "small" : "medium"}
+            onClick={() => scroll(-(screen.width / 3))}
+          >
+            <FlaticonIcon icon="fi fi-rr-angle-small-left" />
+          </IconButton>
+          <IconButton
+            disabled={!canScroll.right}
+            variant="outlined"
+            size={xs ? "small" : "medium"}
+            onClick={() => scroll(screen.width / 3)}
+          >
+            <FlaticonIcon icon="fi fi-rr-angle-small-right" />
+          </IconButton>
+        </Stack>
       </Header>
       <Slider
         onScroll={(e) => {

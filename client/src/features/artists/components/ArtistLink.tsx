@@ -10,6 +10,10 @@ export const ArtistLink = ({ artists }: { artists: Track["artists"] }) => {
     <Box
       component="span"
       sx={{
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis",
+
         color: "text.secondary",
         "*": {
           color: `${colors.textSecondary} !important`,
