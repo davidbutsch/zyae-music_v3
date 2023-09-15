@@ -10,8 +10,8 @@ type ContentProps = {
 export const Content = ({ children, sx }: ContentProps) => {
   return (
     <Box
-      position={{ xs: "relative", sm: "absolute" }}
-      width="100%"
+      maxWidth="1700px"
+      mx="auto"
       sx={{ overflow: "visible", ...sx }}
       py={{ xs: 4, lg: 8 }}
       px={{ xs: 2, sm: 4, md: 4, lg: 8 }}
