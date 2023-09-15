@@ -1,7 +1,7 @@
+import { ArtistPage, artistRoutes } from "@/features/artists";
 import { Navigate, Outlet, RouteObject } from "react-router-dom";
 
 import { AppLayout } from "@/components";
-import { ArtistPage } from "@/features/artists";
 import { AuthPromptPage } from "@/features/misc";
 import { Explore } from "@/features/explore";
 import { PNG_LOGO_URL } from "@/config";
@@ -51,8 +51,8 @@ export const publicRoutes: RouteObject[] = [
         element: <Typography variant="h5">Search</Typography>,
       },
       {
-        path: "/artist/:artistId",
-        element: <ArtistPage />,
+        path: "artist",
+        children: artistRoutes,
       },
       {
         path: "*",
