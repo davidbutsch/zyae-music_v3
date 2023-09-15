@@ -165,6 +165,8 @@ const BottomBar = (): JSX.Element => {
         width: "100%",
 
         bgcolor: lighten(colors.bg, 0.015),
+
+        zIndex: 1,
       }}
     >
       <Player />
