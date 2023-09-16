@@ -4,4 +4,4 @@ export * from "./FlaticonIcon";
 export * from "./LinkButton";
 export * from "./IconButton";
 
-export * from "./Image";
+export * from "./ProgressiveImage";

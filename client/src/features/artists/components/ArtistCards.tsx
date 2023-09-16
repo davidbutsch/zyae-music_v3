@@ -1,4 +1,4 @@
-import { CardSlider, FlaticonIcon, Image } from "@/components";
+import { CardSlider, FlaticonIcon, ProgressiveImage } from "@/components";
 import { Stack, Typography, styled, useMediaQuery } from "@mui/material";
 
 import { ArtistCard } from "@/features/artists";
@@ -39,7 +39,7 @@ export const ArtistCards = ({
     <CardSlider title={title}>
       {artists.map((artist) => (
         <Card key={artist.id} onClick={() => navigate(`/artist/${artist.id}`)}>
-          <Image
+          <ProgressiveImage
             src={artist.thumbnail}
             sx={{
               borderRadius: "100%",
