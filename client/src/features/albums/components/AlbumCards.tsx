@@ -1,20 +1,15 @@
-import { CardSlider, FlaticonIcon, ProgressiveImage } from "@/components";
-import { Stack, Typography, styled, useMediaQuery } from "@mui/material";
+import {
+  CardSlider,
+  FlaticonIcon,
+  IconButton,
+  ImageIcon,
+  ProgressiveImage,
+} from "@/components";
+import { Stack, Typography, alpha, styled, useMediaQuery } from "@mui/material";
+import { colors, theme } from "@/styles";
 
 import { AlbumCard } from "@/features/albums";
-import { theme } from "@/styles";
-
-const Card = styled(Stack)(({ theme }) =>
-  theme.unstable_sx({
-    width: {
-      xs: "calc(calc(100% - 16px) / 2.075)",
-      sm: "calc(calc(100% - 32px) / 3)",
-      md: "calc(calc(100% - 48px) / 4)",
-      lg: "calc(calc(100% - 64px) / 5)",
-      xl: "calc(calc(100% - 80px) / 6)",
-    },
-  })
-);
+import { useNavigate } from "react-router-dom";
 
 const StyledTypography = styled(Typography)(({ theme }) =>
   theme.unstable_sx({
@@ -22,34 +17,67 @@ const StyledTypography = styled(Typography)(({ theme }) =>
   })
 );
 
-type AlbumCardsProps = {
-  title?: string;
-  moreUrl?: string;
-  carousel?: boolean;
-  albums: AlbumCard[];
+type CardProps = {
+  album: AlbumCard;
+  carousel: boolean;
 };
 
-export const AlbumCards = ({
-  title = "Albums",
-  moreUrl,
-  carousel = true,
-  albums,
-}: AlbumCardsProps) => {
+const Card = ({ album, carousel }: CardProps) => {
+  const navigate = useNavigate();
+
   const xs = useMediaQuery(theme.breakpoints.only("xs"));
 
-  const albumCards = albums.map((album) => (
-    <Card
+  return (
+    <Stack
       key={album.id}
-      {...(!carousel && {
-        width: {
-          xs: "calc(calc(100% - 24px) / 2) !important",
-          sm: "calc(calc(100% - 48px) / 3) !important",
-          md: "calc(calc(100% - 72px) / 4) !important",
-          lg: "calc(calc(100% - 120px) / 6) !important",
-          xl: "calc(calc(100% - 168px) / 8) !important",
+      onClick={() => navigate(`/album/${album.id}`)}
+      sx={{
+        position: "relative",
+        width: carousel
+          ? {
+              xs: "calc(calc(100% - 16px) / 2.075)",
+              sm: "calc(calc(100% - 32px) / 3)",
+              md: "calc(calc(100% - 48px) / 4)",
+              lg: "calc(calc(100% - 64px) / 5)",
+              xl: "calc(calc(100% - 80px) / 6)",
+            }
+          : {
+              xs: "calc(calc(100% - 24px) / 2)",
+              sm: "calc(calc(100% - 48px) / 3)",
+              md: "calc(calc(100% - 72px) / 4)",
+              lg: "calc(calc(100% - 120px) / 6)",
+              xl: "calc(calc(100% - 168px) / 8)",
+            },
+
+        ".shy": {
+          opacity: 0,
         },
-      })}
+
+        "&:hover .shy": {
+          opacity: 1,
+        },
+      }}
     >
+      {!xs && (
+        <IconButton
+          variant="translucent"
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+
+            bgcolor: alpha(colors.bg, 0.75),
+
+            "&:hover": {
+              bgcolor: alpha(colors.bg, 0.85),
+            },
+          }}
+          className="shy"
+        >
+          <ImageIcon src={"https://zyae.net/assets/images/icons/play.svg"} />
+        </IconButton>
+      )}
+
       <ProgressiveImage src={album.thumbnail} sx={{ borderRadius: 1 / 4 }} />
       <StyledTypography
         sx={{
@@ -77,7 +105,25 @@ export const AlbumCards = ({
           {album.year} {album.type && `• ${album.type}`}
         </StyledTypography>
       </Stack>
-    </Card>
+    </Stack>
+  );
+};
+
+type AlbumCardsProps = {
+  title?: string;
+  moreUrl?: string;
+  carousel?: boolean;
+  albums: AlbumCard[];
+};
+
+export const AlbumCards = ({
+  title = "Albums",
+  moreUrl,
+  carousel = true,
+  albums,
+}: AlbumCardsProps) => {
+  const albumCards = albums.map((album) => (
+    <Card carousel={carousel} album={album} />
   ));
 
   if (carousel)
