@@ -2,13 +2,15 @@ import { AppError, AppErrorResponse, NotFoundError } from "@/types";
 import { NextFunction, Request, Response, Router } from "express";
 
 import { Logger } from "@/loaders";
-import { tracksRouter } from "./tracks";
+import { albumsRouter } from "./albums";
 import { artistsRouter } from "./artists";
+import { tracksRouter } from "./tracks";
 
 const route = Router();
 
 route.use("/tracks", tracksRouter);
 route.use("/artists/", artistsRouter);
+route.use("/albums/", albumsRouter);
 
 route.all("*", (req, res, next) => next(new NotFoundError("Route not found")));
 
