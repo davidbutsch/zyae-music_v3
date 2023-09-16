@@ -3,5 +3,6 @@ export type AlbumCard = {
   title: string;
   thumbnail: string;
   year: string;
-  isExplicit: boolean;
+  type?: "Album" | "Single";
+  isExplicit?: boolean;
 };

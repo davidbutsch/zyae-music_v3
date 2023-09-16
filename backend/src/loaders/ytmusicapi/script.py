@@ -23,6 +23,9 @@ def getArtist(payload):
     result = ytmusic.get_artist(channelId=payload['id'])
     return result
 
+def getArtistAlbums(payload):
+    result = ytmusic.get_artist_albums(browseId=payload['id'])
+    return result
 
 def getAlbum(payload):
     result = ytmusic.get_album(browseId=payload['id'])
@@ -35,15 +38,13 @@ def getPlaylist(payload):
 
 
 def getWatchlist(payload):
-    result = ytmusic.get_watch_playlist(videoId=payload['id'])
+    result = ytmusic.get_watch_playlist(videoId=payload['id'], radio=True, limit=50)
     return result
 
 
 while True:
-    # Read a line of input from the Node.js process
     input = sys.stdin.readline()
     data = json.loads(input)
-
 
     result = {}
 
@@ -51,6 +52,6 @@ while True:
 
     response = {}
     response['data'] = result
-    response['requestId'] = data['requestId']
+    response['hash'] = data['requestHash']
 
     print(json.dumps(response))

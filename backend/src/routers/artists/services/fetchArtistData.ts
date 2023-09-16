@@ -72,11 +72,11 @@ export const fetchArtistData = async (process: string, artistId: string) => {
         results: tracks,
       },
       albums: {
-        id: null,
+        id: ytArtist.albums.browseId,
         results: albums,
       },
       singles: {
-        id: null,
+        id: ytArtist.singles.browseId,
         results: singles,
       },
       similar: {

@@ -34,11 +34,11 @@ export interface Artist {
     results: Track[];
   };
   albums: {
-    id: null;
+    id: string;
     results: AlbumCard[];
   };
   singles: {
-    id: null;
+    id: string;
     results: AlbumCard[];
   };
   similar: {
