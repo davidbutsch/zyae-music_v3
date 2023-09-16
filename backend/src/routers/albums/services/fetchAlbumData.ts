@@ -30,7 +30,7 @@ export const fetchAlbumData = async (process: string, albumId: string) => {
       };
     });
 
-    const otherVersions: AlbumCard[] = ytAlbum.other_versions.map(
+    const otherVersions: AlbumCard[] = ytAlbum.other_versions?.map(
       (album: any): AlbumCard => ({
         id: album.browseId,
         title: album.title,
