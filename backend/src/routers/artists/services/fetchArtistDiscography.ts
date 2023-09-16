@@ -15,9 +15,6 @@ export const fetchArtistDiscography = async (
 
     if (!discographyId)
       return {
-        id: ytArtist.channelId,
-        name: ytArtist.name,
-        thumbnail: setGoogleContentSize(ytArtist.thumbnails[0].url, 256, 256),
         items: [...ytArtist.singles, ytArtist.albums],
       };
 
@@ -34,9 +31,6 @@ export const fetchArtistDiscography = async (
     );
 
     return {
-      id: ytArtist.channelId,
-      name: ytArtist.name,
-      thumbnail: setGoogleContentSize(ytArtist.thumbnails[0].url, 256, 256),
       items: albums,
     };
   } catch (err) {
