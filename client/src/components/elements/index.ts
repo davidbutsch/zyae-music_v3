@@ -5,3 +5,4 @@ export * from "./LinkButton";
 export * from "./IconButton";
 
 export * from "./ProgressiveImage";
+export * from "./ProgressiveBoxImage";
