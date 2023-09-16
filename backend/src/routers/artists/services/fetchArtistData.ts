@@ -62,6 +62,10 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       saved: false,
       palette: palette,
       thumbnails: {
+        profile: {
+          small: setGoogleContentSize(ytArtist.thumbnails[0].url, 256, 256),
+          large: setGoogleContentSize(ytArtist.thumbnails[0].url, 256, 256),
+        },
         banner: {
           mobile: setGoogleContentSize(ytArtist.thumbnails[0].url, 1440, 1440),
           desktop: setGoogleContentSize(ytArtist.thumbnails[0].url, 2880, 1800),

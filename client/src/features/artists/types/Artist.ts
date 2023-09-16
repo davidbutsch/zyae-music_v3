@@ -26,6 +26,10 @@ export type Artist = {
     byIntensity: { hex: string; determinant: number | null }[];
   };
   thumbnails: {
+    profile: {
+      small: string;
+      large: string;
+    };
     banner: {
       mobile: string;
       desktop: string;
