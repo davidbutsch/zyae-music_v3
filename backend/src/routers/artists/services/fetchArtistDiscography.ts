@@ -11,9 +11,17 @@ export const fetchArtistDiscography = async (
     process += ".FetchArtistDiscography";
 
     const ytArtist = await ytMusic.getArtist(artistId);
-    const ytArtistAlbums = await ytMusic.getArtistAlbums(
-      ytArtist.albums.browseId
-    );
+    const discographyId = ytArtist.albums.browseId || ytArtist.singles.browseId;
+
+    if (!discographyId)
+      return {
+        id: ytArtist.channelId,
+        name: ytArtist.name,
+        thumbnail: setGoogleContentSize(ytArtist.thumbnails[0].url, 256, 256),
+        items: [...ytArtist.singles, ytArtist.albums],
+      };
+
+    const ytArtistAlbums = await ytMusic.getArtistAlbums(discographyId);
 
     const albums: AlbumCard[] = ytArtistAlbums.map(
       (album): AlbumCard => ({
@@ -26,6 +34,7 @@ export const fetchArtistDiscography = async (
     );
 
     return {
+      id: ytArtist.channelId,
       name: ytArtist.name,
       thumbnail: setGoogleContentSize(ytArtist.thumbnails[0].url, 256, 256),
       items: albums,
