@@ -34,8 +34,9 @@ export const privateRoutes: RouteObject[] = [
         element: <Typography variant="h5">Search (not implemented)</Typography>,
       },
       {
-        path: "/artist/:artistId",
-        element: <ArtistPage />,
+        path: "artist",
+        children: artistRoutes,
+      },
       },
       {
         path: "*",

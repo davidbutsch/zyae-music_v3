@@ -12,8 +12,9 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 
-import { AlbumCards } from "@/features/albums/components/AlbumCards";
+import { AlbumCards } from "@/features/albums";
 import { Content } from "@/components";
 import { FlaticonIcon } from "@/components";
 import { TracksList } from "@/features/tracks";
@@ -24,36 +25,56 @@ type BannerImageProps = {
   src: string;
 };
 
-const BannerImage = styled(Box, {
-  shouldForwardProp: (prop) => prop !== "src" && prop !== "isMobile",
-})<BannerImageProps>(({ theme, src }) => {
-  return theme.unstable_sx({
-    px: { xs: 2, sm: 4, md: 4, lg: 8 },
+const BannerImage = ({ src }: BannerImageProps) => {
+  const [loaded, setLoaded] = useState(false);
 
-    height: "50vh",
+  useEffect(() => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => setLoaded(true);
+  }, [src]);
 
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "end",
+  return (
+    <Box
+      sx={{
+        px: { xs: 2, sm: 4, md: 4, lg: 8 },
 
-    overflow: "visible",
+        height: "50vh",
 
-    "&:before": {
-      content: "''",
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: { xs: "60vh", sm: "70vh" },
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "end",
 
-      backgroundSize: `cover`,
-      backgroundPosition: "center center",
-      backgroundImage: `url(${src})`,
+        overflow: "visible",
 
-      mask: `linear-gradient(to bottom, #fff, rgba(0, 0, 0, 0))`,
-    },
-  });
-});
+        "&:before": {
+          content: "''",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          height: { xs: "60vh", sm: "70vh" },
+          width: "100%",
+
+          backgroundSize: `cover`,
+          backgroundPosition: "center center",
+          backgroundImage: `url(${src})`,
+
+          mask: `linear-gradient(to bottom, #fff, rgba(0, 0, 0, 0))`,
+
+          ...(loaded
+            ? {
+                opacity: 1,
+              }
+            : {
+                opacity: 0,
+              }),
+
+          transition: "opacity .3s",
+        },
+      }}
+    ></Box>
+  );
+};
 
 type BannerButtonProps = {
   artistColor: string;
@@ -159,14 +180,20 @@ export const ArtistPage = () => {
         </Stack>
         <TracksList
           title="Top Songs"
-          // TODO add more link
           moreUrl="temp"
           variant="artist"
           tracks={artist.tracks.results}
           sx={{ flexGrow: 2 }}
         />
-        <AlbumCards albums={artist.albums.results} />
-        <AlbumCards title="Singles" albums={artist.singles.results} />
+        <AlbumCards
+          moreUrl={artist.albums.id ? "discography/albums" : undefined}
+          albums={artist.albums.results}
+        />
+        <AlbumCards
+          moreUrl={artist.singles.id ? "discography/singles" : undefined}
+          title="Singles"
+          albums={artist.singles.results}
+        />
         <ArtistCards title="Similar Artists" artists={artist.similar.results} />
       </Content>
     </Box>
