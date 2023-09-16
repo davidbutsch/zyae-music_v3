@@ -1,9 +1,14 @@
 import { Artist } from "@/types";
 import { Logger } from "./logger";
 import { PythonShell } from "python-shell";
+import hash from "object-hash";
 
 class YTMusic {
   private pyShell: PythonShell;
+  private cachedResponses: {
+    hash: string;
+    data: any;
+  }[] = [];
 
   constructor() {
     this.pyShell = new PythonShell("script.py", {
@@ -16,16 +21,26 @@ class YTMusic {
     });
   }
 
+  // TODO clear old cache entries after a while
   sendRequest(request: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      const uniqueId = Math.random().toString(36).substring(2);
+      const requestHash = hash(request);
 
-      this.pyShell.send(JSON.stringify({ ...request, requestId: uniqueId }));
+      const cached = this.cachedResponses.find(
+        (response) => response.hash == requestHash
+      );
+
+      if (cached) return resolve(cached.data);
+
+      this.pyShell.send(JSON.stringify({ ...request, requestHash }));
 
       this.pyShell.once("message", (raw) => {
         try {
           const response = JSON.parse(raw);
-          if (response.requestId == uniqueId) resolve(response.data);
+          if (response.hash == requestHash) {
+            resolve(response.data);
+            this.cachedResponses.push(response);
+          }
         } catch (err) {
           reject(err);
         }
@@ -64,6 +79,15 @@ class YTMusic {
     const request = {
       action: "getArtist",
       payload: { id: artistId },
+    };
+
+    return this.sendRequest(request);
+  }
+
+  async getArtistAlbums(browseId: string): Promise<any> {
+    const request = {
+      action: "getArtistAlbums",
+      payload: { id: browseId },
     };
 
     return this.sendRequest(request);

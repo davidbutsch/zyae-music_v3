@@ -24,6 +24,7 @@
     "joi": "^17.10.1",
     "module-alias": "^2.2.3",
     "mongoose": "^7.5.0",
+    "object-hash": "^3.0.0",
     "python-shell": "^5.0.0",
     "redis": "^4.6.8",
     "socket.io": "^4.7.2",
@@ -33,7 +34,8 @@
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",
-    "@types/cors": "^2.8.13"
+    "@types/cors": "^2.8.13",
+    "@types/object-hash": "^3.0.4"
   },
   "_moduleAliases": {
     "@": "./src/"
