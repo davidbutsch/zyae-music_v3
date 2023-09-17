@@ -29,7 +29,6 @@ const Card = ({ album, carousel }: CardProps) => {
 
   return (
     <Stack
-      key={album.id}
       onClick={() => navigate(`/album/${album.id}`)}
       sx={{
         position: "relative",
@@ -49,12 +48,17 @@ const Card = ({ album, carousel }: CardProps) => {
               xl: "calc(calc(100% - 168px) / 8)",
             },
 
+        cursor: "pointer",
+
         ".shy": {
           opacity: 0,
+          transform: "translateY(-25%)",
+          transition: ".3s",
         },
 
         "&:hover .shy": {
           opacity: 1,
+          transform: "translateY(0)",
         },
       }}
     >
@@ -71,6 +75,8 @@ const Card = ({ album, carousel }: CardProps) => {
             "&:hover": {
               bgcolor: alpha(colors.bg, 0.85),
             },
+
+            backdropFilter: "blur(8px)",
           }}
           className="shy"
         >
@@ -123,7 +129,7 @@ export const AlbumCards = ({
   albums,
 }: AlbumCardsProps) => {
   const albumCards = albums.map((album) => (
-    <Card carousel={carousel} album={album} />
+    <Card key={album.id} carousel={carousel} album={album} />
   ));
 
   if (carousel)
@@ -134,8 +140,20 @@ export const AlbumCards = ({
     );
   else
     return (
-      <Stack direction="row" flexWrap="wrap" gap={3}>
-        {albumCards}
+      <Stack>
+        <Typography
+          sx={{
+            textTransform: "capitalize",
+          }}
+          mb={2.5}
+          variant="h5"
+          fontWeight={500}
+        >
+          {title}
+        </Typography>
+        <Stack direction="row" flexWrap="wrap" gap={3}>
+          {albumCards}
+        </Stack>
       </Stack>
     );
 };

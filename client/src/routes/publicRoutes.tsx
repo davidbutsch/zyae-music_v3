@@ -6,6 +6,7 @@ import { AuthPromptPage } from "@/features/misc";
 import { Explore } from "@/features/explore";
 import { PNG_LOGO_URL } from "@/config";
 import { Typography } from "@mui/material";
+import { albumRoutes } from "@/features/albums";
 
 export const publicRoutes: RouteObject[] = [
   {
@@ -53,6 +54,10 @@ export const publicRoutes: RouteObject[] = [
       {
         path: "artist",
         children: artistRoutes,
+      },
+      {
+        path: "album",
+        children: albumRoutes,
       },
       {
         path: "*",

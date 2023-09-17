@@ -1,8 +1,9 @@
+import { ArtistPage, artistRoutes } from "@/features/artists";
 import { Navigate, Outlet, RouteObject } from "react-router-dom";
 
 import { AppLayout } from "@/components";
-import { ArtistPage } from "@/features/artists";
 import { Typography } from "@mui/material";
+import { albumRoutes } from "@/features/albums";
 
 export const privateRoutes: RouteObject[] = [
   {
@@ -37,6 +38,9 @@ export const privateRoutes: RouteObject[] = [
         path: "artist",
         children: artistRoutes,
       },
+      {
+        path: "album",
+        children: albumRoutes,
       },
       {
         path: "*",

@@ -7,7 +7,7 @@ export interface Track {
     name: string;
     id: string;
   }[];
-  album: {
+  album?: {
     title: string;
     id: string;
   };

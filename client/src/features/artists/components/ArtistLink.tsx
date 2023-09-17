@@ -5,7 +5,13 @@ import { Link as RouterLink } from "react-router-dom";
 import { Track } from "@/features/tracks";
 import { colors } from "@/styles";
 
-export const ArtistLink = ({ artists }: { artists: Track["artists"] }) => {
+export const ArtistLink = ({
+  artists,
+  beforeText,
+}: {
+  artists: Track["artists"];
+  beforeText?: string;
+}) => {
   return (
     <Box
       component="span"
@@ -20,6 +26,7 @@ export const ArtistLink = ({ artists }: { artists: Track["artists"] }) => {
         },
       }}
     >
+      {beforeText}
       {artists.map((artist, i, { length }) => {
         return (
           <React.Fragment key={artist.id}>
