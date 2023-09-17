@@ -2,248 +2,271 @@ import {
   Box,
   Button,
   Grid,
-  IconButton,
   Stack,
   SxProps,
   Typography,
   styled,
   useMediaQuery,
 } from "@mui/material";
-import { FlaticonIcon, Image } from "@/components";
+import { FlaticonIcon, IconButton, ImageIcon } from "@/components";
 
 import { ArtistLink } from "@/features/artists";
+import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import { Track } from "@/features/tracks";
 import { theme } from "@/styles";
 import { useNavigate } from "react-router-dom";
 
-const heads = {
-  artist: (
-    <Grid container mb={1}>
-      <Grid item xs={5}>
-        <Typography fontWeight={500}>Title</Typography>
-      </Grid>
-      <Grid item xs={2}>
-        <Typography fontWeight={500}>Title</Typography>
-      </Grid>
-      <Grid item xs={5}>
-        <Typography fontWeight={500}>Title</Typography>
-      </Grid>
-    </Grid>
-  ),
+type ThumbnailProps = {
+  src: string;
+  shy?: boolean;
+};
+const Thumbnail = ({ src, shy = true }: ThumbnailProps): JSX.Element => {
+  const xs = useMediaQuery(theme.breakpoints.only("xs"));
+
+  return (
+    <Box
+      sx={{
+        height: 34,
+        minHeight: 34,
+        width: 34,
+        minWidth: 34,
+
+        backgroundImage: `url(${src})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        borderRadius: 1 / 8,
+        cursor: "pointer",
+      }}
+    >
+      <ImageIcon
+        size={18}
+        src="https://zyae.net/assets/images/icons/play.svg"
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          bgcolor: "rgba(0, 0, 0, 0.5)",
+          ...(xs && { opacity: "0 !important" }),
+        }}
+        className={shy ? "shy" : ""}
+      />
+    </Box>
+  );
 };
 
-// const bodies = {
-//   artist: (tracks: Track[], { xs, md }: { xs: boolean; md: boolean }) => {
-//     return (
-//       <Stack
-//         sx={{
-//           minWidth: 0,
-//           "> div:not(:last-child)": {
-//             borderBottom: "1px solid rgba(255,255,255,.05)",
-//           },
-//         }}
-//       >
-//         {tracks.map((track) => (
-//           <Grid
-//             container
-//             key={track.id}
-//             wrap="nowrap"
-//             sx={{
-//               bgcolor: md ? "transparent" : "transparent",
-//               "> div:last-child": {
-//                 opacity: 1,
-//               },
-//               minWidth: 0,
-
-//               "&:hover": {
-//                 "> div:last-child": {
-//                   opacity: 1,
-//                 },
-//               },
-//             }}
-//           >
-//             <StyledGrid item xs={5}>
-//               <Image
-//                 src={track.thumbnail.small}
-//                 height={34}
-//                 width={34}
-//                 sx={{ borderRadius: 1 / 8 }}
-//               />
-//               <StyledTypography fontWeight={500} pl={1}>
-//                 {track.title}
-//               </StyledTypography>
-//               {track.isExplicit && (
-//                 <FlaticonIcon size={12} icon="fi fi-rr-square-e" />
-//               )}
-//             </StyledGrid>
-//             <StyledGrid item xs={3}>
-//               <StyledTypography fontWeight={500} color="text.secondary">
-//                 {track.artists.map((artist, i) => {
-//                   return (
-//                     <React.Fragment key={artist.id}>
-//                       {i + 1 == track.artists.length ? (
-//                         <StyledLink
-//                           color={"text.secondary"}
-//                           sx={{ textDecoration: "none" }}
-//                           component={RouterLink}
-//                           to={`/artist/${artist.id}`}
-//                         >
-//                           {artist.name}
-//                         </StyledLink>
-//                       ) : (
-//                         <>
-//                           <StyledLink
-//                             color={"text.secondary"}
-//                             component={RouterLink}
-//                             to={`/artist/${artist.id}`}
-//                           >
-//                             {artist.name}
-//                           </StyledLink>
-//                           {" & "}
-//                         </>
-//                       )}
-//                     </React.Fragment>
-//                   );
-//                 })}
-//               </StyledTypography>
-//             </StyledGrid>
-//             <StyledGrid item xs={3}>
-//               <StyledTypography fontWeight={500} color="text.secondary">
-//                 {track.album.title}
-//               </StyledTypography>
-//             </StyledGrid>
-//             <StyledGrid item justifyContent="center" xs bgcolor="blue">
-//               <Stack bgcolor="red" direction="row">
-//                 <IconButton>
-//                   <FlaticonIcon icon="fi fi-rr-bookmark" />
-//                 </IconButton>
-//                 <IconButton>
-//                   <FlaticonIcon icon="fi fi-rr-menu-dots-vertical" />
-//                 </IconButton>
-//               </Stack>
-//             </StyledGrid>
-//           </Grid>
-//         ))}
-//       </Stack>
-//     );
-//   },
-// };
-
-const Container = styled(Stack)(({ theme }) =>
-  theme.unstable_sx({
-    minWidth: 0,
-    display: "flex !important",
-  })
-);
-
-const Row = styled(Stack)(({ theme }) =>
+const Row = styled(Grid)(({ theme }) =>
   theme.unstable_sx({
     py: 1,
-
-    position: "relative",
-
-    flexDirection: "row",
-    alignItems: "center",
 
     "&:not(&:last-child)": {
       borderBottom: "1px solid rgba(255,255,255,.05)",
     },
 
-    "> div:last-child": {
+    ".shy": {
       opacity: 0,
     },
 
-    "&:hover": {
-      "> div:last-child": {
-        opacity: 1,
-      },
+    "&:hover .shy": {
+      opacity: 1,
     },
   })
 );
+Row.defaultProps = {
+  container: true,
+};
 
-const Cell = styled(Stack)(({ theme }) =>
+const Cell = styled(Grid)(({ theme }) =>
   theme.unstable_sx({
     pl: 1,
 
-    minWidth: 0,
-
-    flexDirection: "row",
+    display: "flex",
     alignItems: "center",
 
-    "*": {
+    "& p, h6, a": {
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
     },
   })
 );
+Cell.defaultProps = {
+  item: true,
+  zeroMinWidth: true,
+};
 
-const lists = {
-  artist: (tracks: Track[], { sm }: { sm: boolean }) => (
-    <Container>
-      {tracks.map((track) => (
+type TracksProps = {
+  tracks: Track[];
+  variant: "artist" | "album";
+  shy?: boolean;
+};
+
+// TODO decomplicate this code (variants and screen size)
+const Tracks = ({
+  tracks,
+  variant,
+  shy = true,
+}: TracksProps): JSX.Element[] => {
+  const xs = useMediaQuery(theme.breakpoints.only("xs"));
+  const sm = useMediaQuery(theme.breakpoints.down("md"));
+
+  return tracks.map((track, i) => {
+    if (sm)
+      return (
         <Row key={track.id}>
-          <Cell width={sm ? "100%" : "40%"}>
-            <Image
-              src={track.thumbnail.small}
-              height={32}
-              width={32}
-              sx={{ mr: 2, borderRadius: 1 / 8 }}
-            />
-            <Box component="span">
-              <Typography fontWeight={500}>{track.title}</Typography>
-              {sm && (
-                <Typography fontWeight={500} variant="subtitle2">
-                  <ArtistLink artists={track.artists} />
+          <Cell justifyContent="center" width="40px">
+            {variant == "artist" && <Thumbnail src={track.thumbnail.small} />}
+            {variant == "album" && (
+              <Box position="relative">
+                <Typography className="index" fontSize={14}>
+                  {i + 1}
                 </Typography>
-              )}
-            </Box>
+                <ImageIcon
+                  size={18}
+                  src="https://zyae.net/assets/images/icons/play.svg"
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 2,
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+
+                    ...(sm && { opacity: "0 !important" }),
+                  }}
+                  className={shy ? "shy" : ""}
+                />
+              </Box>
+            )}
           </Cell>
-          {!sm && (
-            <>
-              <Cell width="25%">
+          <Cell xs ml={1}>
+            <Box
+              sx={{
+                position: "relative",
+
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+              }}
+              component="span"
+            >
+              <Typography
+                fontWeight={500}
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                {track.title}
                 {track.isExplicit && (
                   <FlaticonIcon
-                    sx={{ pr: 2, display: "inline-block" }}
+                    sx={{ px: 1, display: "inline-block" }}
                     size={14}
                     icon="fi fi-rr-square-e"
                   />
                 )}
+              </Typography>
+              <Typography fontWeight={500} variant="subtitle2">
                 <ArtistLink artists={track.artists} />
-              </Cell>
-              <Cell width="25%">
-                <Typography color="text.secondary">
-                  {track.album.title}
-                </Typography>
-              </Cell>
-            </>
-          )}
-          <Cell
-            width="fit-content"
-            ml="auto"
-            justifyContent="end"
-            sx={{ ...(sm && { opacity: "1 !important" }) }}
-          >
-            {!sm && (
-              <IconButton>
-                <FlaticonIcon icon="fi fi-rr-bookmark" />
-              </IconButton>
-            )}
+              </Typography>
+            </Box>
+          </Cell>
+          <Cell>
             <IconButton>
               <FlaticonIcon icon="fi fi-rr-menu-dots-vertical" />
             </IconButton>
           </Cell>
         </Row>
-      ))}
-    </Container>
-  ),
+      );
+    else
+      return (
+        <Row
+          key={track.id}
+          sx={{
+            "&:hover .index": {
+              opacity: 0,
+            },
+          }}
+        >
+          <Cell justifyContent="center" width={40}>
+            {variant == "artist" && <Thumbnail src={track.thumbnail.small} />}
+            {variant == "album" && (
+              <Box position="relative">
+                <Typography className="index">{i + 1}</Typography>
+                <ImageIcon
+                  size={18}
+                  src="https://zyae.net/assets/images/icons/play.svg"
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 2,
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+
+                    ...(xs && { opacity: "0 !important" }),
+                  }}
+                  className={shy ? "shy" : ""}
+                />
+              </Box>
+            )}
+          </Cell>
+          <Cell
+            xs={variant == "album" ? 6 : 4.5}
+            justifyContent="space-between"
+            gap={1}
+          >
+            <Typography fontWeight={500} sx={{ ml: 1, cursor: "pointer" }}>
+              {track.title}
+            </Typography>
+            {track.isExplicit && (
+              <FlaticonIcon
+                sx={{ pr: 2, display: "inline-block" }}
+                size={14}
+                icon="fi fi-rr-square-e"
+              />
+            )}
+          </Cell>
+          <Cell xs>
+            <ArtistLink artists={track.artists} />
+          </Cell>
+          {track.album?.id && (
+            <Cell xs>
+              <Link
+                component={RouterLink}
+                to={`/album/${track.album.id}`}
+                color="text.secondary"
+              >
+                {track.album.title}
+              </Link>
+            </Cell>
+          )}
+
+          <Cell className="shy">
+            <IconButton>
+              <FlaticonIcon icon="fi fi-rr-bookmark" />
+            </IconButton>
+            <IconButton>
+              <FlaticonIcon icon="fi fi-rr-menu-dots-vertical" />
+            </IconButton>
+          </Cell>
+        </Row>
+      );
+  });
 };
 
 type TracksListProps = {
   title?: string;
   moreUrl?: string;
-  variant: "artist";
-  displayHead?: boolean;
+  variant: "artist" | "album";
   tracks: Track[];
   sx?: SxProps;
 };
@@ -252,17 +275,15 @@ export const TracksList = ({
   title,
   moreUrl,
   variant,
-  displayHead = false,
   tracks,
   sx,
 }: TracksListProps): JSX.Element => {
   const navigate = useNavigate();
 
   const xs = useMediaQuery(theme.breakpoints.only("xs"));
-  const sm = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box sx={sx}>
+    <Box sx={sx} zIndex={1}>
       <Stack direction="row" alignItems="center" mb={2.5}>
         {title && (
           <Typography variant="h5" fontWeight={500}>
@@ -280,8 +301,7 @@ export const TracksList = ({
           </Button>
         )}
       </Stack>
-      {displayHead && heads[variant]}
-      {lists[variant](tracks, { sm })}
+      <Tracks tracks={tracks} variant={variant} />
     </Box>
   );
 };
