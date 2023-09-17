@@ -1,5 +1,3 @@
-// import { Image } from "@/components";
-
 import { ArtistCards, useArtist } from "@/features/artists";
 import {
   Box,
@@ -8,7 +6,6 @@ import {
   Typography,
   alpha,
   darken,
-  lighten,
   styled,
   useMediaQuery,
 } from "@mui/material";

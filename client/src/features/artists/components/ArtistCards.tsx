@@ -1,8 +1,7 @@
-import { CardSlider, FlaticonIcon, ProgressiveImage } from "@/components";
-import { Stack, Typography, styled, useMediaQuery } from "@mui/material";
+import { CardSlider, ProgressiveImage } from "@/components";
+import { Stack, Typography, styled } from "@mui/material";
 
 import { ArtistCard } from "@/features/artists";
-import { theme } from "@/styles";
 import { useNavigate } from "react-router-dom";
 
 type ArtistCardsProps = {

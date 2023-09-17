@@ -6,7 +6,6 @@ import {
   Menu,
   MenuItem,
   Stack,
-  Typography,
 } from "@mui/material";
 import { Content, FlaticonIcon, ProgressiveImage } from "@/components";
 import { Link as RouterLink, useNavigate } from "react-router-dom";

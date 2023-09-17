@@ -1,4 +1,3 @@
-import { ArtistPage, artistRoutes } from "@/features/artists";
 import { Navigate, Outlet, RouteObject } from "react-router-dom";
 
 import { AppLayout } from "@/components";
@@ -7,6 +6,7 @@ import { Explore } from "@/features/explore";
 import { PNG_LOGO_URL } from "@/config";
 import { Typography } from "@mui/material";
 import { albumRoutes } from "@/features/albums";
+import { artistRoutes } from "@/features/artists";
 
 export const publicRoutes: RouteObject[] = [
   {

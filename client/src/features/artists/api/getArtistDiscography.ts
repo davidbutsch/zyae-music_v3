@@ -1,5 +1,4 @@
-import { Artist, ArtistDiscography } from "@/features/artists";
-
+import { ArtistDiscography } from "@/features/artists";
 import { axios } from "@/libs/";
 import { useQuery } from "@tanstack/react-query";
 
