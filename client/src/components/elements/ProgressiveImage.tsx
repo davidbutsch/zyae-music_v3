@@ -7,7 +7,7 @@ type StyledImageProps = {
 };
 
 const StyledImage = styled("img", {
-  shouldForwardProp: (prop) => prop !== "loaded",
+  shouldForwardProp: (prop) => prop !== "loaded" && prop !== "sx",
 })<StyledImageProps>(({ loaded }) => {
   return {
     ...(loaded
