@@ -186,12 +186,13 @@ export const ArtistPage = () => {
           sx={{ flexGrow: 2 }}
         />
         <AlbumCards
+          title="Albums"
           moreUrl={artist.albums.id ? "discography/albums" : undefined}
           albums={artist.albums.results}
         />
         <AlbumCards
-          moreUrl={artist.singles.id ? "discography/singles" : undefined}
           title="Singles"
+          moreUrl={artist.singles.id ? "discography/singles" : undefined}
           albums={artist.singles.results}
         />
         <ArtistCards title="Similar Artists" artists={artist.similar.results} />

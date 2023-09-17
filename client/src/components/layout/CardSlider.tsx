@@ -51,7 +51,7 @@ const Slider = styled(Stack)(({ theme }) =>
 );
 
 type CardSliderProps = {
-  title: string;
+  title?: string;
   moreUrl?: string;
   sx?: SxProps;
   children: React.ReactNode;
@@ -95,15 +95,17 @@ export const CardSlider = ({
   return (
     <Container sx={sx}>
       <Header>
-        <Typography
-          sx={{
-            textTransform: "capitalize",
-          }}
-          variant="h5"
-          fontWeight={500}
-        >
-          {title}
-        </Typography>
+        {title && (
+          <Typography
+            sx={{
+              textTransform: "capitalize",
+            }}
+            variant="h5"
+            fontWeight={500}
+          >
+            {title}
+          </Typography>
+        )}
         <Stack direction="row" spacing={1} ml="auto">
           {moreUrl && (
             <Button

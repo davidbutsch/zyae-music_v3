@@ -117,7 +117,7 @@ type AlbumCardsProps = {
 };
 
 export const AlbumCards = ({
-  title = "Albums",
+  title,
   moreUrl,
   carousel = true,
   albums,
