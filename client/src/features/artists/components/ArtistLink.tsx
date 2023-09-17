@@ -1,4 +1,4 @@
-import { Box, Link } from "@mui/material";
+import { Box, Link, SxProps } from "@mui/material";
 
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
@@ -8,9 +8,11 @@ import { colors } from "@/styles";
 export const ArtistLink = ({
   artists,
   beforeText,
+  sx,
 }: {
   artists: Track["artists"];
   beforeText?: string;
+  sx?: SxProps;
 }) => {
   return (
     <Box
@@ -24,6 +26,8 @@ export const ArtistLink = ({
         "*": {
           color: `${colors.textSecondary} !important`,
         },
+
+        ...sx,
       }}
     >
       {beforeText}

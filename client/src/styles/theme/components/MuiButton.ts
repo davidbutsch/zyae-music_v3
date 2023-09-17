@@ -34,6 +34,7 @@ export const MuiButton: Components<Theme>["MuiButton"] = {
         theme.unstable_sx({
           px: { small: 1, medium: 1.5, large: 2 }[size],
           height: sizes[size],
+          minWidth: "fit-content",
 
           display: "flex",
           gap: 1,
