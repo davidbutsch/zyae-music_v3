@@ -4,7 +4,6 @@ import {
   Button,
   CssBaseline,
   Divider,
-  Grid,
   IconButton,
   Stack,
   Toolbar,
@@ -52,7 +51,7 @@ const NavBar = (): JSX.Element => {
   const navigate = useNavigate();
 
   return (
-    <Stack minWidth="220px" width="250px" px={1.5}>
+    <Stack px={1.5}>
       <Stack
         height={64}
         direction="row"
@@ -262,15 +261,13 @@ const Main = styled("main")(({ theme }) =>
   })
 );
 
-const Wrapper = styled(Grid)(({ theme }) =>
+const Wrapper = styled(Box)(({ theme }) =>
   theme.unstable_sx({
+    display: "flex",
     flexWrap: "nowrap",
     bgcolor: lighten(colors.bg, 0.015),
   })
 );
-Wrapper.defaultProps = {
-  container: true,
-};
 
 type DesktopLayoutProps = {
   children: React.ReactNode;
@@ -280,21 +277,28 @@ export const DesktopLayout = ({
   children,
 }: DesktopLayoutProps): JSX.Element => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        bgcolor: lighten(colors.bg, 0.015),
-      }}
-    >
+    <Wrapper>
       <CssBaseline />
       {/* NavBar */}
-      <NavBar />
+      <Box
+        width={{
+          sm: 160,
+          md: 260,
+        }}
+      >
+        <NavBar />
+      </Box>
       {/* Main */}
-      <Box width="calc(100% - 220px)">
+      <Box
+        width={{
+          sm: `calc(100% - ${160}px)`,
+          md: `calc(100% - ${260}px)`,
+        }}
+      >
         <Header />
         <Main>{children}</Main>
       </Box>
       <PlayerBar />
-    </Box>
+    </Wrapper>
   );
 };
