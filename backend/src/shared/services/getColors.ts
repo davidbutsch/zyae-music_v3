@@ -1,7 +1,7 @@
+import { AppError, Palette } from "@/types";
 import { createCanvas, loadImage } from "canvas";
 import { newInternalError, setGoogleContentSize } from "@/utils";
 
-import { AppError } from "@/types";
 import { FinalColor } from "extract-colors/lib/types/Color";
 import { extractColors } from "extract-colors";
 
@@ -20,7 +20,10 @@ function adjust(color: string, amount: number) {
   );
 }
 
-export const getColors = async (process: string, src: string) => {
+export const getColors = async (
+  process: string,
+  src: string
+): Promise<Palette> => {
   try {
     process += ".GetColors";
 
@@ -40,7 +43,6 @@ export const getColors = async (process: string, src: string) => {
       },
       {
         pixels: 2000,
-        distance: 0,
       }
     );
 
