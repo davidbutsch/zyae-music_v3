@@ -24,7 +24,7 @@ export const fetchArtistDiscography = async (
       (album): AlbumCard => ({
         id: album.browseId,
         title: album.title,
-        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
+        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 256, 256),
         year: album.year,
         type: album.type,
       })

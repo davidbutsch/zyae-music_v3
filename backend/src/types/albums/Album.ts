@@ -1,4 +1,5 @@
 import { AlbumCard } from "./AlbumCard";
+import { Palette } from "../Palette";
 import { Track } from "../tracks";
 
 export type Album = {
@@ -6,6 +7,7 @@ export type Album = {
   playlistId: string;
   description: string;
   title: string;
+  palette: Palette;
   artists: {
     name: string;
     id: string;

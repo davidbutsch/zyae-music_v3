@@ -15,8 +15,8 @@ export const fetchArtistData = async (process: string, artistId: string) => {
         id: track.videoId,
         title: track.title,
         thumbnail: {
-          small: setGoogleContentSize(track.thumbnails[0].url, 120, 120),
-          large: setGoogleContentSize(track.thumbnails[0].url, 512, 512),
+          small: setGoogleContentSize(track.thumbnails[0].url, 128, 128),
+          large: setGoogleContentSize(track.thumbnails[0].url, 256, 512),
         },
         duration: track.duration,
         artists: track.artists,
@@ -33,7 +33,7 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       (album: any): AlbumCard => ({
         id: album.browseId,
         title: album.title,
-        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
+        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 256, 256),
         year: album.year,
         isExplicit: album.isExplicit,
       })
@@ -42,7 +42,7 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       (album: any): AlbumCard => ({
         id: album.browseId,
         title: album.title,
-        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 512, 512),
+        thumbnail: setGoogleContentSize(album.thumbnails[0].url, 256, 256),
         year: album.year,
         isExplicit: album.isExplicit,
       })
@@ -51,7 +51,7 @@ export const fetchArtistData = async (process: string, artistId: string) => {
       (artist: any): ArtistCard => ({
         id: artist.browseId,
         name: artist.title,
-        thumbnail: setGoogleContentSize(artist.thumbnails[0].url, 512, 512),
+        thumbnail: setGoogleContentSize(artist.thumbnails[0].url, 256, 256),
       })
     );
     const artist: Artist = {

@@ -5,7 +5,14 @@ import {
   ImageIcon,
   ProgressiveImage,
 } from "@/components";
-import { Stack, Typography, alpha, styled, useMediaQuery } from "@mui/material";
+import {
+  Stack,
+  SxProps,
+  Typography,
+  alpha,
+  styled,
+  useMediaQuery,
+} from "@mui/material";
 import { colors, theme } from "@/styles";
 
 import { AlbumCard } from "@/features/albums";
@@ -20,9 +27,10 @@ const StyledTypography = styled(Typography)(({ theme }) =>
 type CardProps = {
   album: AlbumCard;
   carousel: boolean;
+  sx?: SxProps;
 };
 
-const Card = ({ album, carousel }: CardProps) => {
+export const Card = ({ album, carousel, sx }: CardProps) => {
   const navigate = useNavigate();
 
   const xs = useMediaQuery(theme.breakpoints.only("xs"));
@@ -60,6 +68,8 @@ const Card = ({ album, carousel }: CardProps) => {
           opacity: 1,
           transform: "translateY(0)",
         },
+
+        ...sx,
       }}
     >
       {!xs && (
@@ -120,6 +130,7 @@ type AlbumCardsProps = {
   moreUrl?: string;
   carousel?: boolean;
   albums: AlbumCard[];
+  sx?: SxProps;
 };
 
 export const AlbumCards = ({
@@ -127,6 +138,7 @@ export const AlbumCards = ({
   moreUrl,
   carousel = true,
   albums,
+  sx,
 }: AlbumCardsProps) => {
   const albumCards = albums.map((album) => (
     <Card key={album.id} carousel={carousel} album={album} />
@@ -134,13 +146,13 @@ export const AlbumCards = ({
 
   if (carousel)
     return (
-      <CardSlider moreUrl={moreUrl} title={title}>
+      <CardSlider sx={sx} moreUrl={moreUrl} title={title}>
         {albumCards}
       </CardSlider>
     );
   else
     return (
-      <Stack>
+      <Stack sx={sx}>
         <Typography
           sx={{
             textTransform: "capitalize",

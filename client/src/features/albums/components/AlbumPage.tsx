@@ -1,20 +1,15 @@
 import { AlbumCards, useAlbum } from "@/features/albums";
-import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
-import {
-  Content,
-  FlaticonIcon,
-  ProgressiveBoxImage,
-  ProgressiveImage,
-} from "@/components";
+import { Button, Stack, Typography, alpha, useMediaQuery } from "@mui/material";
+import { Content, FlaticonIcon, ProgressiveImage } from "@/components";
 
 import { ArtistLink } from "@/features/artists";
+import { DescriptionBox } from "@/components";
 import { TracksList } from "@/features/tracks";
 import { theme } from "@/styles";
 import { useParams } from "react-router-dom";
 
 export const AlbumPage = () => {
   const { albumId } = useParams();
-
   const xs = useMediaQuery(theme.breakpoints.only("xs"));
 
   if (!albumId) return null;
@@ -28,9 +23,23 @@ export const AlbumPage = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: { xs: 1, sm: 5 },
+        gap: { xs: 5 },
         position: "relative",
         zIndex: 1,
+
+        "&:before": {
+          content: "''",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "60vh",
+          background: `linear-gradient(90deg, ${alpha(
+            album.palette.byIntensity[0].hex,
+            0.2
+          )}, ${alpha(album.palette.byIntensity[1].hex, 0.2)})`,
+          mask: "linear-gradient(#fff, transparent)",
+        },
       }}
     >
       <Stack
@@ -38,7 +47,7 @@ export const AlbumPage = () => {
         alignItems={"center"}
         spacing={{ sm: 5 }}
       >
-        <ProgressiveBoxImage
+        <ProgressiveImage
           src={album.thumbnails.large}
           sx={{
             position: "relative",
@@ -60,19 +69,7 @@ export const AlbumPage = () => {
             borderRadius: 1 / 2,
             aspectRatio: "1 / 1",
           }}
-        >
-          <ProgressiveImage
-            src={album.thumbnails.large}
-            width="100%"
-            sx={{
-              position: "absolute",
-              zIndex: -1,
-              left: 0,
-              filter: `blur(${xs ? 96 : 24}px) opacity(${xs ? 0.75 : 0.5})`,
-              borderRadius: 1 / 2,
-            }}
-          />
-        </ProgressiveBoxImage>
+        />
         <Stack
           position="relative"
           mt={{ xs: 2.5, sm: 0 }}
@@ -133,12 +130,28 @@ export const AlbumPage = () => {
           </Stack>
         </Stack>
       </Stack>
-      <TracksList variant="album" tracks={album.tracks} />
+      <TracksList
+        variant="album"
+        tracks={album.tracks}
+        sx={{ mt: { xs: -4, sm: 0 } }}
+      />
+
       {album.otherVersions && (
         <AlbumCards
-          carousel={false}
           title="Other Versions"
+          carousel={false}
           albums={album.otherVersions}
+        />
+      )}
+      {album.description && (
+        <DescriptionBox
+          head={album.title}
+          sub={`${album.trackCount} ${
+            album.trackCount > 1 ? "tracks" : "track"
+          } • ${album.duration} • ${album.year}`}
+          text={album.description}
+          palette={album.palette}
+          thumbnail={album.thumbnails.large}
         />
       )}
     </Content>

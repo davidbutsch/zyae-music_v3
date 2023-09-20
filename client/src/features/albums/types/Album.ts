@@ -1,11 +1,13 @@
-import { Track } from "@/features/tracks";
 import { AlbumCard } from "./AlbumCard";
+import { Palette } from "@/types";
+import { Track } from "@/features/tracks";
 
 export type Album = {
   id: string;
   playlistId: string;
   description: string;
   title: string;
+  palette: Palette;
   artists: {
     name: string;
     id: string;

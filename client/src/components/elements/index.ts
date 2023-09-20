@@ -1,3 +1,5 @@
+export * from "./DescriptionBox";
+
 export * from "./ImageIcon";
 export * from "./FlaticonIcon";
 
