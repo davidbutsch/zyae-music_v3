@@ -7,11 +7,13 @@ def search(payload):
     result = ytmusic.search(query=payload['query'], filter=payload['filter'])
     return result
 
+def getSearchSuggested(payload):
+    result = ytmusic.get_search_suggestions(query=payload['query'])
+    return result
 
 def getSong(payload):
     result = ytmusic.get_song(videoId=payload['id'])
     return result
-
 
 def getLyrics(payload):
     result = ytmusic.get_lyrics(browseId=payload['id'])
@@ -31,11 +33,9 @@ def getAlbum(payload):
     result = ytmusic.get_album(browseId=payload['id'])
     return result
 
-
 def getPlaylist(payload):
     result = ytmusic.get_playlist(playlistId=payload['id'])
     return result
-
 
 def getWatchlist(payload):
     result = ytmusic.get_watch_playlist(videoId=payload['id'], radio=True, limit=50)

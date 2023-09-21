@@ -119,6 +119,15 @@ class YTMusic {
 
     return this.sendRequest(request);
   }
+
+  async getSearchSuggested(query: string): Promise<any> {
+    const request = {
+      action: "getSearchSuggested",
+      payload: { query },
+    };
+
+    return this.sendRequest(request);
+  }
 }
 
 export var ytMusic: YTMusic;

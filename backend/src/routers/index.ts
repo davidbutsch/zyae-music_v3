@@ -4,6 +4,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { Logger } from "@/loaders";
 import { albumsRouter } from "./albums";
 import { artistsRouter } from "./artists";
+import { searchRouter } from "./search";
 import { tracksRouter } from "./tracks";
 
 const route = Router();
@@ -11,6 +12,7 @@ const route = Router();
 route.use("/tracks", tracksRouter);
 route.use("/artists/", artistsRouter);
 route.use("/albums/", albumsRouter);
+route.use("/search/", searchRouter);
 
 route.all("*", (req, res, next) => next(new NotFoundError("Route not found")));
 
