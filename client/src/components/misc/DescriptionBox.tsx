@@ -1,15 +1,7 @@
-import {
-  Box,
-  Button,
-  Stack,
-  Typography,
-  alpha,
-  colors,
-  darken,
-} from "@mui/material";
+import { Box, Button, Stack, Typography, alpha, darken } from "@mui/material";
 
 import { Palette } from "@/types";
-import { ProgressiveImage } from ".";
+import { ProgressiveImage } from "@/components";
 import { useState } from "react";
 
 type DescriptionProps = {
