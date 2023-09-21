@@ -1,4 +1,12 @@
-import { Box, Button, Stack, Typography, alpha, darken } from "@mui/material";
+import {
+  Box,
+  Button,
+  Stack,
+  Typography,
+  alpha,
+  colors,
+  darken,
+} from "@mui/material";
 
 import { Palette } from "@/types";
 import { ProgressiveImage } from ".";
@@ -13,6 +21,23 @@ type DescriptionProps = {
   thumbnail: string;
 };
 
+const getColors = (palette: Palette) => {
+  const preColors = palette.colors.filter(
+    (color) =>
+      color.hex == palette.byIntensity[0].hex ||
+      color.hex == palette.byIntensity[1].hex
+  );
+  const lightness =
+    (preColors[0].lightness + preColors[1]?.lightness ||
+      preColors[0].lightness) / 2;
+
+  const colors = [];
+  colors[0] = darken(preColors[0].hex, lightness / 2);
+  colors[1] = darken(preColors[1]?.hex || preColors[0].hex, lightness / 2);
+
+  return colors;
+};
+
 export const DescriptionBox = ({
   title = "About",
   head,
@@ -25,16 +50,7 @@ export const DescriptionBox = ({
 
   const handleToggle = () => setExpanded((prev) => !prev);
 
-  const preColors = palette.colors.filter(
-    (color) =>
-      color.hex == palette.byIntensity[0].hex ||
-      color.hex == palette.byIntensity[1].hex
-  );
-  const lightness = (preColors[0].lightness + preColors[1].lightness) / 2;
-
-  const colors = [];
-  colors[0] = darken(preColors[0].hex, lightness / 2);
-  colors[1] = darken(preColors[1].hex, lightness / 2);
+  const colors = getColors(palette);
 
   return (
     <Box>
@@ -62,13 +78,17 @@ export const DescriptionBox = ({
         <ProgressiveImage
           sx={{
             position: "absolute",
-            top: -50,
+            top: 0,
             left: 0,
             width: "100%",
 
             opacity: expanded ? 0.3 : 1,
 
-            transition: "opacity .3s",
+            transform: `translateY(${expanded ? "-100px" : "-50px"}) scale(${
+              expanded ? "1" : "1.1"
+            })`,
+
+            transition: ".3s",
             mask: "linear-gradient(rgba(0, 0, 0, .75) 0%, transparent 70%)",
           }}
           src={thumbnail}
@@ -126,7 +146,6 @@ export const DescriptionBox = ({
             mt: expanded ? 2 : 0,
             bgcolor: alpha("#fff", 0.16),
             transition: "margin .3s",
-            zIndex: 2,
             "&:hover": {
               bgcolor: alpha("#fff", 0.24),
             },
