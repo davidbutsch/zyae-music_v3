@@ -9,10 +9,10 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
+import { Content, DescriptionBox } from "@/components";
 import { useEffect, useState } from "react";
 
 import { AlbumCards } from "@/features/albums";
-import { Content } from "@/components";
 import { FlaticonIcon } from "@/components";
 import { TracksList } from "@/features/tracks";
 import { theme } from "@/styles";
@@ -193,6 +193,15 @@ export const ArtistPage = () => {
           albums={artist.singles.results}
         />
         <ArtistCards title="Similar Artists" artists={artist.similar.results} />
+        {artist.description && (
+          <DescriptionBox
+            head={artist.name}
+            sub={artist.views}
+            text={artist.description}
+            palette={artist.palette}
+            thumbnail={artist.thumbnails.banner.mobile}
+          />
+        )}
       </Content>
     </Box>
   );
