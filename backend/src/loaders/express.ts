@@ -36,13 +36,13 @@ export const expressLoader = ({ app }: { app: Express }) => {
     next();
   });
 
-  app.use("/api", apiRouter);
+  app.use("/", apiRouter);
 
-  // serve static assets
-  app.use(express.static(path.join(__dirname, "../../../", "/client/dist/")));
+  // // serve static assets
+  // app.use(express.static(path.join(__dirname, "../../../", "/client/dist/")));
 
-  // serve app
-  app.get("*", (_req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "../../../", "/client/dist/index.html"));
-  });
+  // // serve app
+  // app.get("*", (_req: Request, res: Response) => {
+  //   res.sendFile(path.join(__dirname, "../../../", "/client/dist/index.html"));
+  // });
 };
