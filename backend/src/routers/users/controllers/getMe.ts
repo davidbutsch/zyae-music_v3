@@ -1,20 +1,12 @@
-import {
-  AppError,
-  AppResponse,
-  ErrorDetail,
-  NotFoundError,
-  User,
-} from "@/types";
-import { Model, Schema, model } from "mongoose";
+import { AppError, AppResponse, User } from "@/types";
 import { NextFunction, Request, Response } from "express";
 
 import { UserModel } from "@/models";
-import { createUser } from "../services";
-import mongoose from "mongoose";
 import { newInternalError } from "@/utils";
+import { createUser } from "../services";
 
 export const getMe = async (
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction
 ) => {

@@ -1,9 +1,9 @@
-import { AppError, CookieTokens, Session } from "@/types";
+import { AppError, CookieTokens } from "@/types";
 import { NextFunction, Request, Response } from "express";
 import mongoose, { Schema } from "mongoose";
 
-import { newInternalError } from "@/utils";
 import { redis } from "@/loaders";
+import { newInternalError } from "@/utils";
 import { validateSessionTokens } from "../services";
 
 export const attachSession =

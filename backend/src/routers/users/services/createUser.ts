@@ -1,9 +1,9 @@
-import { AppError, User, ZyaeUser } from "@/types";
+import { AppError, User } from "@/types";
 
-import { Types } from "mongoose";
 import { UserModel } from "@/models";
 import { createPlaylist } from "@/shared";
 import { newInternalError } from "@/utils";
+import { Types } from "mongoose";
 
 export const createUser = async (
   id: Types.ObjectId,

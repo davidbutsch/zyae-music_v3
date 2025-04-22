@@ -1,11 +1,10 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 
 import config from "@/config";
 import { apiRouter } from "@/routers";
 import { ForbiddenError } from "@/types";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import path from "path";
 import { Logger } from "./logger";
 
 export const expressLoader = ({ app }: { app: Express }) => {

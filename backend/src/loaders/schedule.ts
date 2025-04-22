@@ -1,5 +1,3 @@
-import { refreshGenres } from "@/jobs";
-
 export const scheduleLoader = async () => {
   try {
     // refreshGenres();

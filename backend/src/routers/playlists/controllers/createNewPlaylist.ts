@@ -1,10 +1,9 @@
+import { createPlaylist, validate } from "@/shared";
 import { AppError, AppResponse, NotFoundError, Playlist } from "@/types";
 import { NextFunction, Request, Response } from "express";
-import { createPlaylist, validate } from "@/shared";
 
-import { JoiNewPlaylist } from "@/schemas";
 import { UserModel } from "@/models";
-import mongoose from "mongoose";
+import { JoiNewPlaylist } from "@/schemas";
 import { newInternalError } from "@/utils";
 import Joi from "joi";
 
