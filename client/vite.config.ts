@@ -4,8 +4,8 @@ import path from "path";
 import react from "@vitejs/plugin-react";
 
 const httpsConfig = {
-  cert: "C:/ssl/certificate_data/__zyae_net.crt",
-  key: "C:/ssl/certificate_data/__zyae_net.key",
+  cert: "C:/nginx-1.24.0/ssl/server.crt",
+  key: "C:/nginx-1.24.0/ssl/server.key",
 };
 
 export default defineConfig({

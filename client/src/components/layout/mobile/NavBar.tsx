@@ -1,82 +1,130 @@
-import { FlaticonIcon, LinkButton } from "@/components";
-import { Grid, Typography, lighten, styled } from "@mui/material";
+import { Button, Grid, Typography, alpha, lighten } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 
+import { FontIcon } from "@/components";
 import { colors } from "@/styles";
+import { useState } from "react";
 
-const StyledLinkButton = styled(LinkButton)(({ theme }) =>
-  theme.unstable_sx({
-    width: "100%",
+export const NavBar = ({ hidden }: { hidden: boolean }): JSX.Element => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    textTransform: "none",
-
-    flexDirection: "column",
-    height: "fit-content",
-
-    "&:hover": {
-      bgcolor: "inherit",
+  const [routes, setRoutes] = useState([
+    {
+      category: "home",
+      icon: "zi-home",
+      activeIcon: "zi-home-solid",
+      to: "/",
+      original: "/",
     },
-  })
-);
+    {
+      category: "explore",
+      icon: "fi-rs-apps",
+      activeIcon: "fi-ss-apps",
+      to: "/explore",
+      original: "/explore",
+    },
+    {
+      category: "saved",
+      icon: "zi-saved",
+      activeIcon: "zi-saved-solid",
+      to: "/saved",
+      original: "/saved",
+    },
+    {
+      category: "search",
+      icon: "fi-rr-search",
+      activeIcon: "fi-rr-search",
+      to: "/search",
+      original: "/search",
+    },
+  ]);
+  const [activeRoute, setActiveRoute] = useState("home");
 
-const navRoutes = [
-  {
-    title: "Home",
-    icon: "music-alt",
-    to: "/",
-  },
-  {
-    title: "Explore",
-    icon: "world",
-    to: "/explore",
-  },
-  {
-    title: "Saved",
-    icon: "bookmark",
-    to: "/saved",
-  },
-  {
-    title: "Search",
-    icon: "search",
-    to: "/search",
-  },
-];
-
-export const NavBar = (): JSX.Element => {
   return (
     <Grid
       container
-      sx={{
-        py: 1,
-        borderTop: `solid 1px ${lighten(colors.bg, 0.075)}`,
-      }}
+      sx={[
+        {
+          py: 1,
+          maxHeight: hidden ? "0px" : "200px",
+          borderTop: `solid 1px ${alpha(lighten(colors.bg, 0.16), 0.24)}`,
+          opacity: hidden ? 0 : 1,
+          transition: ".3s",
+        },
+      ]}
     >
-      {navRoutes.map((route) => {
+      {routes.map((route) => {
+        const active = activeRoute == route.category;
         return (
-          <Grid item xs={3} key={route.title}>
-            <StyledLinkButton
-              to={route.to}
-              disableRipple
-              activeProps={{
-                sx: { color: "primary.main" },
-                children: (
-                  <>
-                    <FlaticonIcon icon={`fi fi-sr-${route.icon}`} size={18} />
-                    <Typography variant="subtitle2" fontSize={12}>
-                      {route.title}
-                    </Typography>
-                  </>
-                ),
+          <Grid item xs={3} key={route.category}>
+            <Button
+              sx={{
+                width: "100%",
+
+                gap: 0.75,
+
+                textTransform: "none",
+
+                flexDirection: "column",
+                height: "fit-content",
+
+                opacity: active ? 1 : 0.5,
+                // color: active ? "primary.main" : "inherit",
+
+                ...(active && {
+                  background: `linear-gradient(45deg, ${colors.primary} 40%, #35ade0)`,
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }),
+
+                "&:hover": {
+                  bgcolor: "inherit",
+                },
               }}
+              onClick={() => {
+                if (active) {
+                  navigate(route.original);
+                  setRoutes((prev) => {
+                    const i = prev.findIndex(
+                      (prevRoute) => activeRoute == prevRoute.category
+                    );
+                    prev[i] = {
+                      ...prev[i],
+                      to: route.original,
+                    };
+                    return prev;
+                  });
+                } else {
+                  setRoutes((prev) => {
+                    const i = prev.findIndex(
+                      (prevRoute) => activeRoute == prevRoute.category
+                    );
+                    prev[i] = {
+                      ...prev[i],
+                      to: location.pathname,
+                    };
+                    return prev;
+                  });
+                  navigate(route.to);
+                  setActiveRoute(route.category);
+                }
+              }}
+              disableRipple
             >
-              <FlaticonIcon icon={`fi fi-rr-${route.icon}`} size={18} />
+              <FontIcon
+                icon={active ? route.activeIcon : route.icon}
+                size={20}
+              />
               <Typography
                 variant="subtitle2"
-                fontSize={12}
-                color="text.secondary"
+                fontSize={11}
+                color={active ? "inherit" : "text.secondary"}
+                textTransform="capitalize"
               >
-                {route.title}
+                {route.category}
               </Typography>
-            </StyledLinkButton>
+            </Button>
           </Grid>
         );
       })}

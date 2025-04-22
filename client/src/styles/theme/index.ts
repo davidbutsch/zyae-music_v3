@@ -4,6 +4,8 @@ import {
   MuiCssBaseline,
   MuiIconButton,
   MuiMenuItem,
+  MuiSlider,
+  MuiSwitch,
 } from "./components";
 import { createTheme, lighten } from "@mui/material";
 
@@ -57,7 +59,7 @@ export const theme = createTheme({
         paper: {
           background: lighten(colors.bg, 0.05),
 
-          border: `solid 1px ${lighten(colors.bg, 0.15)}`,
+          border: `solid 1px ${lighten(colors.bg, 0.1)}`,
           borderRadius: sizes["medium"] / 2,
         },
         root: {
@@ -111,5 +113,7 @@ export const theme = createTheme({
         },
       },
     },
+    MuiSlider,
+    MuiSwitch,
   },
 });

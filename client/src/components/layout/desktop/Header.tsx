@@ -5,7 +5,11 @@ import { SearchBar } from ".";
 
 export const Header = (): JSX.Element => {
   return (
-    <AppBar position="relative" color="transparent" sx={{ pr: "18px" }}>
+    <AppBar
+      position="relative"
+      color="transparent"
+      sx={{ pr: "18px", zIndex: 3 }}
+    >
       <Toolbar disableGutters>
         <Stack
           width="100%"

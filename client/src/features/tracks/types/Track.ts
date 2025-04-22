@@ -1,17 +1,19 @@
-export interface Track {
+import { Palette, Thumbnail } from "@/types";
+
+export type Track = {
   id: string;
   title: string;
-  thumbnail: { small: string; large: string };
-  duration: string;
+  thumbnails: Thumbnail[];
+  duration?: string;
   artists: {
     name: string;
-    id: string;
+    id: string | null;
   }[];
   album?: {
     title: string;
     id: string;
   };
-  saved: boolean;
-  isAvailable: boolean;
-  isExplicit: boolean;
-}
+  palette?: Palette;
+  isAvailable?: boolean;
+  isExplicit?: boolean;
+};

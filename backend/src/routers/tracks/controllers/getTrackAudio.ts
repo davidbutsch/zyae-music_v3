@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 
 import { AppError } from "@/types";
-import { getAudioStream } from "../services";
+import Joi from "joi";
+import { getAudioFile } from "../services";
 import { newInternalError } from "@/utils";
-import { stream } from "winston";
-import { ytMusic } from "@/loaders";
+import { validate } from "@/shared";
 
 export const getTrackAudio = async (
   req: Request,
@@ -12,14 +12,20 @@ export const getTrackAudio = async (
   next: NextFunction
 ) => {
   try {
+    validate(
+      req.params,
+      "params",
+      Joi.object({
+        trackId: Joi.string().length(11).required(),
+      }).required()
+    );
+
     const trackId = req.params.trackId;
-    const stream = getAudioStream("GetTrackAudio", trackId);
+    const path = await getAudioFile(trackId);
 
-    res.setHeader("Content-Type", "audio/mp3");
-
-    (await stream).pipe(res);
+    res.sendFile(path);
   } catch (err) {
     if (err instanceof AppError) return next(err);
-    else return next(newInternalError("abc", err));
+    else return next(newInternalError(err));
   }
 };

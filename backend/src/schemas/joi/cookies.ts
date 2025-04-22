@@ -1,7 +1,7 @@
 import Joi from "joi";
+import { JoiReqString } from "./required";
 
-export const cookieTokensSchema = Joi.object({
-  sid: Joi.string().required(),
-  at: Joi.string().required(),
-  rt: Joi.string().required(),
+export const JoiCookiesTokens = Joi.object({
+  at: JoiReqString,
+  rt: JoiReqString,
 });

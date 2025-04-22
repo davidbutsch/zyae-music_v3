@@ -1,4 +1,4 @@
-import { ArtistPage, DiscographyPage } from "@/features/artists";
+import { ArtistPage, ArtistSaved, DiscographyPage } from "@/features/artists";
 
 import { RouteObject } from "react-router-dom";
 
@@ -10,5 +10,9 @@ export const artistRoutes: RouteObject[] = [
   {
     path: "/artist/:artistId/discography/:type",
     element: <DiscographyPage />,
+  },
+  {
+    path: "/artist/:artistId/saved",
+    element: <ArtistSaved />,
   },
 ];

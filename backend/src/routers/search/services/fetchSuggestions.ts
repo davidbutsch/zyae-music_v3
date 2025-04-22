@@ -1,17 +1,19 @@
 import { AppError } from "@/types";
+import axios from "axios";
 import { newInternalError } from "@/utils";
-import { query } from "express";
-import { ytMusic } from "@/loaders";
 
-export const fetchSuggestions = async (process: string, query) => {
+export const fetchSuggestions = async (query: string) => {
   try {
-    process += ".FetchSuggestions";
+    // DO NOT COMMIT THIS
+    const url = `https://api-v2.soundcloud.com/search/queries?q=${query}&client_id=EJWQJ2YlSZR6iQv1JedV49meW48sh4A0`;
 
-    const suggestions = await ytMusic.getSearchSuggested(query);
+    const suggestions = (await axios.get(url)).data.collection.map(
+      (suggestion: any) => suggestion.output
+    );
 
     return suggestions;
   } catch (err) {
     if (err instanceof AppError) throw err;
-    else throw newInternalError(process, err);
+    else throw newInternalError(err);
   }
 };

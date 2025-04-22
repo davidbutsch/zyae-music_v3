@@ -1,3 +1,5 @@
+import { Palette, Thumbnail } from "@/types";
+
 import { AlbumCard } from "@/features/albums";
 import { ArtistCard } from ".";
 import { Track } from "@/features/tracks";
@@ -8,44 +10,27 @@ export type Artist = {
   views: string;
   name: string;
   saved: boolean;
-  palette: {
-    colors: {
-      hex: string;
-      red: number;
-      green: number;
-      blue: number;
-      area: number;
-      hue: number;
-      saturation: number;
-      lightness: number;
-      intensity: number;
-    }[];
-    byArea: { hex: string; determinant: number | null }[];
-    bySaturation: { hex: string; determinant: number | null }[];
-    byLightness: { hex: string; determinant: number | null }[];
-    byIntensity: { hex: string; determinant: number | null }[];
+  palette: Palette;
+  banners: {
+    mobile: string;
+    desktop: string;
   };
-  thumbnails: {
-    profile: {
-      small: string;
-      large: string;
-    };
-    banner: {
-      mobile: string;
-      desktop: string;
-    };
-  };
+  thumbnails: Thumbnail[];
   tracks: {
-    id: string;
+    id: string | null;
     results: Track[];
   };
   albums: {
-    id: null;
+    id: string | null;
     results: AlbumCard[];
   };
   singles: {
-    id: null;
+    id: string | null;
     results: AlbumCard[];
+  };
+  videos: {
+    id: string | null;
+    results: Track[];
   };
   similar: {
     id: null;

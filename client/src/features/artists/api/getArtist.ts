@@ -7,7 +7,7 @@ type getArtistOptions = {
 };
 
 export const getArtist = (artistId: string): Promise<Artist> =>
-  axios.get(`/artists/${artistId}`).then((res) => res.data.data.artist);
+  axios.get(`/artists/${artistId}`).then((res: any) => res.data.data.artist);
 
 export const useArtist = (
   artistId: string,

@@ -9,9 +9,18 @@ if (envFound.error) {
   throw new Error("Couldn't find .env file");
 }
 
+if (
+  !process.env.PORT ||
+  !process.env.MONGODB_URI ||
+  !process.env.GOOGLEAPIS_KEY
+) {
+  throw new Error(".env file missing data");
+}
+
 export default {
   port: parseInt(process.env.PORT, 10),
   mongodbUrl: process.env.MONGODB_URI,
+  googleApisKey: process.env.GOOGLEAPIS_KEY,
   logs: {
     level: process.env.LOG_LEVEL || "silly",
   },

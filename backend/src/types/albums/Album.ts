@@ -1,5 +1,6 @@
 import { AlbumCard } from "./AlbumCard";
-import { Palette } from "../Palette";
+import { Palette } from "../misc";
+import { Thumbnail } from "../misc";
 import { Track } from "../tracks";
 
 export type Album = {
@@ -16,10 +17,7 @@ export type Album = {
   trackCount: number;
   duration: string;
   type: string;
-  thumbnails: {
-    small: string;
-    large: string;
-  };
+  thumbnails: Thumbnail[];
   tracks: Track[];
   otherVersions: AlbumCard[];
 };

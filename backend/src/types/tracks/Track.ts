@@ -1,17 +1,19 @@
+import { Palette, Thumbnail } from "../misc";
+
 export type Track = {
   id: string;
   title: string;
-  thumbnail: { small: string | null; large: string | null };
-  duration: string;
+  thumbnails: Thumbnail[];
+  duration?: string;
   artists: {
     name: string;
-    id: string;
+    id: string | null;
   }[];
-  album: {
+  album?: {
     title: string;
     id: string;
   };
-  saved: boolean;
-  isAvailable: boolean;
-  isExplicit: boolean;
+  palette?: Palette;
+  isAvailable?: boolean;
+  isExplicit?: boolean;
 };

@@ -1,24 +1,22 @@
-import {
-  Avatar,
-  Button,
-  ListItemIcon,
-  MenuItem,
-  MenuList,
-  Stack,
-} from "@mui/material";
-import { FlaticonIcon, LinkButton } from "@/components";
-import { useAppSelector, usePopover } from "@/hooks";
+import { Avatar, Button, Stack } from "@mui/material";
+import { FontIcon, LinkButton } from "@/components";
 
+import { OptionsList } from "@/features/menus";
 import { deleteSession } from "@/features/auth";
+import { useAppSelector } from "@/hooks";
+import { useMenu } from "@/features/menus/hooks/useMenu";
 
 export const AccountControls = (): JSX.Element => {
   const user = useAppSelector((state) => state.user);
 
-  const profilePopover = usePopover();
+  const profilePopover = useMenu({ variant: "popover" });
 
   const handleLogOut = async () => {
-    await deleteSession();
-    document.location.reload();
+    try {
+      await deleteSession();
+    } catch (err) {
+      document.location.reload();
+    }
   };
 
   if (user)
@@ -32,9 +30,9 @@ export const AccountControls = (): JSX.Element => {
           <Avatar
             sx={{ height: 30, width: 30 }}
             alt={`${user.profile.displayName}'s profile`}
-            src={user.profile.thumbnail[0].url}
+            src={user.profile.thumbnails[0].url}
           />
-          <FlaticonIcon
+          <FontIcon
             icon={`fi fi-rr-angle-small-${
               profilePopover.isOpen ? "up" : "down"
             }`}
@@ -42,14 +40,12 @@ export const AccountControls = (): JSX.Element => {
           />
         </Button>
         <profilePopover.Element {...profilePopover.elementProps}>
-          <MenuList>
-            <MenuItem onClick={handleLogOut} color="error">
-              <ListItemIcon>
-                <FlaticonIcon icon="fi fi-rr-exit" />
-              </ListItemIcon>
-              Log out
-            </MenuItem>
-          </MenuList>
+          <OptionsList
+            variant="popover"
+            items={[
+              { title: "Log out", onClick: handleLogOut, icon: "fi-rr-exit" },
+            ]}
+          />
         </profilePopover.Element>
       </Stack>
     );

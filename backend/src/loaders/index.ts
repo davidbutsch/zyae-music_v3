@@ -1,10 +1,11 @@
 import { Express } from "express";
+import { Logger } from "./logger";
 import { Server } from "http";
 import { expressLoader } from "./express";
 import { mongooseLoader } from "./mongoose";
 import { redisLoader } from "./redis";
+import { scheduleLoader } from "./schedule";
 import { socketLoader } from "./socketio";
-import { ytMusic } from "./ytmusicapi";
 import { ytMusicLoader } from "./ytmusicapi";
 
 export * from "./logger";
@@ -19,9 +20,14 @@ export const loaders = async ({
   app: Express;
   httpServer: Server;
 }) => {
-  const io = socketLoader({ httpServer });
-  redisLoader({ io });
-  mongooseLoader();
-  ytMusicLoader();
-  expressLoader({ app });
+  try {
+    ytMusicLoader();
+    const io = socketLoader({ httpServer });
+    redisLoader({ io });
+    mongooseLoader();
+    scheduleLoader();
+    expressLoader({ app });
+  } catch (err) {
+    Logger.error(`Error while calling loaders: ${err}`);
+  }
 };

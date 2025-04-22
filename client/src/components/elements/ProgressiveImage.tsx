@@ -41,7 +41,23 @@ export const ProgressiveImage = ({
     <StyledImage
       {...other}
       loaded={loaded}
-      sx={{ minWidth: other.width, minHeight: other.height, ...other.sx }}
+      sx={{
+        position: "relative",
+        minWidth: other.width,
+        minHeight: other.height,
+        "&:after": {
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: "100%",
+          width: "100%",
+          bgcolor: "red",
+          zIndex: 20,
+        },
+        ...other.sx,
+      }}
       src={src}
     />
   );

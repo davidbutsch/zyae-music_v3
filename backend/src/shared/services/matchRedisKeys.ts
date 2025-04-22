@@ -2,11 +2,14 @@ import { DeepPartial } from "@/types";
 import { newInternalError } from "@/utils";
 import { redis } from "@/loaders";
 
-const isMatch = <T>(data: T, filter: object) => {
+const isMatch = <T extends Record<string, any>>(
+  data: T,
+  filter: Record<string, any>
+) => {
   for (const prop in filter) {
     if (prop.includes(".")) {
       const nestedProps = prop.split(".");
-      let currentData = data;
+      var currentData = data;
       for (const nestedProp of nestedProps) {
         currentData = currentData[nestedProp];
         if (currentData === undefined) return false;
@@ -24,13 +27,10 @@ const isMatch = <T>(data: T, filter: object) => {
 export const myVariable = "hello";
 
 export const matchRedisKeys = async <T>(
-  process: string,
   prefix: string,
   filter: DeepPartial<T>
 ): Promise<(T | void)[]> => {
   try {
-    process += ".MatchRedisKeys";
-
     const { keys } = await redis.scan(0, {
       MATCH: `${prefix}:*`,
     });
@@ -39,11 +39,11 @@ export const matchRedisKeys = async <T>(
 
     for (const key of keys) {
       const keyData = (await redis.json.get(key)) as T | null;
-      if (isMatch(keyData, filter)) matches.push(keyData);
+      if (!!keyData && isMatch(keyData, filter)) matches.push(keyData);
     }
 
     return matches;
   } catch (err) {
-    throw newInternalError(process, err);
+    throw newInternalError(err);
   }
 };

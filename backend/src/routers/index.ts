@@ -4,25 +4,42 @@ import { NextFunction, Request, Response, Router } from "express";
 import { Logger } from "@/loaders";
 import { albumsRouter } from "./albums";
 import { artistsRouter } from "./artists";
+import { exploreRouter } from "./explore";
+import { genresRouter } from "./genres";
+import { moodsRouter } from "./moods";
+import { playlistsRouter } from "./playlists";
+import { savedRouter } from "./saved";
 import { searchRouter } from "./search";
 import { tracksRouter } from "./tracks";
+import { usersRouter } from "./users";
 
 const route = Router();
+
+route.use("/explore/", exploreRouter);
+route.use("/saved/", savedRouter);
+
+route.use("/users/", usersRouter);
+
+route.use("/search/", searchRouter);
+route.use("/genres/", genresRouter);
+route.use("/moods/", moodsRouter);
 
 route.use("/tracks", tracksRouter);
 route.use("/artists/", artistsRouter);
 route.use("/albums/", albumsRouter);
-route.use("/search/", searchRouter);
+route.use("/playlists/", playlistsRouter);
 
-route.all("*", (req, res, next) => next(new NotFoundError("Route not found")));
+route.all("*", (_req, _res, next) =>
+  next(new NotFoundError("Route not found"))
+);
 
-route.use((err: any, req: Request, res: Response, next: NextFunction) => {
+route.use((err: any, _req: Request, _res: Response, next: NextFunction) => {
   next(err);
   Logger.error(err);
 });
 
 // handle AppError
-route.use((err: any, req: Request, res: Response, next: NextFunction) => {
+route.use((err: any, _req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {
     const responseError: AppErrorResponse = {
       code: err.code,
@@ -35,8 +52,6 @@ route.use((err: any, req: Request, res: Response, next: NextFunction) => {
         if (detail.reason == "Error") detail.reason = "InternalError";
         detail.metadata = {
           route: res.locals.route,
-          process: detail.metadata.process,
-          flags: detail.metadata.flags,
         };
 
         return detail;
@@ -57,7 +72,7 @@ route.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // handle SyntaxError
-route.use((err: any, req: Request, res: Response, next: NextFunction) => {
+route.use((err: any, _req: Request, res: Response, next: NextFunction) => {
   if (err instanceof SyntaxError) {
     const responseError: AppErrorResponse = {
       code: 400,
@@ -72,7 +87,7 @@ route.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // handle unknown errors
-route.use((err: any, req: Request, res: Response, next: NextFunction) => {
+route.use((err: any, _req: Request, res: Response) => {
   const responseError: AppErrorResponse = {
     code: err.statusCode || err.code || err.status,
     message: err.message || "Unexpected error occured",

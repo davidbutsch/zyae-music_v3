@@ -1,5 +1,5 @@
 import { CSSObject, alpha, styled } from "@mui/material";
-import { colors, theme } from "@/styles";
+import { colors, sizes, theme } from "@/styles";
 
 import MuiIconButton from "@mui/material/IconButton";
 import { StyledOptions } from "@emotion/styled";
@@ -25,7 +25,7 @@ const outlinedStyle = (color = colors.accent) =>
     },
   });
 
-type IconButtonProps = {
+export type IconButtonProps = {
   variant?: "default" | "translucent" | "outlined";
 };
 
@@ -36,11 +36,16 @@ const options: StyledOptions = {
 export const IconButton = styled(
   MuiIconButton,
   options
-)<IconButtonProps>(({ variant, color }) => {
+)<IconButtonProps>(({ variant, color, size }) => {
   variant = variant || "default";
   color = color || "accent";
 
-  const styles: CSSObject[] = [];
+  const styles: CSSObject[] = [
+    {
+      aspectRatio: "1 / 1",
+      height: sizes[size || "medium"],
+    },
+  ];
 
   if (variant === "translucent") styles.push(translucentStyle(colors[color]));
   if (variant === "outlined") styles.push(outlinedStyle(colors[color]));

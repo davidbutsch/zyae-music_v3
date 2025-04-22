@@ -1,8 +1,11 @@
+import { Album, AppError, AppResponse } from "@/types";
 import { NextFunction, Request, Response } from "express";
+import { parseAlbum, validate } from "@/shared";
 
-import { AppError } from "@/types";
-import { fetchAlbumData } from "../services";
+import Joi from "joi";
+import { JoiAlbumId } from "@/schemas";
 import { newInternalError } from "@/utils";
+import { ytMusic } from "@/loaders";
 
 export const getAlbum = async (
   req: Request,
@@ -10,12 +13,25 @@ export const getAlbum = async (
   next: NextFunction
 ) => {
   try {
-    const albumId = req.params.albumId;
-    const album = await fetchAlbumData("GetAlbum", albumId);
+    validate(
+      req.params,
+      "params",
+      Joi.object({
+        albumId: JoiAlbumId,
+      }).required()
+    );
 
-    res.json({ data: { album } });
+    const albumId = req.params.albumId;
+    const ytAlbum = await ytMusic.getAlbum(albumId);
+    const album = await parseAlbum(req.params.albumId, ytAlbum);
+
+    const response: AppResponse<Album> = {
+      data: { album },
+    };
+
+    res.json(response);
   } catch (err) {
     if (err instanceof AppError) return next(err);
-    else return next(newInternalError("GetAlbum", err));
+    else return next(newInternalError(err));
   }
 };

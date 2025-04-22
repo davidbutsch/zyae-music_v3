@@ -1,0 +1,16 @@
+{
+  "short_name": "Zyae Music",
+  "name": "Zyae Music",
+  "icons": [
+    {
+      "src": "splash_screens/logo.png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#131817",
+  "background_color": "#ffffff",
+  "description": "Listen to music free with Zyae Music"
+}

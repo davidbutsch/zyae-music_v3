@@ -17,7 +17,7 @@ export const socketLoader = ({
 
   io = new SocketServer(httpServer, ioOptions);
 
-  io.on("connection", (socket) => {});
+  // io.on("connection", (socket) => {});
 
   return io;
 };

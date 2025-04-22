@@ -3,8 +3,8 @@ import winston from "winston";
 
 const errorFileTransportConfig = {
   level: "error",
-  handleExceptions: true,
-  handleRejections: true,
+  handleExceptions: false,
+  handleRejections: false,
 };
 
 const transports = [];

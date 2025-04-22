@@ -11,6 +11,6 @@ export const controller = async (
   try {
   } catch (err) {
     if (err instanceof AppError) return next(err);
-    else return next(newInternalError("abc", err));
+    else return next(newInternalError(err));
   }
 };

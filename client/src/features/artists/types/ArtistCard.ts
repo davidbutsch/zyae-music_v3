@@ -1,5 +1,7 @@
+import { Thumbnail } from "@/types";
+
 export type ArtistCard = {
   id: string;
   name: string;
-  thumbnail: string;
+  thumbnails: Thumbnail[];
 };

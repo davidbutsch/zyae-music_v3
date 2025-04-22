@@ -4,8 +4,15 @@ from ytmusicapi import YTMusic
 ytmusic = YTMusic()
 
 def search(payload):
-    result = ytmusic.search(query=payload['query'], filter=payload['filter'])
+    query = payload.get('query')  # Get the 'query' value from payload
+    filter_value = payload.get('filter')
+
+    if filter_value is not None:
+        result = ytmusic.search(query=query, filter=filter_value)
+    else:
+        result = ytmusic.search(query=query)
     return result
+
 
 def getSearchSuggested(payload):
     result = ytmusic.get_search_suggestions(query=payload['query'])
@@ -26,7 +33,7 @@ def getArtist(payload):
     return result
 
 def getArtistAlbums(payload):
-    result = ytmusic.get_artist_albums(browseId=payload['id'])
+    result = ytmusic.get_artist_albums(channelId=payload['id'], params=payload['params'])
     return result
 
 def getAlbum(payload):
@@ -39,6 +46,22 @@ def getPlaylist(payload):
 
 def getWatchlist(payload):
     result = ytmusic.get_watch_playlist(videoId=payload['id'], radio=True, limit=50)
+    return result
+
+def getSongRelated(payload):
+    result = ytmusic.get_song_related(browseId=payload['id'])
+    return result
+
+def getCharts(payload):
+    result = ytmusic.get_charts(country="US")
+    return result
+
+def getMoodCategories(payload):
+    result = ytmusic.get_mood_categories()
+    return result
+
+def getMoodContent(payload):
+    result = ytmusic.get_mood_playlists(params=payload['params'])
     return result
 
 

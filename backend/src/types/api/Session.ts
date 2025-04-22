@@ -1,4 +1,5 @@
-import { User } from "@/models";
+import { Thumbnail } from "@/types";
+import { Types } from "mongoose";
 
 export type DeviceInfo = {
   os: string;
@@ -21,11 +22,27 @@ export type Client = {
   geoLocation: GeoLocation | null;
 };
 
+export interface ZyaeUser {
+  _id: Types.ObjectId;
+  auth: {
+    provider: "local" | "google";
+    googleId: string | null;
+    password: string | null;
+    email: string;
+  };
+  profile: {
+    displayName: string;
+    thumbnail: Thumbnail[];
+    bio?: string;
+  };
+  metadata: {
+    createdAt: Date;
+  };
+}
+
 export type Session = {
   id: string;
-  user: User;
   userId: string;
-  clients: Client[];
   accessToken: string;
   refreshToken: string;
   expiresAt: Date;

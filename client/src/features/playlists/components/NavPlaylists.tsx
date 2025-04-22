@@ -7,7 +7,7 @@ import {
   alpha,
   lighten,
 } from "@mui/material";
-import { FlaticonIcon, ImageIcon } from "@/components";
+import { FontIcon, ImageIcon } from "@/components";
 
 import { colors } from "@/styles";
 import { useAppSelector } from "@/hooks";
@@ -27,7 +27,7 @@ export const NavPlaylists = (): JSX.Element => {
           Your playlists
         </Typography>
         <IconButton>
-          <FlaticonIcon icon="fi fi-rr-plus" />
+          <FontIcon icon="fi fi-rr-plus" />
         </IconButton>
       </Stack>
       {user ? (
@@ -66,7 +66,7 @@ export const NavPlaylists = (): JSX.Element => {
             >
               <Typography>Liked Music</Typography>
               <Typography variant="subtitle2" color="text.secondary">
-                0 tracks • David
+                0 tracks • {user.profile.displayName}
               </Typography>
             </Box>
           </Stack>

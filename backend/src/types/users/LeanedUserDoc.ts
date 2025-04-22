@@ -1,6 +1,5 @@
 import { FlattenMaps, Types } from "mongoose";
-
-import { User } from "@/models";
+import { User } from "./User";
 
 export type LeanedUserDoc = FlattenMaps<User> &
   Required<{

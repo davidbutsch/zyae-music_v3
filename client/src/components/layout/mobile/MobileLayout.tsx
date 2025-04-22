@@ -8,7 +8,7 @@ type MobileLayoutProps = {
 export const MobileLayout = ({ children }: MobileLayoutProps): JSX.Element => {
   return (
     <>
-      <Box mb={"150px"}>{children}</Box>
+      <Box pb="calc(150px + env(safe-area-inset-bottom, 24px))">{children}</Box>
       <BottomBar />
     </>
   );

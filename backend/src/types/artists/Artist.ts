@@ -1,38 +1,35 @@
-import { AlbumCard, ArtistCard, Track } from "@/types";
+import { AlbumCard, ArtistCard, Palette, Thumbnail, Track } from "@/types";
 
-import { Palette } from "../Palette";
-
-export interface Artist {
+export type Artist = {
   id: string;
   description: string;
   views: string;
   name: string;
   saved: boolean;
   palette: Palette;
-  thumbnails: {
-    profile: {
-      small: string;
-      large: string;
-    };
-    banner: {
-      mobile: string;
-      desktop: string;
-    };
+  banners: {
+    mobile: string;
+    desktop: string;
   };
+  thumbnails: Thumbnail[];
   tracks: {
-    id: string;
+    id: string | null;
     results: Track[];
   };
   albums: {
-    id: string;
+    id: string | null;
     results: AlbumCard[];
   };
   singles: {
-    id: string;
+    id: string | null;
     results: AlbumCard[];
+  };
+  videos: {
+    id: string | null;
+    results: Track[];
   };
   similar: {
     id: null;
     results: ArtistCard[];
   };
-}
+};

@@ -1,35 +1,38 @@
 import {
   Button,
-  Link,
   ListItemIcon,
   ListItemText,
   Menu,
   MenuItem,
   Stack,
+  Typography,
+  useMediaQuery,
 } from "@mui/material";
-import { Content, FlaticonIcon, ProgressiveImage } from "@/components";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { useArtist, useArtistDiscography } from "@/features/artists";
+import {
+  Content,
+  FontIcon,
+  LoadingBubblesPage,
+  MobileHeader,
+} from "@/components";
+import React, { useState } from "react";
 
 import { AlbumCards } from "@/features/albums";
-import React from "react";
+import { theme } from "@/styles";
+import { useAppNavigate } from "@/hooks";
+import { useArtistDiscography } from "@/features/artists";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
 
-export const DiscographyPage = () => {
-  const navigate = useNavigate();
-  var { artistId, type } = useParams();
+const DesktopHeader = ({
+  artist,
+}: {
+  artist: { name?: string; id: string };
+}) => {
+  const navigate = useAppNavigate();
+  var { type } = useParams();
+
+  if (!type) return null;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  if (!artistId || !type) return null;
-
-  const { status: artistStatus, data: artist } = useArtist(artistId);
-  const { status: discographyStatus, data: discography } =
-    useArtistDiscography(artistId);
-
-  if (artistStatus !== "success" || discographyStatus !== "success")
-    return <>Loading</>;
 
   const open = Boolean(anchorEl);
 
@@ -37,78 +40,119 @@ export const DiscographyPage = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleChangeType = (type: "all" | "albums" | "singles") => {
-    navigate(`../${artistId}/discography/${type}`);
+    navigate(`../${artist.id}/discography/${type}`);
     setAnchorEl(null);
   };
 
   return (
-    <Content>
-      <Stack direction="row" alignItems="center" gap={2} mb={5}>
-        <ProgressiveImage
-          width={40}
-          sx={{ borderRadius: "100%", border: "1" }}
-          src={artist.thumbnails.banner.mobile}
-        />
-        <Link
-          component={RouterLink}
-          variant="h4"
-          fontSize={24}
-          fontWeight={500}
-          color={artist.palette.byLightness[0].hex}
-          to={`/artist/${artistId}`}
-        >
-          {artist.name}
-        </Link>
-        <Button sx={{ ml: "auto" }} variant="outlined" onClick={handleMenuOpen}>
-          {type}
-          <FlaticonIcon icon={`fi fi-rr-angle-small-${open ? "up" : "down"}`} />
-        </Button>
+    <Stack direction="row" alignItems="center" gap={2} mb={5}>
+      <Typography
+        variant="h4"
+        fontSize={38}
+        fontWeight={500}
+        onClick={() => navigate(`/artist/${artist.id}`)}
+        sx={{
+          cursor: "pointer",
+          ":hover": {
+            textDecoration: "underline",
+          },
+        }}
+      >
+        {artist.name}
+      </Typography>
+      <Button sx={{ ml: "auto" }} variant="outlined" onClick={handleMenuOpen}>
+        {type}
+        <FontIcon icon={`fi fi-rr-angle-small-${open ? "up" : "down"}`} />
+      </Button>
 
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={() => setAnchorEl(null)}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={() => setAnchorEl(null)}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={() => handleChangeType("all")}>
+          {type == "all" && (
+            <ListItemIcon>
+              <FontIcon icon="fi fi-rr-check" />
+            </ListItemIcon>
+          )}
+          <ListItemText inset={type !== "all"}>All</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={() => handleChangeType("albums")}>
+          {type == "albums" && (
+            <ListItemIcon>
+              <FontIcon icon="fi fi-rr-check" />
+            </ListItemIcon>
+          )}
+          <ListItemText inset={type !== "albums"}>Albums</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={() => handleChangeType("singles")}>
+          {type == "singles" && (
+            <ListItemIcon>
+              <FontIcon icon="fi fi-rr-check" />
+            </ListItemIcon>
+          )}
+          <ListItemText inset={type !== "singles"}>Singles</ListItemText>
+        </MenuItem>
+      </Menu>
+    </Stack>
+  );
+};
+
+export const DiscographyPage = () => {
+  const xs = useMediaQuery(theme.breakpoints.only("xs"));
+
+  var { artistId, type } = useParams();
+
+  if (!artistId || !type) return null;
+
+  const { status, data: discography } = useArtistDiscography(artistId);
+
+  return (
+    <Content
+      sx={{
+        ...(xs && {
+          pt: "calc(48px + 16px + env(safe-area-inset-top)) !important",
+        }),
+      }}
+    >
+      {xs ? (
+        <MobileHeader
+          head={
+            type == "all"
+              ? "Discography"
+              : type == "albums"
+              ? "Albums & EPs"
+              : "Singles"
+          }
+          fadeTrigger={{ y: 1 }}
+          sx={{
+            textTransform: "capitalize",
           }}
-        >
-          <MenuItem onClick={() => handleChangeType("all")}>
-            {type == "all" && (
-              <ListItemIcon>
-                <FlaticonIcon icon="fi fi-rr-check" />
-              </ListItemIcon>
-            )}
-            <ListItemText inset={type !== "all"}>All</ListItemText>
-          </MenuItem>
-          <MenuItem onClick={() => handleChangeType("albums")}>
-            {type == "albums" && (
-              <ListItemIcon>
-                <FlaticonIcon icon="fi fi-rr-check" />
-              </ListItemIcon>
-            )}
-            <ListItemText inset={type !== "albums"}>Albums</ListItemText>
-          </MenuItem>
-          <MenuItem onClick={() => handleChangeType("singles")}>
-            {type == "singles" && (
-              <ListItemIcon>
-                <FlaticonIcon icon="fi fi-rr-check" />
-              </ListItemIcon>
-            )}
-            <ListItemText inset={type !== "singles"}>Singles</ListItemText>
-          </MenuItem>
-        </Menu>
-      </Stack>
-      <AlbumCards
-        carousel={false}
-        albums={
-          type == "all"
-            ? discography.items
-            : discography.items.filter(
-                (item) => `${item.type?.toLowerCase()}s` == type
-              )
-        }
-      />
+        />
+      ) : (
+        <DesktopHeader
+          artist={{ id: artistId, name: discography?.artist.name }}
+        />
+      )}
+      {status !== "success" ? (
+        <LoadingBubblesPage />
+      ) : (
+        <AlbumCards
+          carousel={false}
+          albums={
+            type == "all"
+              ? discography.items
+              : discography.items.filter(
+                  (item) => `${item.type?.toLowerCase()}s` == type
+                )
+          }
+        />
+      )}
     </Content>
   );
 };

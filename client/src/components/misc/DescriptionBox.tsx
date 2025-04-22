@@ -1,33 +1,26 @@
-import { Box, Button, Stack, Typography, alpha, darken } from "@mui/material";
+import {
+  Box,
+  Button,
+  Stack,
+  SxProps,
+  Typography,
+  alpha,
+  darken,
+} from "@mui/material";
 
 import { Palette } from "@/types";
 import { ProgressiveImage } from "@/components";
+import { useColorSort } from "@/hooks";
 import { useState } from "react";
 
 type DescriptionProps = {
   title?: string;
   head: string;
-  sub: string;
+  sub?: string;
   text: string;
   palette: Palette;
   thumbnail: string;
-};
-
-const getColors = (palette: Palette) => {
-  const preColors = palette.colors.filter(
-    (color) =>
-      color.hex == palette.byIntensity[0].hex ||
-      color.hex == palette.byIntensity[1].hex
-  );
-  const lightness =
-    (preColors[0].lightness + preColors[1]?.lightness ||
-      preColors[0].lightness) / 2;
-
-  const colors = [];
-  colors[0] = darken(preColors[0].hex, lightness / 2);
-  colors[1] = darken(preColors[1]?.hex || preColors[0].hex, lightness / 2);
-
-  return colors;
+  sx?: SxProps;
 };
 
 export const DescriptionBox = ({
@@ -37,15 +30,29 @@ export const DescriptionBox = ({
   text,
   palette,
   thumbnail,
+  sx,
 }: DescriptionProps) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleToggle = () => setExpanded((prev) => !prev);
 
-  const colors = getColors(palette);
+  const { sortColors } = useColorSort(palette, {
+    colorShifter: (color) => {
+      if (color.lightness >= 0.5)
+        return {
+          ...color,
+          hex: darken(color.hex, color.lightness - 0.5),
+          lightness: 0.5,
+        };
+
+      return color;
+    },
+  });
+
+  const boxColors = sortColors(["area"]);
 
   return (
-    <Box>
+    <Box sx={sx}>
       <Typography mb={2.5} variant="h5" fontWeight={500}>
         {title}
       </Typography>
@@ -55,14 +62,13 @@ export const DescriptionBox = ({
 
           p: 2,
 
-          background: `linear-gradient(45deg, ${colors[0]}, ${colors[1]})`,
+          background: `linear-gradient(45deg, ${boxColors[0].hex}, ${boxColors[1].hex})`,
 
           maxWidth: { xs: "100%", md: "512px" },
-          minHeight: "340px",
+          minHeight: { xs: "340px", md: "380px" },
 
-          aspectRatio: "1.25 / 1",
-          borderRadius: 1,
           overflow: "hidden",
+          borderRadius: 1,
 
           transition: ".3s",
         }}
@@ -73,6 +79,7 @@ export const DescriptionBox = ({
             top: 0,
             left: 0,
             width: "100%",
+            minWidth: "340px",
 
             opacity: expanded ? 0.3 : 1,
 
@@ -116,7 +123,7 @@ export const DescriptionBox = ({
               expanded
                 ? {
                     py: 1.5,
-                    height: { xs: "175px", md: "225px" },
+                    height: "175px",
                     overflowY: "scroll",
                     mask: "linear-gradient(transparent, #fff 10%, #fff 90%, transparent)",
                   }
@@ -135,9 +142,8 @@ export const DescriptionBox = ({
           variant="translucent"
           onClick={handleToggle}
           sx={{
-            mt: expanded ? 2 : 0,
+            mt: expanded ? 1.5 : 0,
             bgcolor: alpha("#fff", 0.16),
-            transition: "margin .3s",
             "&:hover": {
               bgcolor: alpha("#fff", 0.24),
             },

@@ -1,4 +1,5 @@
 import "module-alias/register";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 import { Logger, loaders } from "@/loaders";
 
@@ -20,7 +21,7 @@ async function startServer() {
     })
     .on("error", (err) => {
       Logger.error(err);
-      process.exit(1);
+      // process.exit(1);
     });
 }
 startServer();

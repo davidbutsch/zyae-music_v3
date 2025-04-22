@@ -3,8 +3,7 @@ import { darken } from "@mui/material";
 type Colors = { [key: string]: string };
 
 export const colors: Colors = {
-  // bg: "#121212",
-  bg: "#131817",
+  bg: "#111414",
   primary: "#28CD88",
   secondary: "#f066a0",
   accent: "#ffffff",

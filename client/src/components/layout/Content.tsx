@@ -10,11 +10,11 @@ type ContentProps = {
 export const Content = ({ children, sx }: ContentProps) => {
   return (
     <Box
+      position="relative"
       maxWidth="1700px"
       mx="auto"
-      sx={sx}
-      py={{ xs: 4, lg: 8 }}
-      px={{ xs: 2, sm: 4, md: 4, lg: 8 }}
+      sx={{ overflowX: { xs: "hidden", sm: "inherit" }, ...sx }}
+      p={{ xs: 2, sm: 4, md: 4, lg: 8 }}
     >
       {children}
     </Box>

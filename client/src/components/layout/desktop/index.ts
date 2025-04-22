@@ -1,4 +1,4 @@
 export * from "./DesktopLayout";
-export * from "./Navbar";
+export * from "./NavBar";
 export * from "./Header";
 export * from "./SearchBar";

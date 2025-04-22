@@ -1,24 +1,42 @@
-import { Divider, Stack, Typography, lighten, styled } from "@mui/material";
-import { FlaticonIcon, ImageIcon, LinkButton } from "@/components";
+import {
+  BlurBackground,
+  DelayFade,
+  FontIcon,
+  ImageIcon,
+  LinkButton,
+  ProgressiveImage,
+} from "@/components";
+import {
+  Box,
+  Divider,
+  Stack,
+  Typography,
+  alpha,
+  lighten,
+  styled,
+} from "@mui/material";
+import { useAppNavigate, useAppSelector, useColorSort } from "@/hooks";
 
 import { NavPlaylists } from "@/features/playlists";
 import { colors } from "@/styles";
-import { useNavigate } from "react-router-dom";
 
 const navRoutes = [
   {
     title: "Home",
-    icon: "music-alt",
+    icon: "zi-home",
+    activeIcon: "zi-home-solid",
     to: "/",
   },
   {
     title: "Explore",
-    icon: "world",
+    icon: "fi-rs-apps",
+    activeIcon: "fi-ss-apps",
     to: "/explore",
   },
   {
     title: "Saved",
-    icon: "bookmark",
+    icon: "zi-saved",
+    activeIcon: "zi-saved-solid",
     to: "/saved",
   },
 ];
@@ -33,10 +51,15 @@ const StyledLinkButton = styled(LinkButton)(({ theme }) =>
 );
 
 export const NavBar = (): JSX.Element => {
-  const navigate = useNavigate();
+  const navigate = useAppNavigate();
+
+  const { queue, activeQueueIndex } = useAppSelector((state) => state.player);
+  const playing = queue[activeQueueIndex];
+
+  const { sortColors } = useColorSort(playing?.palette);
 
   return (
-    <Stack px={1.5}>
+    <Stack px={1.5} height="100%">
       <Stack
         height={64}
         direction="row"
@@ -49,10 +72,11 @@ export const NavBar = (): JSX.Element => {
           ":hover": {
             "> h5": { textDecoration: "underline" },
           },
+          zIndex: 2,
         }}
       >
         <ImageIcon
-          src="https://zyae.net/assets/images/brand/zyae/zm_logo.png"
+          src="https://zyae.net/static/images/brand/zyae/zm_logo.png"
           size={32}
         />
         <Typography variant="h5" fontSize={28}>
@@ -65,17 +89,35 @@ export const NavBar = (): JSX.Element => {
             <StyledLinkButton
               key={route.title}
               to={route.to}
+              sx={{}}
               activeProps={{
                 variant: "translucent",
+                sx: {
+                  background: `linear-gradient(45deg, ${alpha(
+                    colors.primary,
+                    0.1
+                  )} 40%, ${alpha("#35ade0", 0.1)})`,
+                },
                 children: (
-                  <>
-                    <FlaticonIcon icon={`fi fi-sr-${route.icon}`} />
-                    {route.title}
-                  </>
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    gap={2.5}
+                    alignItems="center"
+                    sx={{
+                      background: `linear-gradient(45deg, ${colors.primary} 40%, #35ade0)`,
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      filter: "brightness(120%)",
+                    }}
+                  >
+                    <FontIcon icon={route.activeIcon} />
+                    <Typography variant="button">{route.title}</Typography>
+                  </Box>
                 ),
               }}
             >
-              <FlaticonIcon icon={`fi fi-rr-${route.icon}`} />
+              <FontIcon icon={route.icon} />
               {route.title}
             </StyledLinkButton>
           );
@@ -85,6 +127,36 @@ export const NavBar = (): JSX.Element => {
         sx={{ my: 2, mx: -1.5, borderColor: lighten(colors.bg, 0.075) }}
       />
       <NavPlaylists />
+      {playing && (
+        <Box
+          sx={{
+            position: "relative",
+            mt: "auto",
+          }}
+        >
+          {playing.palette && (
+            <DelayFade in={!!playing.palette}>
+              <BlurBackground
+                colors={sortColors(["area"]).map((color) => color.hex) || []}
+                sx={{
+                  position: "absolute",
+                  zIndex: 0,
+                }}
+              />
+            </DelayFade>
+          )}
+
+          <ProgressiveImage
+            src={playing.thumbnails[0].url}
+            sx={{
+              mb: "12px",
+              width: "100%",
+
+              borderRadius: 1 / 2,
+            }}
+          />
+        </Box>
+      )}
     </Stack>
   );
 };

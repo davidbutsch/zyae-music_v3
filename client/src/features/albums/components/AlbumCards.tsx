@@ -1,11 +1,6 @@
 import {
-  CardSlider,
-  FlaticonIcon,
-  IconButton,
-  ImageIcon,
-  ProgressiveImage,
-} from "@/components";
-import {
+  Box,
+  Button,
   Stack,
   SxProps,
   Typography,
@@ -13,27 +8,44 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
+import {
+  CardSlider,
+  FontIcon,
+  IconButton,
+  ProgressiveImage,
+} from "@/components";
 import { colors, theme } from "@/styles";
 
 import { AlbumCard } from "@/features/albums";
-import { useNavigate } from "react-router-dom";
+import { useAppNavigate } from "@/hooks";
+import { useQueue } from "@/features/player";
 
 const StyledTypography = styled(Typography)(({ theme }) =>
   theme.unstable_sx({
-    fontSize: { xs: 14, sm: 16 },
+    fontSize: { xs: 13, sm: 16 },
+
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
   })
 );
-
 type CardProps = {
   album: AlbumCard;
   carousel: boolean;
-  sx?: SxProps;
 };
 
-export const Card = ({ album, carousel, sx }: CardProps) => {
-  const navigate = useNavigate();
+export const Card = ({ album, carousel }: CardProps) => {
+  const navigate = useAppNavigate();
 
   const xs = useMediaQuery(theme.breakpoints.only("xs"));
+
+  const { playQueue } = useQueue({
+    queueSource: {
+      title: album.title,
+      id: album.id,
+      type: "album",
+    },
+  });
 
   return (
     <Stack
@@ -69,11 +81,28 @@ export const Card = ({ album, carousel, sx }: CardProps) => {
           transform: "translateY(0)",
         },
 
-        ...sx,
+        ...(xs
+          ? {
+              "&:active": {
+                transform: "scale(.975)",
+                opacity: 0.5,
+              },
+            }
+          : {
+              "&:hover": {
+                opacity: 0.75,
+              },
+            }),
+
+        transition: ".3s",
       }}
     >
       {!xs && (
         <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            playQueue();
+          }}
           variant="translucent"
           sx={{
             position: "absolute",
@@ -87,17 +116,23 @@ export const Card = ({ album, carousel, sx }: CardProps) => {
             },
 
             backdropFilter: "blur(8px)",
+
+            zIndex: 1,
           }}
           className="shy"
         >
-          <ImageIcon src={"https://zyae.net/assets/images/icons/play.svg"} />
+          <FontIcon icon="zi-play" size={14} />
         </IconButton>
       )}
-
-      <ProgressiveImage src={album.thumbnail} sx={{ borderRadius: 1 / 4 }} />
+      <ProgressiveImage
+        src={album.thumbnails[album.thumbnails.length - 1].url}
+        sx={{ borderRadius: 1 / 2 }}
+      />
       <StyledTypography
         sx={{
-          mt: 1,
+          mt: { xs: 1, sm: 1.5 },
+
+          fontWeight: 500,
 
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",
@@ -115,10 +150,10 @@ export const Card = ({ album, carousel, sx }: CardProps) => {
       </StyledTypography>
       <Stack direction="row" spacing={1} alignItems="center">
         {album.isExplicit && (
-          <FlaticonIcon icon="fi fi-rr-square-e" size={xs ? 12 : 14} />
+          <FontIcon icon="fi fi-rr-square-e" size={xs ? 12 : 14} />
         )}
         <StyledTypography color="text.secondary">
-          {album.year} {album.type && `• ${album.type}`}
+          {album.sub || `${album.year} ${album.type && `• ${album.type}`}`}
         </StyledTypography>
       </Stack>
     </Stack>
@@ -140,6 +175,9 @@ export const AlbumCards = ({
   albums,
   sx,
 }: AlbumCardsProps) => {
+  const navigate = useAppNavigate();
+  const xs = useMediaQuery(theme.breakpoints.only("xs"));
+
   const albumCards = albums.map((album) => (
     <Card key={album.id} carousel={carousel} album={album} />
   ));
@@ -152,20 +190,36 @@ export const AlbumCards = ({
     );
   else
     return (
-      <Stack sx={sx}>
-        <Typography
-          sx={{
-            textTransform: "capitalize",
-          }}
-          mb={2.5}
-          variant="h5"
-          fontWeight={500}
-        >
-          {title}
-        </Typography>
+      <Box sx={sx}>
+        <Stack direction="row">
+          {title && (
+            <Typography
+              sx={{
+                textTransform: "capitalize",
+              }}
+              mb={2.5}
+              variant="h5"
+              fontWeight={500}
+            >
+              {title}
+            </Typography>
+          )}
+          {moreUrl && (
+            <Button
+              variant="outlined"
+              size={xs ? "small" : "medium"}
+              onClick={() => navigate(moreUrl)}
+              sx={{
+                ml: "auto",
+              }}
+            >
+              More
+            </Button>
+          )}
+        </Stack>
         <Stack direction="row" flexWrap="wrap" gap={3}>
           {albumCards}
         </Stack>
-      </Stack>
+      </Box>
     );
 };

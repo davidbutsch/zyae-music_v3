@@ -1,8 +1,10 @@
+import { AppError, AppResponse, Artist } from "@/types";
 import { NextFunction, Request, Response } from "express";
+import { parseArtist, validate } from "@/shared";
 
-import { AppError } from "@/types";
-import { fetchArtistData } from "../services";
+import Joi from "joi";
 import { newInternalError } from "@/utils";
+import { ytMusic } from "@/loaders";
 
 export const getArtist = async (
   req: Request,
@@ -10,12 +12,26 @@ export const getArtist = async (
   next: NextFunction
 ) => {
   try {
-    const artistId = req.params.artistId;
-    const artist = await fetchArtistData("GetArtist", artistId);
+    validate(
+      req.params,
+      "params",
+      Joi.object({
+        artistId: Joi.string().required().length(24),
+      }).required()
+    );
 
-    res.json({ data: { artist } });
+    const artistId = req.params.artistId;
+
+    const ytArtist = await ytMusic.getArtist(artistId);
+    const artist = await parseArtist(ytArtist, artistId);
+
+    const response: AppResponse<Artist> = {
+      data: { artist },
+    };
+
+    res.json(response);
   } catch (err) {
     if (err instanceof AppError) return next(err);
-    else return next(newInternalError("GetArtist", err));
+    else return next(newInternalError(err));
   }
 };

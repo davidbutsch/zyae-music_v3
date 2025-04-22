@@ -1,0 +1,10 @@
+Fix various artists link to null artist: https://zyae.net:3000/music/album/MPREb_6DwIKzkLpRH
+https://www.mockplus.com/blog/post/music-app-design
+redo thumbnails value to {
+    width: number;
+    height: number;
+    url: string;
+},
+then set progressive image width and height to those values (persist size even before image load)
+
+artist top tracks hitting view album goes to null album path

@@ -1,5 +1,7 @@
+import { Thumbnail } from "../misc";
+
 export type ArtistCard = {
   id: string;
   name: string;
-  thumbnail: string;
+  thumbnails: Thumbnail[];
 };

@@ -6,12 +6,12 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { FlaticonIcon, IconButton } from "@/components";
+import { FontIcon, IconButton } from "@/components";
 import { useEffect, useRef, useState } from "react";
 
 import { styled } from "@mui/material";
 import { theme } from "@/styles";
-import { useNavigate } from "react-router-dom";
+import { useAppNavigate } from "@/hooks";
 
 const Container = styled(Box)(({ theme }) => theme.unstable_sx({}));
 
@@ -53,6 +53,7 @@ const Slider = styled(Stack)(({ theme }) =>
 type CardSliderProps = {
   title?: string;
   moreUrl?: string;
+  disableSliderButtons?: boolean;
   sx?: SxProps;
   children: React.ReactNode;
 };
@@ -60,10 +61,11 @@ type CardSliderProps = {
 export const CardSlider = ({
   title,
   moreUrl,
+  disableSliderButtons,
   sx,
   children,
 }: CardSliderProps) => {
-  const navigate = useNavigate();
+  const navigate = useAppNavigate();
   const xs = useMediaQuery(theme.breakpoints.only("xs"));
 
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -116,22 +118,26 @@ export const CardSlider = ({
               More
             </Button>
           )}
-          <IconButton
-            disabled={!canScroll.left}
-            variant="outlined"
-            size={xs ? "small" : "medium"}
-            onClick={() => scroll(-(screen.width / 3))}
-          >
-            <FlaticonIcon icon="fi fi-rr-angle-small-left" />
-          </IconButton>
-          <IconButton
-            disabled={!canScroll.right}
-            variant="outlined"
-            size={xs ? "small" : "medium"}
-            onClick={() => scroll(screen.width / 3)}
-          >
-            <FlaticonIcon icon="fi fi-rr-angle-small-right" />
-          </IconButton>
+          {!disableSliderButtons && (
+            <>
+              <IconButton
+                disabled={!canScroll.left}
+                variant="outlined"
+                size={xs ? "small" : "medium"}
+                onClick={() => scroll(-(screen.width / 3))}
+              >
+                <FontIcon icon="fi fi-rr-angle-small-left" />
+              </IconButton>
+              <IconButton
+                disabled={!canScroll.right}
+                variant="outlined"
+                size={xs ? "small" : "medium"}
+                onClick={() => scroll(screen.width / 3)}
+              >
+                <FontIcon icon="fi fi-rr-angle-small-right" />
+              </IconButton>
+            </>
+          )}
         </Stack>
       </Header>
       <Slider

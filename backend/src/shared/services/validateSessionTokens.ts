@@ -1,25 +1,14 @@
-import {
-  BadRequestError,
-  ErrorDetail,
-  ErrorReason,
-  UnauthorizedError,
-} from "@/types";
+import { ErrorDetail, UnauthorizedError } from "@/types";
 
-import { cookieTokensSchema } from "@/schemas";
+import { JoiCookiesTokens } from "@/schemas";
 
-export const validateSessionTokens = (process: string, cookies: any) => {
-  process = process + `.ValidateSessionTokens`;
-
-  const { error } = cookieTokensSchema.validate(cookies, { abortEarly: false });
+export const validateSessionTokens = (cookies: any) => {
+  const { error } = JoiCookiesTokens.validate(cookies, { abortEarly: false });
 
   if (error) {
     throw new UnauthorizedError(
       "Invalid session tokens",
-      [
-        new ErrorDetail("BadContent", error.message, {
-          process,
-        }),
-      ],
+      [new ErrorDetail("BadContent", error.message)],
       [error]
     );
   }

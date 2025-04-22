@@ -9,7 +9,7 @@ const Main = styled("main")(({ theme }) =>
   theme.unstable_sx({
     position: "relative",
 
-    height: "calc(100vh - 64px - 76px)",
+    height: "calc(100vh - 64px - 72px)",
 
     bgcolor: "background.default",
 
@@ -18,7 +18,8 @@ const Main = styled("main")(({ theme }) =>
     borderTopLeftRadius: 16,
     borderBottomLeftRadius: 16,
 
-    overflowY: "scroll",
+    overflowY: "auto",
+    overflowX: "hidden",
   })
 );
 
@@ -57,7 +58,7 @@ export const DesktopLayout = ({
         }}
       >
         <Header />
-        <Main>{children}</Main>
+        <Main id="appContent">{children}</Main>
       </Box>
       <PlayerBar />
     </Wrapper>

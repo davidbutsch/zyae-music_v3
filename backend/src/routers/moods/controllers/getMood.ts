@@ -1,0 +1,16 @@
+import { NextFunction, Request, Response } from "express";
+
+import { AppError } from "@/types";
+import { newInternalError } from "@/utils";
+
+export const controller = async (
+  _req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
+  try {
+  } catch (err) {
+    if (err instanceof AppError) return next(err);
+    else return next(newInternalError(err));
+  }
+};

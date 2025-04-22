@@ -1,16 +1,24 @@
-import { Artist } from "@/types";
 import { Logger } from "./logger";
 import { PythonShell } from "python-shell";
 import hash from "object-hash";
 
+type Request = {
+  action: string;
+  payload: any;
+};
+
 class YTMusic {
-  private pyShell: PythonShell;
+  private pyShell: PythonShell | undefined;
   private cachedResponses: {
     hash: string;
     data: any;
   }[] = [];
 
   constructor() {
+    this.init();
+  }
+
+  private init() {
     this.pyShell = new PythonShell("script.py", {
       scriptPath: "./src/loaders/ytmusicapi/",
       pythonOptions: ["-u"],
@@ -19,10 +27,20 @@ class YTMusic {
     this.pyShell.on("stderr", (err) => {
       Logger.error(err);
     });
+
+    this.pyShell.on("close", () => {
+      Logger.info("Restarting pyShell process");
+      this.pyShell?.kill();
+      this.init();
+    });
   }
 
-  // TODO clear old cache entries after a while
-  sendRequest(request: any): Promise<any> {
+  private cache(response: any) {
+    this.cachedResponses.push(response);
+    // if (this.cachedResponses.length > 50) this.cachedResponses.shift();
+  }
+
+  sendRequest(request: Request): Promise<any> {
     return new Promise((resolve, reject) => {
       const requestHash = hash(request);
 
@@ -32,19 +50,23 @@ class YTMusic {
 
       if (cached) return resolve(cached.data);
 
-      this.pyShell.send(JSON.stringify({ ...request, requestHash }));
+      this.pyShell?.send(JSON.stringify({ ...request, requestHash }));
 
-      this.pyShell.once("message", (raw) => {
+      const onMessage = async (raw: any) => {
         try {
           const response = JSON.parse(raw);
           if (response.hash == requestHash) {
             resolve(response.data);
-            this.cachedResponses.push(response);
+            this.cache(response);
+            this.pyShell?.off("message", onMessage);
           }
         } catch (err) {
+          this.pyShell?.off("message", onMessage);
           reject(err);
         }
-      });
+      };
+
+      this.pyShell?.on("message", onMessage);
     });
   }
 
@@ -57,19 +79,28 @@ class YTMusic {
     return this.sendRequest(request);
   }
 
-  async getSong(songId: string): Promise<any> {
+  async getSearchSuggested(query: string): Promise<any> {
     const request = {
-      action: "getSong",
-      payload: { id: songId },
+      action: "getSearchSuggested",
+      payload: { query },
     };
 
     return this.sendRequest(request);
   }
 
-  async getLyrics(songId: string): Promise<any> {
+  async getSong(trackId: string): Promise<any> {
+    const request = {
+      action: "getSong",
+      payload: { id: trackId },
+    };
+
+    return this.sendRequest(request);
+  }
+
+  async getLyrics(trackId: string): Promise<any> {
     const request = {
       action: "getLyrics",
-      payload: { id: songId },
+      payload: { id: trackId },
     };
 
     return this.sendRequest(request);
@@ -84,10 +115,10 @@ class YTMusic {
     return this.sendRequest(request);
   }
 
-  async getArtistAlbums(browseId: string): Promise<any> {
+  async getArtistAlbums(channelId: string, params: string): Promise<any> {
     const request = {
       action: "getArtistAlbums",
-      payload: { id: browseId },
+      payload: { id: channelId, params },
     };
 
     return this.sendRequest(request);
@@ -111,19 +142,46 @@ class YTMusic {
     return this.sendRequest(request);
   }
 
-  async getWatchlist(songId: string): Promise<any> {
+  async getWatchlist(trackId: string): Promise<any> {
     const request = {
       action: "getWatchlist",
-      payload: { id: songId },
+      payload: { id: trackId },
     };
 
     return this.sendRequest(request);
   }
 
-  async getSearchSuggested(query: string): Promise<any> {
+  async getSongRelated(browseId: string): Promise<any> {
     const request = {
-      action: "getSearchSuggested",
-      payload: { query },
+      action: "getSongRelated",
+      payload: { id: browseId },
+    };
+
+    return this.sendRequest(request);
+  }
+
+  async getCharts(): Promise<any> {
+    const request = {
+      action: "getCharts",
+      payload: {},
+    };
+
+    return this.sendRequest(request);
+  }
+
+  async getMoodCategories(): Promise<any> {
+    const request = {
+      action: "getMoodCategories",
+      payload: {},
+    };
+
+    return this.sendRequest(request);
+  }
+
+  async getMoodContent(params: string): Promise<any> {
+    const request = {
+      action: "getMoodContent",
+      payload: { params },
     };
 
     return this.sendRequest(request);

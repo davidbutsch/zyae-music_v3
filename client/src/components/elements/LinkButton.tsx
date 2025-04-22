@@ -1,5 +1,7 @@
+import { useAppNavigate } from "@/hooks";
 import { Button, ButtonProps } from "@mui/material";
-import { useMatch, useNavigate } from "react-router-dom";
+
+import { useMatch } from "react-router-dom";
 
 interface LinkButtonProps extends ButtonProps {
   to: string;
@@ -9,7 +11,7 @@ interface LinkButtonProps extends ButtonProps {
 export const LinkButton = (props: LinkButtonProps) => {
   const { to, activeProps, ...other } = props;
 
-  const navigate = useNavigate();
+  const navigate = useAppNavigate();
   const pathMatch = useMatch(to);
 
   return (

@@ -15,9 +15,7 @@ export type ErrorReason =
   | "InternalError";
 
 type ErrorDetailMetadata = {
-  route?: string; // Represents the architectual route where the error occurred (e.g., db.users, auth.sessions)
-  process: string; // Represents the specific process where the error occurred (e.g., GetUser.FormatUserData, CreateUser.ValidateBody)
-  flags?: object; // Represents set middleware/helper flags where the error occurred (e.g., { 'throwNotFound': true, 'checkExpired': false })
+  route?: string; // the architectual route where the error occurred (e.g., db.users, auth.sessions)
 };
 
 export class ErrorDetail {

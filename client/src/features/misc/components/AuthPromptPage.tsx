@@ -1,11 +1,11 @@
 import { Box, SxProps, Typography, styled } from "@mui/material";
-import { FlaticonIcon, ImageIcon, LinkButton } from "@/components";
+import { FontIcon, ImageIcon, LinkButton } from "@/components";
 
 type AuthPromptPageProps = {
   icon?: string;
   image?: string;
-  title: string;
-  subtext: string;
+  title?: string;
+  subtext?: string;
   buttonText?: string;
   sx?: SxProps;
 };
@@ -29,12 +29,12 @@ export const AuthPromptPage = ({
   image,
   title,
   subtext,
-  buttonText = "Create account",
+  buttonText = "Get started",
   sx,
 }: AuthPromptPageProps): JSX.Element => {
   return (
     <StyledBox sx={{ ...sx }}>
-      {icon && <FlaticonIcon icon={icon} size={128} />}
+      {icon && <FontIcon icon={icon} size={128} />}
       {image && <ImageIcon src={image} size={128} />}
       <Typography variant="h5" mt={3} mb={1}>
         {title}
