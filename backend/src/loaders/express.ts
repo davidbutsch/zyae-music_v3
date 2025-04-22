@@ -1,12 +1,12 @@
 import express, { Express, Request, Response } from "express";
 
-import { ForbiddenError } from "@/types";
-import { Logger } from "./logger";
-import { apiRouter } from "@/routers";
 import config from "@/config";
+import { apiRouter } from "@/routers";
+import { ForbiddenError } from "@/types";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
+import { Logger } from "./logger";
 
 export const expressLoader = ({ app }: { app: Express }) => {
   app.disable("x-powered-by");

@@ -1,6 +1,7 @@
-import YTDlpWrap from "yt-dlp-wrap";
-import fs from "fs";
+import config from "@/config";
 import { newInternalError } from "@/utils";
+import fs from "fs";
+import YTDlpWrap from "yt-dlp-wrap";
 
 const fileExists = async (path: string) => {
   try {
@@ -12,11 +13,11 @@ const fileExists = async (path: string) => {
 
 export const getAudioFile = async (trackId: string) => {
   try {
-    const path = `D:/zm_tracks/${trackId}.mp3`;
+    const path = `${config.mediaPath}/${trackId}.mp3`;
 
     if (await fileExists(path)) return path;
 
-    const ytDlpWrap = new YTDlpWrap("C:/yt-dlp/src/yt-dlp.exe");
+    const ytDlpWrap = new YTDlpWrap(config.ytDlpPath);
 
     await ytDlpWrap.execPromise([
       `https://www.youtube.com/watch?v=${trackId}`,
@@ -28,7 +29,7 @@ export const getAudioFile = async (trackId: string) => {
       "--audio-format",
       "mp3",
       "--ffmpeg-location",
-      "C:/ffmpeg/bin",
+      config.ffmpegPath,
     ]);
 
     return path;

@@ -7,3 +7,5 @@ export const SVG_LOGO_URL =
   "https://zyae.net/static/images/brand/zyae/zm_logo.svg";
 export const PNG_LOGO_URL =
   "https://zyae.net/static/images/brand/zyae/zm_logo.png";
+
+export * from "./env";

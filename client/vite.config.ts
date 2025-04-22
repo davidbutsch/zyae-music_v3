@@ -1,28 +1,22 @@
-import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 import fs from "fs";
 import path from "path";
-import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+import mkcert from "vite-plugin-mkcert";
 
-const httpsConfig = {
-  cert: "C:/nginx-1.24.0/ssl/server.crt",
-  key: "C:/nginx-1.24.0/ssl/server.key",
-};
-
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  base: "/music",
-  server: {
-    host: "zyae.net",
-    port: 3000,
-    https: {
-      key: fs.readFileSync(httpsConfig.key),
-      cert: fs.readFileSync(httpsConfig.cert),
-    },
-    open: true,
-  },
+  plugins: [react(), mkcert()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src/"),
     },
+  },
+  server: {
+    host: "localhost",
+    port: 3000,
+  },
+  define: {
+    global: {},
   },
 });

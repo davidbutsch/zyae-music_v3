@@ -1,12 +1,13 @@
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import {
   setLoadingAudio,
   setPlayback,
   skipBackward,
   skipForward,
 } from "@/stores";
-import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useEffect, useRef } from "react";
 
+import { env } from "@/config";
 import { ArtistText } from "@/features/artists";
 
 export const Audio = () => {
@@ -29,7 +30,7 @@ export const Audio = () => {
     };
 
     if (audioRef.current && playing) {
-      const newSrc = `https://zyae.net/music/api/tracks/${playing.id}/media`;
+      const newSrc = `${env.API_URL}/tracks/${playing.id}/media`;
 
       // loading
       if (audioRef.current.src !== newSrc) {
@@ -112,9 +113,7 @@ export const Audio = () => {
       <audio ref={audioRef} id="audio" />
       {queue[activeQueueIndex + 1] && (
         <audio
-          src={`https://zyae.net/music/api/tracks/${
-            queue[activeQueueIndex + 1].id
-          }/media`}
+          src={`${env.API_URL}/tracks/${queue[activeQueueIndex + 1].id}/media`}
           muted
           autoPlay={false}
         />

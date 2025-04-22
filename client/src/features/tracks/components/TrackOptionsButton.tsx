@@ -2,13 +2,14 @@ import { MenuHeader, OptionItem, OptionsList } from "@/features/menus";
 import { useAddToPlaylist, useRemoveFromPlaylist } from "@/features/playlists";
 import { useAppDispatch, useAppNavigate, useAppSelector } from "@/hooks";
 
-import { ArtistText } from "@/features/artists";
 import { FontIcon } from "@/components";
-import { IconButton } from "@mui/material";
-import { Track } from "..";
-import { addToQueue } from "@/stores";
+import { env } from "@/config";
+import { ArtistText } from "@/features/artists";
 import { useMenu } from "@/features/menus/hooks/useMenu";
 import { useNotification } from "@/providers";
+import { addToQueue } from "@/stores";
+import { IconButton } from "@mui/material";
+import { Track } from "..";
 import { useTrackSavedStatus } from "../hooks";
 
 export const TrackOptionsButton = ({ track }: { track?: Track }) => {
@@ -88,7 +89,7 @@ export const TrackOptionsButton = ({ track }: { track?: Track }) => {
       icon: "fi-rr-download",
       title: "Download",
       onClick: () => {
-        window.open(`https://zyae.net/music/api/tracks/${track?.id}/download`);
+        window.open(`${env.API_URL}/tracks/${track?.id}/download`);
       },
     },
     {
