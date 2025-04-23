@@ -1,4 +1,6 @@
-import "module-alias/register";
+import { addAlias } from "module-alias";
+addAlias("@", `${__dirname}/`);
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 import { Logger, loaders } from "@/loaders";

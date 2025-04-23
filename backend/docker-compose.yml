@@ -1,6 +1,15 @@
 version: "3.1"
-
+name: zyae-music-backend
 services:
+  api:
+    user: root # resolve file system permission issue
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - 8001:8001
+
   mongo:
     image: mongo
     ports:

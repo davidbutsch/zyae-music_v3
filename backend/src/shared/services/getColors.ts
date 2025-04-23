@@ -1,7 +1,7 @@
 import { Palette } from "@/types";
 // import { createCanvas, loadImage } from "canvas";
 
-export const getColors = async (src: string): Promise<Palette> => {
+export const getColors = async (_src: string): Promise<Palette> => {
   // try {
   //   return await loadImage(src)
   //     .then(async (image) => {
