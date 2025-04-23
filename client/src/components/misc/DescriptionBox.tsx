@@ -8,9 +8,9 @@ import {
   darken,
 } from "@mui/material";
 
-import { Palette } from "@/types";
 import { ProgressiveImage } from "@/components";
 import { useColorSort } from "@/hooks";
+import { Palette } from "@/types";
 import { useState } from "react";
 
 type DescriptionProps = {

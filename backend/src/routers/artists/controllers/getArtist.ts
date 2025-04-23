@@ -1,10 +1,10 @@
+import { parseArtist, validate } from "@/shared";
 import { AppError, AppResponse, Artist } from "@/types";
 import { NextFunction, Request, Response } from "express";
-import { parseArtist, validate } from "@/shared";
 
-import Joi from "joi";
-import { newInternalError } from "@/utils";
 import { ytMusic } from "@/loaders";
+import { newInternalError } from "@/utils";
+import Joi from "joi";
 
 export const getArtist = async (
   req: Request,
@@ -22,7 +22,10 @@ export const getArtist = async (
 
     const artistId = req.params.artistId;
 
+    console.log(artistId);
+
     const ytArtist = await ytMusic.getArtist(artistId);
+
     const artist = await parseArtist(ytArtist, artistId);
 
     const response: AppResponse<Artist> = {

@@ -1,4 +1,15 @@
+import {
+  FontIcon,
+  IconButton,
+  Playing,
+  ProgressiveImage,
+  RowHeader,
+} from "@/components";
 import { ArtistLink, ArtistText } from "@/features/artists";
+import { QueueSource, useQueue } from "@/features/player";
+import { Track, TrackOptionsButton } from "@/features/tracks";
+import { useAppNavigate, useAppSelector } from "@/hooks";
+import { colors, theme } from "@/styles";
 import {
   Box,
   ButtonBase,
@@ -8,21 +19,10 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
-import {
-  FontIcon,
-  IconButton,
-  Playing,
-  ProgressiveImage,
-  RowHeader,
-} from "@/components";
-import { QueueSource, useQueue } from "@/features/player";
-import { Track, TrackOptionsButton } from "@/features/tracks";
-import { colors, theme } from "@/styles";
-import { useAppNavigate, useAppSelector } from "@/hooks";
 
+import { useRemoveFromPlaylist } from "@/features/playlists";
 import { Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import { useRemoveFromPlaylist } from "@/features/playlists";
 import { useTrackSavedStatus } from "../hooks";
 
 type ThumbnailProps = {
@@ -266,7 +266,7 @@ const TrackRow = ({
                 {i + 1}
               </Typography>
               <FontIcon
-                icon="play"
+                icon="zi-play"
                 size={18}
                 sx={{
                   position: "absolute",

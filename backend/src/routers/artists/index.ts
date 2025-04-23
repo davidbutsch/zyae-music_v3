@@ -1,7 +1,7 @@
 import { getArtist, getArtistDiscography } from "./controllers";
 
-import { Router } from "express";
 import { attachSession } from "@/shared/middleware";
+import { Router } from "express";
 
 const route = Router();
 

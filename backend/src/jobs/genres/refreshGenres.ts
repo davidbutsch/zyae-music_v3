@@ -1,8 +1,8 @@
 import { GenreModel, PlaylistModel } from "@/models";
 import { createPlaylist, fetchGenre } from "@/shared";
 
-import { Genre } from "@/types";
 import { Logger } from "@/loaders";
+import { Genre } from "@/types";
 
 export const refreshGenres = async () => {
   const process = "job#RefreshGenres";
@@ -90,12 +90,12 @@ export const refreshGenres = async () => {
         title: card.title,
         thumbnails: [
           {
-            url: `https://zyae.net/static/images/music-genres/small/${card.title.toLowerCase()}.jpg`,
+            url: `/images/music-genres/small/${card.title.toLowerCase()}.jpg`,
             height: 0,
             width: 0,
           },
           {
-            url: `https://zyae.net/static/images/music-genres/${card.title.toLowerCase()}.jpg`,
+            url: `/images/music-genres/${card.title.toLowerCase()}.jpg`,
             height: 0,
             width: 0,
           },
