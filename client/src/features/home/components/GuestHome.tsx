@@ -1,3 +1,4 @@
+import { LinkButton, ProgressiveImage } from "@/components";
 import {
   Box,
   Stack,
@@ -6,12 +7,11 @@ import {
   darken,
   useMediaQuery,
 } from "@mui/material";
-import { LinkButton, ProgressiveImage } from "@/components";
 
-import { chooseGuestHomeAccent } from "../helpers";
-import { theme } from "@/styles";
 import { useScroll } from "@/hooks";
+import { theme } from "@/styles";
 import { useState } from "react";
+import { chooseGuestHomeAccent } from "../helpers";
 
 export const GuestHome = () => {
   const xs = useMediaQuery(theme.breakpoints.only("xs"));
@@ -46,8 +46,21 @@ export const GuestHome = () => {
           letterSpacing={"-1px"}
           zIndex={1}
         >
-          Unlimited Music, Free Forever
+          Free and Unlimited Music Streaming
         </Typography>
+        <Typography
+          variant={"subtitle1"}
+          height="fit-content"
+          mt={2}
+          color={accent.color}
+          sx={{
+            opacity: 0.7,
+          }}
+          zIndex={1}
+        >
+          Archived Project. Developed by David Butsch (2021-2023).
+        </Typography>
+
         <Stack direction="row" gap={1.5} mt={2.5}>
           <LinkButton
             variant="contained"
@@ -63,7 +76,7 @@ export const GuestHome = () => {
             }}
             to={`https://zyae.net/signup/?rd=${document.location.href}`}
           >
-            Get started
+            Sign Up
           </LinkButton>
 
           <LinkButton

@@ -1,10 +1,10 @@
 import { Content, MobileNavHeader } from "@/components";
 import { Typography, useMediaQuery } from "@mui/material";
 
-import { GuestHome } from "./GuestHome";
-import { JSX } from "react";
-import { theme } from "@/styles";
 import { useAppSelector } from "@/hooks";
+import { theme } from "@/styles";
+import { JSX } from "react";
+import { GuestHome } from "./GuestHome";
 
 export const HomeContent = ({ loggedIn }: { loggedIn: boolean }) => {
   if (!loggedIn) return <GuestHome />;
@@ -47,9 +47,7 @@ export const HomePage = (): JSX.Element => {
               WebkitBoxOrient: "vertical",
             },
           }}
-        >
-          Home
-        </Typography>
+        ></Typography>
       )}
       <HomeContent loggedIn={Boolean(user)} />
     </Content>

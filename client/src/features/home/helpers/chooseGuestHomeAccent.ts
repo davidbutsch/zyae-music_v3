@@ -18,8 +18,8 @@ export const chooseGuestHomeAccent = () => {
   return {
     accent: accent.name,
     color: accent.color,
-    mistImageUrl: `https://zyae.net/static/images/hero/zm/cards/${accent.name}/mist.png`,
-    gridImageUrl: `https://zyae.net/static/images/hero/zm/cards/${accent.name}/grid.png`,
+    mistImageUrl: `/images/cards/${accent.name}/mist.png`,
+    gridImageUrl: `/images/cards/${accent.name}/grid.png`,
     trackCards: [
       {
         id: "not_implemented",

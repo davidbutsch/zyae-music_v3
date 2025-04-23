@@ -6,6 +6,7 @@ import {
   LinkButton,
   ProgressiveImage,
 } from "@/components";
+import { useAppNavigate, useAppSelector, useColorSort } from "@/hooks";
 import {
   Box,
   Divider,
@@ -15,8 +16,8 @@ import {
   lighten,
   styled,
 } from "@mui/material";
-import { useAppNavigate, useAppSelector, useColorSort } from "@/hooks";
 
+import { SVG_LOGO_URL } from "@/config";
 import { NavPlaylists } from "@/features/playlists";
 import { colors } from "@/styles";
 
@@ -75,10 +76,7 @@ export const NavBar = (): JSX.Element => {
           zIndex: 2,
         }}
       >
-        <ImageIcon
-          src="https://zyae.net/static/images/brand/zyae/zm_logo.png"
-          size={32}
-        />
+        <ImageIcon src={SVG_LOGO_URL} size={32} />
         <Typography variant="h5" fontSize={28}>
           Music
         </Typography>
