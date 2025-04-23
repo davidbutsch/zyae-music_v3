@@ -4,10 +4,7 @@ process.title = "zyae-music_v3";
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 Error.stackTraceLimit = process.env.NODE_ENV === "production" ? -1 : 10;
 
-const envFound = dotenv.config();
-if (envFound.error) {
-  throw new Error("Couldn't find .env file");
-}
+dotenv.config();
 
 if (
   !process.env.PORT ||
