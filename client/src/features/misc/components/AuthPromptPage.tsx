@@ -1,5 +1,5 @@
-import { Box, SxProps, Typography, styled } from "@mui/material";
 import { FontIcon, ImageIcon, LinkButton } from "@/components";
+import { Box, SxProps, Typography, styled } from "@mui/material";
 
 type AuthPromptPageProps = {
   icon?: string;
@@ -43,9 +43,14 @@ export const AuthPromptPage = ({
         {subtext}
       </Typography>
       <LinkButton
-        to={`https://zyae.net/signup/?rd=${document.location.href}`}
+        to={``}
         variant="translucent"
         sx={{ px: 2 }}
+        onClick={() =>
+          alert(
+            "Authentication does not work anymore and i will not be fixing it."
+          )
+        }
       >
         {buttonText}
       </LinkButton>

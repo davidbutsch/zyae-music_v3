@@ -16,10 +16,10 @@ export const LinkButton = (props: LinkButtonProps) => {
 
   return (
     <Button
-      {...other}
       onClick={() =>
         to.startsWith("http") ? (document.location.href = to) : navigate(to)
       }
+      {...other}
       {...(pathMatch ? activeProps : {})}
     />
   );

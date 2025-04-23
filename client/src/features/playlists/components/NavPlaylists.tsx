@@ -1,3 +1,4 @@
+import { FontIcon, ImageIcon } from "@/components";
 import {
   Box,
   Button,
@@ -7,10 +8,9 @@ import {
   alpha,
   lighten,
 } from "@mui/material";
-import { FontIcon, ImageIcon } from "@/components";
 
-import { colors } from "@/styles";
 import { useAppSelector } from "@/hooks";
+import { colors } from "@/styles";
 
 export const NavPlaylists = (): JSX.Element => {
   const user = useAppSelector((state) => state.user);
@@ -87,8 +87,12 @@ export const NavPlaylists = (): JSX.Element => {
             variant="translucent"
             fullWidth
             sx={{ bgcolor: alpha(colors.accent, 0.16) }}
-            onClick={() =>
-              (document.location.href = `https://zyae.net/signup/?rd=${document.location.href}`)
+            onClick={
+              () =>
+                alert(
+                  "Authentication does not work anymore and i will not be fixing it."
+                )
+              // (document.location.href = `https://zyae.net/signup/?rd=${document.location.href}`)
             }
           >
             Create account

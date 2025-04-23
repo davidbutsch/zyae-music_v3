@@ -1,3 +1,4 @@
+import { useAppSelector, useScroll } from "@/hooks";
 import {
   Box,
   Button,
@@ -7,7 +8,6 @@ import {
   alpha,
   lighten,
 } from "@mui/material";
-import { useAppSelector, useScroll } from "@/hooks";
 
 import { AccountControls } from "@/features/auth";
 import { colors } from "@/styles";
@@ -130,7 +130,10 @@ export const MobileNavHeader = ({
               size="small"
               color="secondary"
               onClick={() =>
-                (window.location.href = `https://zyae.net/login/?rd=${window.location.href}`)
+                // (window.location.href = `https://zyae.net/login/?rd=${window.location.href}`)
+                alert(
+                  "Authentication does not work anymore and i will not be fixing it."
+                )
               }
             >
               Log in

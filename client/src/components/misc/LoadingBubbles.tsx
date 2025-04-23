@@ -1,5 +1,5 @@
+import { Stack, Typography, lighten, styled } from "@mui/material";
 import { DelayFade, DelayFadeProps } from "..";
-import { Stack, lighten, styled } from "@mui/material";
 
 import { colors } from "@/styles";
 import { keyframes } from "@emotion/react";
@@ -35,12 +35,26 @@ const Bubble = styled("span")({
 
 export const LoadingBubbles = (props: DelayFadeProps) => {
   return (
-    <DelayFade delay={1000} {...props}>
+    <DelayFade delay={500} {...props}>
       <Stack direction="row">
         <Bubble />
         <Bubble />
         <Bubble />
       </Stack>
+      <DelayFade delay={5000} {...props}>
+        <Typography
+          textAlign="center"
+          sx={{
+            position: "absolute",
+            transform: "translate(-50%, 50%)",
+            top: "60%",
+            left: "50%",
+          }}
+        >
+          this has been loading for quiet a bit... it probably doesn't work
+          anymore
+        </Typography>
+      </DelayFade>
     </DelayFade>
   );
 };

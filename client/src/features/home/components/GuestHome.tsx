@@ -74,9 +74,14 @@ export const GuestHome = () => {
                 bgcolor: darken(accent.color, 0.32),
               },
             }}
-            to={`https://zyae.net/signup/?rd=${document.location.href}`}
+            to={""}
+            onClick={() =>
+              alert(
+                "Authentication does not work anymore and i will not be fixing it."
+              )
+            }
           >
-            Sign Up
+            Get Started
           </LinkButton>
 
           <LinkButton

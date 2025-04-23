@@ -1,4 +1,3 @@
-import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import {
   Content,
   FontIcon,
@@ -15,13 +14,14 @@ import {
   useSavedQueryResults,
 } from "@/features/saved";
 import { useAppSelector, useLocalStorage } from "@/hooks";
+import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
 
+import { useMenu } from "@/features/menus/hooks/useMenu";
 import { AuthPromptPage } from "@/features/misc";
 import { Filters } from "@/features/search";
 import { theme } from "@/styles";
-import { useMenu } from "@/features/menus/hooks/useMenu";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 type Sort = "recently_added" | "recently_played" | "alphabetical";
 
@@ -152,8 +152,8 @@ const SavedContent = () => {
     return (
       <AuthPromptPage
         icon="fi-sr-album-collection"
-        title="Create an account"
-        subtext="Saved isn't available without an account"
+        title="Saved is broken :("
+        subtext="auth does not work anymore and i will not be fixing it"
       />
     );
 

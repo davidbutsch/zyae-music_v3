@@ -1,3 +1,4 @@
+import { useAppNavigate, useAppSelector, useScroll } from "@/hooks";
 import {
   Box,
   Button,
@@ -8,14 +9,13 @@ import {
   alpha,
   lighten,
 } from "@mui/material";
-import { useAppNavigate, useAppSelector, useScroll } from "@/hooks";
 
 import { AccountControls } from "@/features/auth";
-import { BasicSearchBar } from "..";
 import { Filters } from "@/features/search";
 import { colors } from "@/styles";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { BasicSearchBar } from "..";
 
 export type MobileSearchHeaderProps = {
   basicOptions: {
@@ -129,7 +129,10 @@ const SearchBar = ({
               size="small"
               color="secondary"
               onClick={() =>
-                (window.location.href = `https://zyae.net/login/?rd=${window.location.href}`)
+                // (window.location.href = `https://zyae.net/login/?rd=${window.location.href}`)
+                alert(
+                  "Authentication does not work anymore and i will not be fixing it."
+                )
               }
             >
               Log in

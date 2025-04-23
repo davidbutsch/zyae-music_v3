@@ -1,10 +1,10 @@
-import { Avatar, Button, Stack } from "@mui/material";
 import { FontIcon, LinkButton } from "@/components";
+import { Avatar, Button, Stack } from "@mui/material";
 
-import { OptionsList } from "@/features/menus";
 import { deleteSession } from "@/features/auth";
-import { useAppSelector } from "@/hooks";
+import { OptionsList } from "@/features/menus";
 import { useMenu } from "@/features/menus/hooks/useMenu";
+import { useAppSelector } from "@/hooks";
 
 export const AccountControls = (): JSX.Element => {
   const user = useAppSelector((state) => state.user);
@@ -54,14 +54,24 @@ export const AccountControls = (): JSX.Element => {
       <Stack direction="row" justifyContent={"right"} spacing={1}>
         <LinkButton
           color="secondary"
-          to={`https://zyae.net/login/?rd=${document.location.href}`}
+          onClick={() =>
+            alert(
+              "Authentication does not work anymore and i will not be fixing it."
+            )
+          }
+          to={""}
         >
           Log in
         </LinkButton>
         <LinkButton
           variant="outlined"
           color="secondary"
-          to={`https://zyae.net/signup/?rd=${document.location.href}`}
+          to={""}
+          onClick={() => {
+            alert(
+              "Authentication does not work anymore and i will not be fixing it."
+            );
+          }}
         >
           Sign up
         </LinkButton>

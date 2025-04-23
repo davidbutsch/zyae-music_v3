@@ -1,4 +1,3 @@
-import { Button, Fade, Stack, Typography } from "@mui/material";
 import {
   Content,
   DelayFade,
@@ -7,18 +6,19 @@ import {
   MobileSearchHeader,
   MobileSearchHeaderProps,
 } from "@/components";
+import { Button, Fade, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSearchHistory, useSearchSuggestions } from "..";
 
+import { GenreCards } from "@/features/genres";
+import { useAppNavigate } from "@/hooks";
+import { useParams } from "react-router-dom";
 import { AlbumsResults } from "./AlbumsResults";
 import { ArtistsResults } from "./ArtistsResults";
-import { GenreCards } from "@/features/genres";
 import { PlaylistsResults } from "./PlaylistsResults";
 import { TopResults } from "./TopResults";
 import { TracksResults } from "./TracksResults";
 import { VideosResults } from "./VideosResults";
-import { useAppNavigate } from "@/hooks";
-import { useParams } from "react-router-dom";
 
 const MobileSuggestions = ({
   query,
@@ -114,6 +114,9 @@ export const MobileSearchPage = () => {
         <DelayFade delay={100}>
           <Typography fontSize={24} fontWeight={500} mb="20px">
             Genres
+          </Typography>
+          <Typography variant="subtitle1">
+            genres do not work anymore unfortunately
           </Typography>
           <GenreCards />
         </DelayFade>
