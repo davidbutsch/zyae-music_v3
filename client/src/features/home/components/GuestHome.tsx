@@ -58,7 +58,7 @@ export const GuestHome = () => {
           }}
           zIndex={1}
         >
-          Archived Project. Developed by David Butsch (2021-2023).
+          Archived Project. Developed by David Butsch (2023).
         </Typography>
 
         <Stack direction="row" gap={1.5} mt={2.5}>

@@ -14,7 +14,7 @@ export const fetchUserGenres = async () => {
             height: 0,
           },
           {
-            url: "/images/music-genres/indie.jpg",
+            url: "images/music-genres/indie.jpg",
             width: 0,
             height: 0,
           },
@@ -25,12 +25,12 @@ export const fetchUserGenres = async () => {
         params: "ggMPOg1uX01sVVAwVmNXcEIx",
         thumbnails: [
           {
-            url: "/images/music-genres/small/hip-hop.jpg",
+            url: "images/music-genres/small/hip-hop.jpg",
             width: 0,
             height: 0,
           },
           {
-            url: "/images/music-genres/hip-hop.jpg",
+            url: "images/music-genres/hip-hop.jpg",
             width: 0,
             height: 0,
           },
@@ -41,12 +41,12 @@ export const fetchUserGenres = async () => {
         params: "ggMPOg1uX1BmNzc2V2p0YXJ5",
         thumbnails: [
           {
-            url: "/images/music-genres/small/pop.jpg",
+            url: "images/music-genres/small/pop.jpg",
             width: 0,
             height: 0,
           },
           {
-            url: "/images/music-genres/pop.jpg",
+            url: "images/music-genres/pop.jpg",
             width: 0,
             height: 0,
           },
@@ -57,12 +57,12 @@ export const fetchUserGenres = async () => {
         params: "ggMPOg1uX1RXcFlyZEpRb1d3",
         thumbnails: [
           {
-            url: "/images/music-genres/small/country.jpg",
+            url: "images/music-genres/small/country.jpg",
             width: 0,
             height: 0,
           },
           {
-            url: "/images/music-genres/country.jpg",
+            url: "images/music-genres/country.jpg",
             width: 0,
             height: 0,
           },
@@ -73,12 +73,12 @@ export const fetchUserGenres = async () => {
         params: "ggMPOg1uX3lPcDFRaE9wM1BS",
         thumbnails: [
           {
-            url: "/images/music-genres/small/jazz.jpg",
+            url: "images/music-genres/small/jazz.jpg",
             width: 0,
             height: 0,
           },
           {
-            url: "/images/music-genres/jazz.jpg",
+            url: "images/music-genres/jazz.jpg",
             width: 0,
             height: 0,
           },
@@ -89,12 +89,12 @@ export const fetchUserGenres = async () => {
         params: "ggMPOg1uXzJKTm5jUEZ5Uzlu",
         thumbnails: [
           {
-            url: "/images/music-genres/small/rock.jpg",
+            url: "images/music-genres/small/rock.jpg",
             width: 0,
             height: 0,
           },
           {
-            url: "/images/music-genres/rock.jpg",
+            url: "images/music-genres/rock.jpg",
             width: 0,
             height: 0,
           },

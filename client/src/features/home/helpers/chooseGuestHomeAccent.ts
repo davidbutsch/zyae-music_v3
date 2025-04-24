@@ -18,8 +18,7 @@ export const chooseGuestHomeAccent = () => {
   return {
     accent: accent.name,
     color: accent.color,
-    mistImageUrl: `/images/cards/${accent.name}/mist.png`,
-    gridImageUrl: `/images/cards/${accent.name}/grid.png`,
+    gridImageUrl: `./images/cards/${accent.name}/grid.png`,
     trackCards: [
       {
         id: "not_implemented",
