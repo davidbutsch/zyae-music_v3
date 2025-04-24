@@ -9,28 +9,28 @@ import {
   ProgressiveImage,
   Spinner,
 } from "@/components";
-import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { PlaylistDetails, usePlaylist } from "@/features/playlists";
+import {
+  useSavePlaylist,
+  useSavedStatus,
+  useUnsaveItem,
+} from "@/features/saved";
 import {
   useAppNavigate,
   useAppSelector,
   useColorSort,
   useScroll,
 } from "@/hooks";
+import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useLocation, useParams } from "react-router-dom";
-import {
-  useSavePlaylist,
-  useSavedStatus,
-  useUnsaveItem,
-} from "@/features/saved";
 
 import { MenuHeader } from "@/features/menus";
-import { Playlist } from "../types";
-import { TracksList } from "@/features/tracks";
-import { insertIf } from "@/utils";
-import { theme } from "@/styles";
 import { useMenu } from "@/features/menus/hooks/useMenu";
 import { useQueue } from "@/features/player";
+import { TracksList } from "@/features/tracks";
+import { theme } from "@/styles";
+import { insertIf } from "@/utils";
+import { Playlist } from "../types";
 
 const PlaylistHead = ({ playlist }: { playlist: Playlist }) => {
   const xs = useMediaQuery(theme.breakpoints.only("xs"));
@@ -112,9 +112,9 @@ const PlaylistHead = ({ playlist }: { playlist: Playlist }) => {
         >
           {playlist.title}
         </Typography>
-        <Typography color="text.secondary">
+        {/* <Typography color="text.secondary">
           Playlist by {playlist.author.name}
-        </Typography>
+        </Typography> */}
         {!xs && (
           <Typography color="text.secondary" mt={{ xs: -1, sm: -2 }}>
             {playlist.trackCount} {playlist.trackCount > 1 ? "tracks" : "track"}{" "}
@@ -141,7 +141,7 @@ const SaveButton = ({ playlist }: { playlist: Playlist }) => {
       fullWidth={xs}
       sx={{ px: 2, gap: 1.5 }}
       variant="translucent"
-      disabled={user?._id == playlist.author.id}
+      disabled={user?._id == playlist.author?.id}
       onClick={() => {
         saved
           ? unsaveMutation.mutate(playlist.id)
@@ -386,7 +386,7 @@ export const PlaylistPage = () => {
                   headerOptions: {
                     type: "playlist",
                     head: playlist?.title,
-                    sub: `Playlist • ${playlist?.author.name}`,
+                    sub: `Playlist • ${playlist?.author?.name}`,
                     thumbnail: playlist?.thumbnails[0].url,
                   },
                   items: [

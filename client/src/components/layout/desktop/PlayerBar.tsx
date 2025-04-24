@@ -1,6 +1,15 @@
+import { FontIcon, IconButton } from "@/components";
+import {
+  useAppDispatch,
+  useAppNavigate,
+  useAppSelector,
+  useColorSort,
+} from "@/hooks";
+import { setPlayback, skipBackward, skipForward } from "@/stores";
 import {
   Box,
   Divider,
+  Link,
   Popover,
   Slider,
   Stack,
@@ -8,15 +17,8 @@ import {
   alpha,
   lighten,
 } from "@mui/material";
-import { FontIcon, IconButton } from "@/components";
-import { setPlayback, skipBackward, skipForward } from "@/stores";
-import {
-  useAppDispatch,
-  useAppNavigate,
-  useAppSelector,
-  useColorSort,
-} from "@/hooks";
 import { useEffect, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 import { ArtistLink } from "@/features/artists";
 import { PlayerSlider } from "@/features/player/components/PlayerSlider";
@@ -352,12 +354,21 @@ export const PlayerBar = (): JSX.Element => {
           }}
         >
           <IconButton size="large">
-            <FontIcon icon="fi-sr-heart" size={20} sx={{ opacity: 1 }} />
+            <FontIcon icon="zi-save" size={20} sx={{ opacity: 1 }} />
           </IconButton>
           <Stack mx={1.5} overflow="hidden">
-            <Typography fontWeight={500} noWrap>
+            <Link
+              component={RouterLink}
+              fontWeight={600}
+              sx={{
+                color: "#fff",
+              }}
+              to={`/album/${playing.album?.id}`}
+              color="text.secondary"
+            >
               {playing.title}
-            </Typography>
+            </Link>
+
             <Typography
               fontSize={14}
               sx={{

@@ -74,6 +74,7 @@ export const NavPlaylists = (): JSX.Element => {
       ) : (
         <Box
           sx={{
+            zIndex: 1,
             background: `linear-gradient(45deg, ${alpha(
               colors.primary,
               0.2
@@ -86,7 +87,7 @@ export const NavPlaylists = (): JSX.Element => {
           <Button
             variant="translucent"
             fullWidth
-            sx={{ bgcolor: alpha(colors.accent, 0.16) }}
+            // sx={{ bgcolor: alpha(colors.accent, 0.16) }}
             onClick={
               () =>
                 alert(
@@ -97,12 +98,7 @@ export const NavPlaylists = (): JSX.Element => {
           >
             Create account
           </Button>
-          <Typography
-            variant="subtitle2"
-            mt={1}
-            fontSize={13}
-            color="text.secondary"
-          >
+          <Typography variant="subtitle2" mt={1} fontSize={13}>
             Save your favorite tracks by creating a free account
           </Typography>
         </Box>

@@ -26,7 +26,7 @@ const navRoutes = [
     title: "Home",
     icon: "zi-home",
     activeIcon: "zi-home-solid",
-    to: "/",
+    to: "//",
   },
   {
     title: "Explore",
@@ -145,7 +145,7 @@ export const NavBar = (): JSX.Element => {
           )}
 
           <ProgressiveImage
-            src={playing.thumbnails[0].url}
+            src={playing.thumbnails[playing.thumbnails.length - 1].url}
             sx={{
               mb: "12px",
               width: "100%",

@@ -4,7 +4,7 @@ import { getColors } from "@/shared";
 import { getThumbnail } from "@/utils";
 
 export const parsePlaylist = async (ytPlaylist: any): Promise<Playlist> => {
-  const palette = await getColors(ytPlaylist.thumbnails[0].url);
+  const palette = await getColors(ytPlaylist.thumbnails[0]?.url);
 
   const tracks: Track[] = ytPlaylist.tracks.map((track: any): Track => {
     const trackData: Track = {

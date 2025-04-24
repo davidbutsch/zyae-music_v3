@@ -4,6 +4,23 @@ import { createCanvas, loadImage } from "canvas";
 import { extractColors } from "extract-colors";
 
 export const getColors = async (src: string): Promise<Palette> => {
+  if (!src)
+    return [
+      {
+        hex: "#000000",
+        rgb: {
+          r: 0,
+          g: 0,
+          b: 0,
+        },
+        area: 0,
+        hue: 0,
+        saturation: 0,
+        lightness: 0,
+        intensity: 0,
+      },
+    ];
+
   try {
     return await loadImage(src)
       .then(async (image) => {
@@ -58,20 +75,4 @@ export const getColors = async (src: string): Promise<Palette> => {
     if (err instanceof AppError) throw err;
     else throw newInternalError(err);
   }
-
-  // return [
-  //   {
-  //     hex: "#000000",
-  //     rgb: {
-  //       r: 0,
-  //       g: 0,
-  //       b: 0,
-  //     },
-  //     area: 0,
-  //     hue: 0,
-  //     saturation: 0,
-  //     lightness: 0,
-  //     intensity: 0,
-  //   },
-  // ];
 };
