@@ -11,7 +11,6 @@ export const expressLoader = ({ app }: { app: Express }) => {
   app.disable("x-powered-by");
   app.enable("trust proxy");
   app.use(express.json());
-  app.use(cors());
   app.use(cookieParser());
   app.use(
     cors({

@@ -24,7 +24,7 @@ export default {
   logs: {
     level: process.env.LOG_LEVEL || "silly",
   },
-  corsWhitelist: ["https://zyae.net", "https://localhost:3000"],
+  corsWhitelist: ["https://music.zyae.net", "https://localhost:3000"],
   ytDlpPath: process.env.YT_DLP_PATH,
   ffmpegPath: process.env.FFMPEG_PATH,
   mediaPath: process.env.MEDIA_PATH,
